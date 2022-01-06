@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos.dev.cn:8848
+        namespace: gw-localhost
+      config:
+        server-addr: nacos.dev.cn:8848
+        namespace: gw-localhost
+        file-extension: yml
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}

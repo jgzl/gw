@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos.dev.cn:80
+        namespace: gw-sit
+      config:
+        server-addr: nacos.dev.cn:80
+        namespace: gw-sit
+        file-extension: yml
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}

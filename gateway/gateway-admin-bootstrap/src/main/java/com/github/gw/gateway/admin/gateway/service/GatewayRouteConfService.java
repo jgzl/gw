@@ -1,0 +1,34 @@
+package com.github.gw.gateway.admin.gateway.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.gw.gateway.admin.gateway.domain.GatewayRouteConf;
+
+/**
+ * 路由
+ *
+ * @author li7hai26@gmail.com
+ * @date 2018-11-06 10:17:18
+ */
+public interface GatewayRouteConfService extends IService<GatewayRouteConf> {
+
+	/**
+	 * 新增路由信息
+	 * @param route 路由信息
+	 * @return
+	 */
+	public void createRoute(GatewayRouteConf route);
+
+	/**
+	 * 更新路由信息
+	 * @param route 路由信息
+	 * @return
+	 */
+	public void updateRoute(GatewayRouteConf route);
+
+	/**
+	 * 删除路由信息
+	 * @param routeId 路由id
+	 * @return
+	 */
+	public void deleteRoute(String routeId);
+}

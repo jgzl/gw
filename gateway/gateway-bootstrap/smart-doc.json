@@ -1,0 +1,29 @@
+{
+  "serverUrl": "http://{{server}}",
+  "isStrict": true,
+  "allInOne": true,
+  "outPath": "doc",
+  "coverOld": true,
+  "createDebugPage": true,
+  "packageFilters": "com.github.gw.*.*.controller.*",
+  "md5EncryptedHtmlName": false,
+  "style":"xt256",
+  "projectName": "smart-doc",
+  "skipTransientField": true,
+  "sortByTitle":false,
+  "showAuthor":true,
+  "inlineEnum":true,
+  "recursionLimit":7,
+  "allInOneDocFileName":"index.html",
+  "requestExample":"true",
+  "responseExample":"true",
+  "apiConstants": [{
+    "constantsClassName": "com.github.gw.gateway.common.GatewayConstants"
+  }],
+  "displayActualType":false,
+  "tornaDebug": true,
+  "appToken": "819e7b37bcb14ea4ad0d2f7d6c464d43",
+  "openUrl": "http://10.91.196.29/api",
+  "debugEnvName":"开发环境",
+  "debugEnvUrl":"http://10.91.249.44:7000"
+}

@@ -1,0 +1,316 @@
+<template>
+    <div class="main-container">
+        <TableBody>
+            <template #tableConfig>
+                <TableConfig
+                        v-model:border="tableConfig.border"
+                        v-model:stripe="tableConfig.stripe"
+                        @refresh="doRefresh"
+                >
+                    <template #actions>
+                        <el-button
+                                type="primary"
+                                size="mini"
+                                icon="PlusIcon"
+                                @click="onAddItem"
+                        >
+                            添加
+                        </el-button>
+                        <el-button
+                                type="danger"
+                                size="mini"
+                                icon="DeleteIcon"
+                                :disabled="selectRows.length != 1"
+                                @click="onDeleteItems"
+                        >
+                            删除
+                        </el-button>
+                    </template>
+                </TableConfig>
+            </template>
+            <template #default>
+                <el-table
+                        ref="tableRef"
+                        v-loading="tableLoading"
+                        :data="dataList"
+                        :header-cell-style="tableConfig.headerCellStyle"
+                        :size="tableConfig.size"
+                        :stripe="tableConfig.stripe"
+                        :border="tableConfig.border"
+                        :height="tableConfig.height"
+                        @selection-change="handleSelectionChange"
+                >
+                    <el-table-column type="selection" width="45"/>
+                    <el-table-column
+                            align="center"
+                            label="主键"
+                            prop="id"
+                            fixed="left"
+                    />
+                    <el-table-column
+                            align="center"
+                            label="请求来源系统"
+                            prop="system"
+                            fixed="left"
+                    />
+                    <el-table-column
+                            align="center"
+                            label="请求来源key"
+                            prop="apiKey"
+                    />
+                    <el-table-column
+                            align="center"
+                            label="请求来源secret"
+                            prop="apiSecret"
+                    />
+                    <el-table-column
+                            align="center"
+                            label="请求来源环境"
+                            prop="environment"
+                    />
+                    <el-table-column
+                            align="center"
+                            label="请求路径"
+                            prop="requestPath"
+                    />
+                    <el-table-column
+                            align="center"
+                            label="请求路径参数"
+                            prop="requestPathAndQuery"
+                    />
+                    <el-table-column
+                            align="center"
+                            label="请求方式"
+                            prop="requestMethod"
+                    />
+                    <el-table-column
+                            align="center"
+                            label="请求头"
+                            prop="requestHeader"
+                    />
+                    <el-table-column
+                            align="center"
+                            label="请求来源系统"
+                            prop="system"
+                    />
+                    <el-table-column
+                            align="center"
+                            label="请求源IP"
+                            prop="requestSourceIp"
+                    />
+                    <el-table-column
+                            align="center"
+                            label="请求参数值"
+                            prop="requestBody"
+                    />
+                    <el-table-column
+                            align="center"
+                            label="返回参数值"
+                            prop="responseBody"
+                    />
+                    <el-table-column
+                            align="center"
+                            label="请求时长ms"
+                            prop="executeTime"
+                    />
+                    <el-table-column
+                            align="center"
+                            label="请求返回HTTP状态码"
+                            prop="httpStatus"
+                            width="160px"
+                    />
+                    <el-table-column
+                            align="center"
+                            label="请求错误信息"
+                            prop="errorMsg"
+                    />
+                    <el-table-column
+                            align="center"
+                            label="操作"
+                            fixed="right"
+                            width="220"
+                    >
+                        <template #default="scope">
+                            <el-button
+                                    type="primary"
+                                    size="mini"
+                                    plain
+                                    @click="onUpdateItem(scope.row)"
+                            >编辑</el-button
+                            >
+                            <el-button
+                                    type="danger"
+                                    size="mini"
+                                    plain
+                                    @click="onDeleteItem(scope.row)"
+                            >删除</el-button
+                            >
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </template>
+            <template #footer>
+                <TableFooter
+                        ref="tableFooter"
+                        @refresh="doRefresh"
+                        @pageChanged="doRefresh"
+                />
+            </template>
+        </TableBody>
+        <Dialog ref="dialogRef">
+            <template #content>
+                <el-form
+                        class="base-form-container"
+                        :model="logModel"
+                        :inline="true"
+                        label-width="80px"
+                        label-position="right"
+                >
+                    <el-divider border-style="dashed" content-position="left">基本信息</el-divider>
+                    <el-form-item label="请求路径">
+                        <el-input
+                                v-model="logModel.requestPath"
+                                size="small"
+                                placeholder="请输入请求路径"
+                                disabled
+                                clearable
+                        />
+                    </el-form-item>
+                    <el-form-item label="请求路径参数">
+                        <el-input
+                                v-model="logModel.requestPathAndQuery"
+                                size="small"
+                                placeholder="请输入请求路径参数"
+                                disabled
+                                clearable
+                        />
+                    </el-form-item>
+                    <el-form-item label="请求方法">
+                        <el-input
+                                v-model="logModel.requestMethod"
+                                size="small"
+                                placeholder="请输入请求方法"
+                                disabled
+                                clearable
+                        />
+                    </el-form-item>
+                    <el-form-item label="请求头">
+                        <el-input
+                                v-model="logModel.requestHeader"
+                                size="small"
+                                placeholder="请输入请求头"
+                                disabled
+                                clearable
+                        />
+                    </el-form-item>
+                </el-form>
+            </template>
+        </Dialog>
+    </div>
+</template>
+
+<script lang="ts" setup>
+    import { useDataTable, useDelete, useGet, usePost, usePut } from "@/hooks";
+    import { computed, onMounted, reactive, ref } from "vue";
+    import { ElMessage, ElMessageBox } from "element-plus";
+    import { gatewayLogSearch,gatewayLogs } from "@/api/url";
+    import type { DialogType, TableFooter } from "@/components/types";
+
+    const get = useGet();
+    const post = usePost();
+    const put = usePut();
+    const httpDelete = useDelete();
+    const dialogRef = ref<DialogType>();
+    const tableFooter = ref<TableFooter>();
+    const tableRef = ref();
+    const {
+        dataList,
+        tableLoading,
+        tableConfig,
+        handleSuccess,
+        handleSelectionChange,
+        selectRows,
+        useHeight,
+    } = useDataTable();
+
+    const tableHeight = computed(() => {
+        return tableConfig.height;
+    });
+
+    const logModel = reactive({
+        requestPath: "",
+        requestPathAndQuery: "",
+        requestMethod: "",
+        requestHeader: "",
+    });
+
+    function doRefresh() {
+        get({
+            url: gatewayLogSearch,
+            data: tableFooter.value?.withPageInfoData(),
+        })
+            .then((res) => {
+                return handleSuccess(res);
+            })
+            .then((res: any) => {
+                tableFooter.value?.setTotalSize(res.totalSize);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+    function onDeleteItems() {
+        if (selectRows.value.length > 0) {
+            ElMessageBox.confirm("确定要删除这些数据吗？", "提示")
+                .then(() => {
+                    httpDelete({url:`${gatewayLogs}/${selectRows.value[0].id}`})
+                        .then((res)=>{
+                            console.log(JSON.stringify(res))
+                            doRefresh();
+                        })
+                        .catch(console.log)
+                })
+                .catch(console.log);
+        }
+    }
+
+    function onAddItem() {
+        console.log("add item")
+    }
+
+    function onUpdateItem(item: any) {
+        logModel.requestPath = item.requestPath;
+        logModel.requestPathAndQuery = item.requestPathAndQuery;
+        logModel.requestMethod = item.requestMethod;
+        logModel.requestHeader = item.requestHeader;
+        dialogRef.value?.show();
+        dialogRef.value?.showLoding();
+    }
+
+    function onDeleteItem(item: any) {
+        ElMessageBox.confirm("确定要删除此数据吗？", "提示")
+            .then(() => {
+                httpDelete({url:`${gatewayLogs}/${item.id}`})
+                    .then((res)=>{
+                        console.log(JSON.stringify(res))
+                        doRefresh();
+                    })
+                    .catch(console.log)
+            })
+            .catch(console.log);
+    }
+
+    onMounted(() => {
+        // console.log(tableConfig.height);
+        doRefresh();
+        useHeight();
+    });
+</script>
+
+<style lang="scss" scoped>
+    .gender-container {
+        .gender-icon {
+            width: 20px;
+        }
+    }
+</style>
