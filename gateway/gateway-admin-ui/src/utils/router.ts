@@ -6,7 +6,7 @@ import router, { routes as constantRoutes } from "../router";
 import Cookies from "js-cookie";
 import { get,post } from '@/api/http';
 import store from '@/store';
-import { getMenuListTreeByCurrentUser } from '@/api/url';
+import { systemMenuTreeByUser } from '@/api/url';
 import { RouteRecordRaw } from 'vue-router'
 import { toHump } from '.';
 import { RouteRecordRawWithHidden } from '@/layouts/types';
@@ -22,7 +22,7 @@ interface OriginRoute {
   hidden?: boolean,
   outLink?: string,
   affix?: boolean,
-  cacheable?: boolean,
+  keepAlive?: boolean,
   icon?: string,
   tip?: string | number,
   children: Array<OriginRoute>
@@ -31,7 +31,7 @@ interface OriginRoute {
 
 function getRoutes() {
   return get({
-    url: getMenuListTreeByCurrentUser,
+    url: systemMenuTreeByUser,
     method: 'GET',
   }).then(res => {
     return generatorRoutes(res.data)
@@ -69,7 +69,7 @@ function generatorRoutes(res: Array<OriginRoute>) {
       meta: {
         title: it.menuName,
         affix: !!it.affix,
-        cacheable: !!it.cacheable,
+        keepAlive: !!it.keepAlive,
         icon: it.icon || '',
         badge: it.tip
       }

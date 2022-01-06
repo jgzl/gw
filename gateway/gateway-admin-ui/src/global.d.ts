@@ -1,5 +1,5 @@
 declare interface RoleModel {
-  id: number;
+  roleId: number;
   roleName: string;
   roleCode: string;
   description: string;
@@ -7,17 +7,20 @@ declare interface RoleModel {
 }
 
 declare interface MenuModel {
-  id: string;
+  menuId: string;
   parentPath: string;
+  parentId: string;
   path: string;
   name: string;
   outLink?: string;
   badge?: string | number;
   badgeNum?: number;
-  cacheable?: boolean;
+  keepAlive?: boolean;
   hidden?: boolean;
   icon?: string;
   affix?: boolean
+  permission?: string
+  type?: string
 }
 
 declare interface TablePropsType {

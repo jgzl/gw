@@ -1,5 +1,16 @@
 <template>
   <div class="main-container">
+    <TableHeader
+        :can-collapsed="
+        likeSearchModel.conditionItems &&
+        likeSearchModel.conditionItems.length !== 0
+      "
+        :search-model="likeSearchModel.conditionItems"
+        :default-collapsed-state="true"
+        title="数据筛选"
+        @doSearch="doSearch"
+        @resetSearch="resetSearch"
+    />
     <TableBody>
       <template #tableConfig>
         <TableConfig
@@ -262,19 +273,20 @@
 </template>
 
 <script lang="ts" setup>
-  import { useDataTable, useDelete, useGet, usePost, usePut } from "@/hooks";
+import {useDataTable, useDelete, useGet, useLikeSearch, usePost, usePut} from "@/hooks";
   import { computed, onMounted, reactive, ref } from "vue";
   import { ElMessage, ElMessageBox } from "element-plus";
   import {
-    getUserList,
+    systemUserList,
     systemUser,
     systemUserForLockFlag,
-    getDepartmentList,
-    getRoleList,
+    systemDeptTree,
+    systemRolePage,
     gatewayRoute
   } from "@/api/url";
   import type { DialogType, TableFooter } from "@/components/types";
 
+  const { likeSearchModel, getSearchParams, resetSearch } = useLikeSearch();
   const get = useGet();
   const post = usePost();
   const put = usePut();
@@ -313,9 +325,57 @@
     lockFlag: "0",
   });
 
+  likeSearchModel.extraParams = () => ({
+    ...tableFooter.value?.withPageInfoData(),
+  });
+  likeSearchModel.conditionItems = reactive([
+    {
+      name: "userName",
+      label: "用户姓名",
+      value: "",
+      type: "input",
+      placeholder: "请输入用户姓名",
+      span: 8,
+    },
+    {
+      name: "createTime",
+      label: "创建时间",
+      value: "",
+      type: "date-range",
+      placeholder: "请输入创建时间",
+      span: 8,
+    }
+  ]);
+  const doSearch = () => {
+    const params = getSearchParams();
+    get({
+      url: systemUserList,
+      data: params,
+    })
+        .then((res) => {
+          return handleSuccess(res);
+        })
+        .then((res: any) => {
+          tableFooter.value?.setTotalSize(res.totalSize);
+          get({
+            url: systemDeptTree,
+          }).then((depRes) => {
+            departmentList.value = depRes.data;
+          });
+          get({
+            url: systemRolePage,
+          }).then((roleRes) => {
+            roleList.value = roleRes.data;
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  };
+
   function doRefresh() {
     get({
-      url: getUserList,
+      url: systemUserList,
       data: tableFooter.value?.withPageInfoData(),
     })
             .then((res) => {
@@ -324,12 +384,12 @@
             .then((res: any) => {
               tableFooter.value?.setTotalSize(res.totalSize);
               get({
-                url: getDepartmentList,
+                url: systemDeptTree,
               }).then((depRes) => {
                 departmentList.value = depRes.data;
               });
               get({
-                url: getRoleList,
+                url: systemRolePage,
               }).then((roleRes) => {
                 roleList.value = roleRes.data;
               });

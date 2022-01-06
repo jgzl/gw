@@ -10,6 +10,7 @@ import reactor.core.publisher.Mono;
 
 /**
  * webflux通用心跳管理模块
+ * @author li7hai26@gmail.com
  */
 @RestController
 @RequestMapping("/heartbeat")

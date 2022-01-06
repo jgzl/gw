@@ -1,13 +1,13 @@
 import Mock, { Random } from "mockjs";
 import { baseData } from "../base.ts";
 import {
-  getDepartmentList,
+  systemDeptTree,
   getTableList,
   getCardList,
   getCommentList,
-  addDepartment,
-  getRoleList,
-  getUserList,
+  systemDept,
+  systemRolePage,
+  systemUserList,
 } from "@/api/url";
 
 const totalSize = 30;
@@ -18,7 +18,7 @@ function computePageSize(totalSize, page, pageSize) {
   );
 }
 
-Mock.mock(RegExp(getDepartmentList), function ({ body }) {
+Mock.mock(RegExp(systemDeptTree), function ({ body }) {
   return Mock.mock({
     ...baseData,
     totalSize,
@@ -79,7 +79,7 @@ Mock.mock(RegExp(getDepartmentList), function ({ body }) {
   });
 });
 
-Mock.mock(RegExp(getRoleList), function () {
+Mock.mock(RegExp(systemRolePage), function () {
   return Mock.mock({
     ...baseData,
     data: [
@@ -101,7 +101,7 @@ Mock.mock(RegExp(getRoleList), function () {
   });
 });
 
-Mock.mock(RegExp(addDepartment), function () {
+Mock.mock(RegExp(systemDept), function () {
   return Mock.mock({ ...baseData, data: "" });
 });
 
@@ -133,7 +133,7 @@ Mock.mock(RegExp(getTableList), function ({ body }) {
   });
 });
 
-Mock.mock(RegExp(getUserList), function ({ body }) {
+Mock.mock(RegExp(systemUserList), function ({ body }) {
   const { page, pageSize = 10 } = JSON.parse(body);
   const size = computePageSize(totalSize, page, pageSize);
   return Mock.mock({

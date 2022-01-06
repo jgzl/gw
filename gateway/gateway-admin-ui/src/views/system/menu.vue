@@ -29,14 +29,15 @@
           row-key="menuUrl"
           :tree-props="{ children: 'children' }"
         >
-          <el-table-column align="center" label="序号" fixed="left" width="150">
+          <el-table-column align="center" label="序号" fixed="left" width="100">
             <template v-slot="scope">
               {{ scope.$index + 1 }}
             </template>
           </el-table-column>
-          <el-table-column align="center" label="菜单名称" prop="menuName" />
-          <el-table-column align="center" label="菜单地址" prop="menuUrl" />
-          <el-table-column align="center" label="图标" prop="menuUrl">
+          <el-table-column align="center" label="菜单/按钮名称" prop="menuName" width="100"/>
+          <el-table-column align="center" label="菜单地址" prop="menuUrl" width="100"/>
+          <el-table-column align="center" label="权限" prop="permission" width="200"/>
+          <el-table-column align="center" label="图标" prop="icon" width="100">
             <template #default="scope">
               <el-icon
                 v-if="scope.row.icon"
@@ -49,23 +50,23 @@
               <div v-else>--</div>
             </template>
           </el-table-column>
-          <el-table-column align="center" label="是否缓存">
+          <el-table-column align="center" label="是否缓存" width="100">
             <template #default="scope">
               <el-tag
-                :type="scope.row.cacheable ? 'success' : 'danger'"
+                :type="scope.row.keepAlive ? 'success' : 'danger'"
                 size="mini"
-                >{{ scope.row.cacheable ? "是" : "否" }}</el-tag
+                >{{ scope.row.keepAlive ? "是" : "否" }}</el-tag
               >
             </template>
           </el-table-column>
-          <el-table-column align="center" label="是否固定">
+          <el-table-column align="center" label="是否固定" width="100">
             <template #default="scope">
               <el-tag :type="scope.row.affix ? 'success' : 'danger'" size="mini"
                 >{{ scope.row.affix ? "是" : "否" }}
               </el-tag>
             </template>
           </el-table-column>
-          <el-table-column align="center" label="badge提示">
+          <el-table-column align="center" label="badge提示" width="100">
             <template #default="scope">
               <div class="menu-badge__wrapper">
                 <el-badge
@@ -111,28 +112,50 @@
         >
           <el-form-item label="上级菜单">
             <TreeSelector
-              v-model:value="menuModel.parentPath"
+              v-model:value="menuModel.parentId"
               placeholder="请选择上级菜单"
               :data="dataList"
               :dataFields="{
                 label: 'menuName',
-                value: 'menuUrl',
+                value: 'menuId',
                 children: 'children',
               }"
             />
           </el-form-item>
-          <el-form-item label="菜单名称" prop="name">
+          <el-form-item label="类型" prop="name">
+            <el-radio-group v-model="menuModel.type" size="mini">
+              <el-radio-button label="0">菜单</el-radio-button>
+              <el-radio-button label="1">按钮</el-radio-button>
+            </el-radio-group>
+          </el-form-item>
+          <el-form-item label="菜单名称" prop="name" v-show="menuModel.type === '0'">
             <el-input
               v-model="menuModel.name"
+              v-show="menuModel.type === '0'"
               size="small"
               placeholder="请输入菜单名称"
             />
           </el-form-item>
-          <el-form-item label="菜单地址" prop="path">
+          <el-form-item label="菜单地址" prop="path" v-show="menuModel.type === '0'">
             <el-input
               v-model="menuModel.path"
               size="small"
               placeholder="请输入菜单地址"
+            >
+            </el-input>
+          </el-form-item>
+          <el-form-item label="按钮名称" prop="name" v-show="menuModel.type === '1'">
+            <el-input
+                v-model="menuModel.name"
+                size="small"
+                placeholder="请输入按钮名称"
+            />
+          </el-form-item>
+          <el-form-item label="权限" prop="path" v-show="menuModel.type === '1'">
+            <el-input
+              v-model="menuModel.permission"
+              size="small"
+              placeholder="请输入权限"
             >
             </el-input>
           </el-form-item>
@@ -165,7 +188,7 @@
             <IconSelector />
           </el-form-item>
           <el-form-item label="是否缓存">
-            <el-switch v-model="menuModel.cacheable" />
+            <el-switch v-model="menuModel.keepAlive" />
           </el-form-item>
           <el-form-item label="是否隐藏">
             <el-switch v-model="menuModel.hidden" />
@@ -184,22 +207,24 @@ import type { DialogType } from "@/components/types";
 import { uuid } from "@/utils";
 import { onMounted, reactive, ref, shallowReactive } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
-import { useGet, useDataTable } from "@/hooks";
-import { getMenuListTree } from "@/api/url";
-import { Plus } from "@element-plus/icons";
+import {useGet, useDataTable, usePost, usePut, useDelete} from "@/hooks";
+import {systemMenuTreeByUser, systemMenu, systemRole, systemMenuTree} from "@/api/url";
 
 const menuModel = reactive<MenuModel>({
-  id: uuid(),
+  menuId: uuid(),
   parentPath: "",
+  parentId: "",
   path: "",
   name: "",
   outLink: "",
   badge: "",
   badgeNum: 1,
-  cacheable: false,
+  keepAlive: false,
   hidden: false,
   icon: "",
   affix: false,
+  permission: "",
+  type: ""
 });
 const { tableLoading, tableConfig, dataList, handleSuccess } = useDataTable();
 const disableLoad = ref(false);
@@ -207,51 +232,74 @@ const dialogRef = ref<DialogType>();
 const menuList = ref([]);
 
 const get = useGet();
+const post = usePost();
+const put = usePut();
+const httpDelete = useDelete();
 function doRefresh() {
   get({
-    url: getMenuListTree,
+    url: systemMenuTree,
     data: {},
   })
     .then(handleSuccess)
     .catch(console.log);
 }
 function onAddItem() {
-  menuModel.id = uuid();
+  menuModel.menuId = "";
   menuModel.parentPath = "";
+  menuModel.parentId = "";
   menuModel.path = "";
   menuModel.name = "";
   menuModel.outLink = "";
   menuModel.badge = "";
   menuModel.badgeNum = 1;
-  menuModel.cacheable = false;
+  menuModel.keepAlive = false;
   menuModel.hidden = false;
   menuModel.icon = "";
   menuModel.affix = false;
+  menuModel.permission = "";
+  menuModel.type = "0";
   dialogRef.value?.show(() => {
-    ElMessageBox.confirm(
-      "模拟数据添加成功，参数为：\n" + JSON.stringify(menuModel)
-    );
+    post({url:systemMenu ,data: menuModel})
+        .then((res)=>{
+          console.log(JSON.stringify(res))
+          doRefresh();
+        })
+        .catch(console.log)
     dialogRef.value?.close();
   });
 }
 function onUpdateItem(item: any) {
-  menuModel.id = uuid();
+  menuModel.menuId = item.menuId;
   menuModel.parentPath = item.parentPath;
+  menuModel.parentId = item.parentId;
   menuModel.path = item.menuUrl;
-  menuModel.name = item.menuName;
+  menuModel.name = item.name;
   menuModel.badge = parseInt(item.tip) ? "number" : item.tip;
   menuModel.badgeNum = parseInt(item.tip);
-  menuModel.icon = item.icon || "";
+  menuModel.keepAlive = item.keepAlive;
+  menuModel.hidden = item.hidden;
+  menuModel.icon = item.icon;
+  menuModel.affix = item.affix;
+  menuModel.permission = item.permission;
+  menuModel.type = item.type;
   dialogRef.value?.show(() => {
-    ElMessageBox.confirm(
-      "模拟数据修改成功，参数为：" + JSON.stringify(menuModel)
-    );
+    put({url:systemMenu ,data: menuModel})
+        .then((res)=>{
+          console.log(JSON.stringify(res))
+          doRefresh();
+        })
+        .catch(console.log)
     dialogRef.value?.close();
   });
 }
 function onDeleteItem(item: any) {
   ElMessageBox.confirm("是否要删除此数据？").then(() => {
-    ElMessageBox.confirm("模拟删除成功，参数为：" + JSON.stringify(item));
+    httpDelete({url:`${systemMenu}/${item.menuId}`})
+        .then((res)=>{
+          console.log(JSON.stringify(res))
+          doRefresh();
+        })
+        .catch(console.log)
   });
 }
 onMounted(doRefresh);

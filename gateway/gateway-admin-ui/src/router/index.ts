@@ -77,7 +77,7 @@ export const routes = [
         meta: {
           title: '主控台',
           affix: true,
-          cacheable: true,
+          keepAlive: true,
         },
       },
       {

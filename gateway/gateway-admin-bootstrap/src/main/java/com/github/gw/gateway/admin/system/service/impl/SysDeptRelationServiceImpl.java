@@ -44,7 +44,7 @@ public class SysDeptRelationServiceImpl extends ServiceImpl<SysDeptRelationMappe
 					return relation;
 				}).collect(Collectors.toList());
 		if (CollUtil.isNotEmpty(relationList)) {
-			baseMapper.insertBatchSomeColumn(relationList);
+			relationList.forEach(baseMapper::insert);
 		}
 
 		// 自己也要维护到关系表中

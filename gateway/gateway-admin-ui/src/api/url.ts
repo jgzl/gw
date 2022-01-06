@@ -4,21 +4,27 @@ export const logout = "/user/logout";
 
 // 系统管理
 
-export const getMenuListTreeByCurrentUser = "/system/menu";
+export const systemMenuTreeByUser = "/system/menu/tree/user";
 
-export const getMenuListTree = "/system/menu/tree";
+export const systemMenuTreeByRole = "/system/menu/tree/role";
 
-export const getAllMenuByRoleId = "/getAllMenuByRoleId";
+export const systemMenuTree = "/system/menu/tree";
 
-export const deleteUserById = "/deleteUserById";
+export const systemMenuList = "/system/menu/list";
 
-export const getDepartmentList = "/system/dept/tree";
+export const systemMenu = "/system/menu";
 
-export const addDepartment = "/addDepartment";
+export const systemDeptTree = "/system/dept/tree";
 
-export const getRoleList = "/system/role/page";
+export const systemDept = "/system/dept";
 
-export const getUserList = "/system/user/list";
+export const systemRole = "/system/role";
+
+export const systemRoleMenu = "/system/role/menu";
+
+export const systemRolePage = "/system/role/page";
+
+export const systemUserList = "/system/user/list";
 
 export const systemUser = "/system/user";
 

@@ -77,7 +77,7 @@
           ref="tree"
           :data="menuData"
           show-checkbox
-          node-key="menuUrl"
+          node-key="id"
           :default-expanded-keys="defaultExpandedKeys"
           :default-checked-keys="defaultCheckedKeys"
           :props="defaultProps"
@@ -91,14 +91,22 @@
 import type { DialogType } from "@/components/types";
 import { onMounted, reactive, ref, shallowReactive } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
-import {useGet, useDataTable, usePost} from "@/hooks";
-import { getMenuListTreeByCurrentUser, getRoleList } from "@/api/url";
-import { Plus } from "@element-plus/icons";
+import {useGet, useDataTable, usePost, usePut, useDelete} from "@/hooks";
+import {
+  systemRolePage,
+  systemMenuTree,
+  systemMenuTreeByRole,
+  systemMenuList,
+  systemUser,
+  systemRole, systemRoleMenu
+} from "@/api/url";
 import store from "@/store";
 const ROLE_CODE_FLAG = "ROLE_";
+const MENU_LEFT = "0";
+const MENU_BUTTON = "1";
 const roleModel = reactive({
-  id: 0,
-  name: "",
+  roleId: 0,
+  roleName: "",
   roleCode: "",
   description: "",
   createTime: "",
@@ -137,7 +145,7 @@ const formItems = reactive([
     value: "",
     maxLength: 20,
     inputType: "text",
-    placeholder: "请输入角色编号",
+    placeholder: "请输入角色编号:ROLE_",
     validator: (item: any) => {
       if (!item.value) {
         ElMessage.error(item.placeholder);
@@ -175,10 +183,12 @@ const baseFormRef = ref();
 const tree = ref()
 const get = useGet();
 const post = usePost();
+const put = usePut();
+const httpDelete = useDelete();
 const { handleSuccess, dataList, tableLoading, tableConfig } = useDataTable();
 function doRefresh() {
   get({
-    url: getRoleList,
+    url: systemRolePage,
     data: {},
   })
     .then(handleSuccess)
@@ -189,31 +199,51 @@ function showMenu(item: RoleModel) {
   defaultCheckedKeys.length = 0;
   defaultExpandedKeys.length = 0;
   get({
-    url: getMenuListTreeByCurrentUser,
-    // data: {
-    //   roleId: item.id,
-    // },
+    url: systemMenuTree,
+    data: {
+      lazy: false
+    }
   })
     .then((res) => {
       menuData.push(...res.data);
-      handleRoleMenusSelected(menuData);
-      menuDialogRef.value?.show(() => {
-        ElMessage.success(
-          "模拟菜单修改成功，数据为：" +
-            JSON.stringify(tree.value.getCheckedKeys())
-        );
-        menuDialogRef.value?.close();
-      });
+    }).then(()=>{
+      get({
+        url: systemMenuList+"/"+item.roleId,
+      }).then((roleRes) => {
+        if (roleRes.data!=null) {
+          defaultCheckedKeys.push(...roleRes.data);
+        }
+        console.log(`defaultCheckedKeys:${JSON.stringify(defaultCheckedKeys)}`)
+        console.log(`defaultExpandedKeys:${JSON.stringify(defaultExpandedKeys)}`)
+        menuDialogRef.value?.show(() => {
+          const menuIds = tree.value.getCheckedKeys().join(",")
+          put({
+            url:systemRoleMenu ,
+            data: {
+              roleId: item.roleId,
+              menuIds: menuIds
+            }
+          })
+              .then((res)=>{
+                console.log(JSON.stringify(res))
+                doRefresh();
+              })
+              .catch(console.log)
+          menuDialogRef.value?.close();
+        });
+      }).catch(console.log);
     })
     .catch(console.log);
 }
 function onAddItem() {
   formItems.forEach((it: FormItem) => it.reset && it.reset());
   dialogRef.value?.show(() => {
-    ElMessageBox.confirm(
-      "角色模拟添加成功，参数为：" +
-        JSON.stringify(baseFormRef.value?.generatorParams())
-    );
+    post({url:systemRole ,data: baseFormRef.value?.generatorParams()})
+        .then((res)=>{
+          console.log(JSON.stringify(res))
+          doRefresh();
+        })
+        .catch(console.log)
     dialogRef.value?.close();
   });
 }
@@ -230,33 +260,31 @@ function onUpdateItem(item: RoleModel) {
   const currentRoles = store.state.user.roles
   console.log(currentRoles)
   dialogRef.value?.show(() => {
-    ElMessageBox.confirm(
-      "角色模拟修改成功，参数为：" +
-        JSON.stringify(baseFormRef.value?.generatorParams())
-    );
+    const updateData: any = {};
+    updateData['roleId'] = item.roleId;
+    formItems.forEach((it: FormItem) => {
+      updateData[it.name] = it.value
+    });
+    put({url:systemRole ,data: updateData})
+        .then((res)=>{
+          console.log(JSON.stringify(res))
+          doRefresh();
+        })
+        .catch(console.log)
     dialogRef.value?.close();
   });
 }
 function onDeleteItem(item: RoleModel) {
   ElMessageBox.confirm("是否要删除此信息，删除后不可恢复？", "提示").then(
     () => {
-      ElMessageBox.confirm(
-        "角色模拟删除成功，参数为：" +
-          JSON.stringify({
-            id: item.id,
+      httpDelete({url:`${systemRole}/${item.roleId}`})
+          .then((res)=>{
+            console.log(JSON.stringify(res))
+            doRefresh();
           })
-      );
+          .catch(console.log)
     }
   );
-}
-function handleRoleMenusSelected(menus: Array<any>) {
-  menus.forEach((it: any) => {
-    defaultCheckedKeys.push(it.menuUrl);
-    if (it.children) {
-      defaultExpandedKeys.push(it.menuUrl);
-      handleRoleMenusSelected(it.children);
-    }
-  });
 }
 onMounted(doRefresh);
 </script>

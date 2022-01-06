@@ -113,7 +113,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 					.collect(Collectors.toList());
 		}else {
 			String[] typeArray = type.split(",");
-			collect = all.stream().filter(menu-> ArrayUtil.contains(typeArray,type)).map(getNodeFunction())
+			collect = all.stream().filter(menu-> ArrayUtil.contains(typeArray,menu.getType())).map(getNodeFunction())
 					.collect(Collectors.toList());
 		}
 		Long parent = parentId == null ? CommonConstants.TREE_ROOT_ID : parentId;
@@ -130,13 +130,15 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 			node.setWeight(menu.getSort());
 			// 扩展属性
 			Map<String, Object> extra = new HashMap<>();
+			extra.put("menuId",menu.getMenuId());
+			extra.put("name",menu.getName());
 			extra.put("icon", menu.getIcon());
 			extra.put("menuUrl", menu.getPath());
 			extra.put("menuName", menu.getName());
 			extra.put("type", menu.getType());
 			extra.put("permission", menu.getPermission());
 			extra.put("sort", menu.getSort());
-			extra.put("cacheable", menu.getKeepAlive());
+			extra.put("keepAlive", menu.getKeepAlive());
 			node.setExtra(extra);
 			return node;
 		};

@@ -8,26 +8,33 @@ package com.github.gw.gateway.common;
  */
 public enum ActionEnum {
 
-    REQUEST("REQUEST", "请求"),
-    RESPONSE("RESPONSE", "响应"),
-    CREATE("CREATE", "保存"),
-    UPDATE("UPDATE", "更新"),
-    DELETE("DELETE", "删除"),
+    CREATE(1, "保存"),
+    UPDATE(2, "更新"),
+    DELETE(3, "删除"),
     ;
 
-    String code;
+    Integer code;
     String msg;
 
-    ActionEnum(String code, String msg) {
+    ActionEnum(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
     }
 
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 
     public String getMsg() {
         return msg;
+    }
+
+    public String getMsg(Integer code) {
+        for (ActionEnum value : ActionEnum.values()) {
+            if (value.getCode().equals(code)) {
+                return value.msg;
+            }
+        }
+        return null;
     }
 }

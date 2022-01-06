@@ -61,8 +61,8 @@
         <skywalking.version>8.8.0</skywalking.version>
 
         <!-- bom依赖配置管理 -->
-        <spring-boot.version>2.6.1</spring-boot.version>
-        <spring-boot-admin.version>2.5.4</spring-boot-admin.version>
+        <spring-boot.version>2.6.2</spring-boot.version>
+        <spring-boot-admin.version>2.6.0</spring-boot-admin.version>
         <spring-cloud.version>2021.0.0</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
         <spring.version>5.3.13</spring.version>

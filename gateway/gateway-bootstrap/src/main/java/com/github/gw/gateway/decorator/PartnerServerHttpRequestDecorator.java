@@ -2,6 +2,7 @@ package com.github.gw.gateway.decorator;
 
 import com.github.gw.gateway.common.ActionEnum;
 import com.github.gw.common.gateway.domain.GatewayLog;
+import com.github.gw.gateway.common.WebEnum;
 import com.github.gw.gateway.util.LogUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -21,15 +22,18 @@ public class PartnerServerHttpRequestDecorator extends ServerHttpRequestDecorato
 
     private Flux<DataBuffer> body;
 
-    PartnerServerHttpRequestDecorator(ServerHttpRequest delegate, GatewayLog saveGatewayLog) {
+    PartnerServerHttpRequestDecorator(ServerHttpRequest delegate, GatewayLog gatewayLog) {
         super(delegate);
         final MediaType contentType = delegate.getHeaders().getContentType();
 
         Flux<DataBuffer> flux = super.getBody();
         if (contentType == null || LogUtils.legalLogMediaTypes.contains(contentType)) {
-            body = flux.publishOn(single()).map(dataBuffer -> LogUtils.logging(saveGatewayLog, dataBuffer, ActionEnum.CREATE, ActionEnum.REQUEST));
+            body = flux.publishOn(single()).map(dataBuffer -> LogUtils.logging(gatewayLog, dataBuffer, ActionEnum.CREATE, WebEnum.REQUEST));
         } else {
-            log.info("网关只记录非xml,json格式的请求内容");
+            if (log.isDebugEnabled()) {
+                log.debug("网关只记录xml,json格式的请求相应内容,当前请求的Content-Type为{}",contentType);
+            }
+            LogUtils.logging(gatewayLog,ActionEnum.CREATE);
             body = flux;
         }
     }

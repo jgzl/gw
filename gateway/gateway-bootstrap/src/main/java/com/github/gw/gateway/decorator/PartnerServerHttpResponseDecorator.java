@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
 import com.github.gw.gateway.common.ActionEnum;
 import com.github.gw.common.gateway.domain.GatewayLog;
+import com.github.gw.gateway.common.WebEnum;
 import com.github.gw.gateway.util.LogUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Publisher;
@@ -51,16 +52,21 @@ public class PartnerServerHttpResponseDecorator extends ServerHttpResponseDecora
             if (body instanceof Mono) {
                 final Mono<DataBuffer> monoBody = (Mono<DataBuffer>) body;
                 return super.writeWith(monoBody.publishOn(single())
-                        .map(dataBuffer -> LogUtils.logging(gatewayLog, dataBuffer, ActionEnum.UPDATE, ActionEnum.RESPONSE)));
+                        .map(dataBuffer -> LogUtils.logging(gatewayLog, dataBuffer, ActionEnum.CREATE, WebEnum.RESPONSE)));
             } else if (body instanceof Flux) {
                 final Flux<DataBuffer> monoBody = (Flux<DataBuffer>) body;
                 return super.writeWith(monoBody.publishOn(single())
-                        .map(dataBuffer -> LogUtils.logging(gatewayLog, dataBuffer, ActionEnum.UPDATE, ActionEnum.RESPONSE)));
+                        .map(dataBuffer -> LogUtils.logging(gatewayLog, dataBuffer, ActionEnum.CREATE, WebEnum.RESPONSE)));
             }
         } else {
-            log.info("网关只记录非xml,json格式的响应内容");
+            if (log.isDebugEnabled()) {
+                log.debug("网关只记录非xml,json格式的请求内容,当前请求的Content-Type为{}",contentType);
+            }
+            LogUtils.logging(gatewayLog,ActionEnum.CREATE);
         }
-        log.info("结束访问[{}],合计共消耗时间为:{}ms", gatewayLog.getRequestPath(), gatewayLog.getExecuteTime());
+        if (log.isDebugEnabled()) {
+            log.debug("结束访问[{}],合计共消耗时间为:{}ms", gatewayLog.getRequestPath(), gatewayLog.getExecuteTime());
+        }
         return super.writeWith(body);
     }
 }

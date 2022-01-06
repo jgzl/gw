@@ -109,7 +109,7 @@ export default {
     })
   },
   addCachedView(route: RouteRecordRaw) {
-    if (route.name && route.meta && route.meta.cacheable) {
+    if (route.name && route.meta && route.meta.keepAlive) {
       const humName = toHump(route.name as string)
       if (!this.state.cachedView.includes(humName)) {
         this.state.cachedView.push(humName)
@@ -128,7 +128,7 @@ export default {
     this.state.cachedView.length = 0
     this.state.cachedView.push(...this.state.visitedView
       .filter((it, _index) => {
-        return it.name && it.meta && it.meta.cacheable
+        return it.name && it.meta && it.meta.keepAlive
       })
       .map((it) => toHump(it.name as string))
     )
@@ -195,7 +195,7 @@ export default {
       this.persistentVisitedView()
       this.state.cachedView.length = 0
       this.state.cachedView.push(...this.state.visitedView
-        .filter((route) => route.name && route.meta && route.meta.cacheable)
+        .filter((route) => route.name && route.meta && route.meta.keepAlive)
         .map((it) => toHump(it.name as string)))
       resolve()
     })

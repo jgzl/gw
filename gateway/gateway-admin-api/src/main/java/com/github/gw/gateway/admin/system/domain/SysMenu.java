@@ -69,7 +69,7 @@ public class SysMenu extends Model<SysMenu> {
     /**
      * 路由缓冲
      */
-    private String keepAlive;
+    private Boolean keepAlive;
 
     /**
      * 创建时间

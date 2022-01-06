@@ -89,7 +89,7 @@
 
 <script lang="ts" setup>
   import { get,post,put,httpDelete } from "@/api/http";
-  import { getDepartmentList } from "@/api/url";
+  import {systemDept, systemDeptTree, systemRole} from "@/api/url";
   import type { BaseFormType, DialogType } from "@/components/types";
   import { computed, onMounted, reactive, ref } from "vue";
   import { ElMessage, ElMessageBox } from "element-plus";
@@ -212,7 +212,7 @@
   };
   const doRefresh = () => {
     get({
-      url: getDepartmentList,
+      url: systemDeptTree,
     }).then(handleSuccess);
   };
   function filterItems(srcArray: Array<Department>, filterItem: Department) {
@@ -235,7 +235,11 @@
   const onDeleteItem = (item: any) => {
     ElMessageBox.confirm("确定要删除此信息，删除后不可恢复？", "提示")
             .then(() => {
-              filterItems(dataList, item);
+              httpDelete({url:`${systemDept}/${item.id}`})
+                  .then((res)=>{
+                    console.log(JSON.stringify(res))
+                    doRefresh();
+                  })
             })
             .catch(console.log);
   };
@@ -250,12 +254,12 @@
       (dialog.value as any).loading = true;
       const formParams = baseForm.value?.generatorParams();
       formParams.parentId = parentFormItem.value;
-      setTimeout(() => {
-        ElMessage.success(
-                "模拟添加成功，添加参数为：" + JSON.stringify(formParams)
-        );
-        dialog.value?.close();
-      }, 1000);
+      post({url:systemDept ,data: formParams})
+          .then((res)=>{
+            console.log(JSON.stringify(res))
+            doRefresh();
+          })
+          .catch(console.log)
     });
   };
   parentFormItem.selectOptions = computed(() => {

@@ -2,8 +2,9 @@ package com.github.gw.gateway.util;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.extra.spring.SpringUtil;
-import com.github.gw.gateway.common.ActionEnum;
 import com.github.gw.common.gateway.domain.GatewayLog;
+import com.github.gw.gateway.common.ActionEnum;
+import com.github.gw.gateway.common.WebEnum;
 import com.github.gw.gateway.log.listener.GatewayRequestLogApplicationEvent;
 import io.netty.buffer.UnpooledByteBufAllocator;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +13,6 @@ import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.core.io.buffer.NettyDataBufferFactory;
 import org.springframework.http.MediaType;
 
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
@@ -35,16 +35,23 @@ public class LogUtils {
             MediaType.TEXT_XML,
             MediaType.MULTIPART_FORM_DATA);
 
+    /**
+     * 记录xml/json格式请求返回日志数据-有body
+     * @param gatewayLog
+     * @param buffer
+     * @param actionEnum
+     * @param webEnum
+     * @param <T>
+     * @return
+     */
     @SuppressWarnings("unchecked")
-    public static <T extends DataBuffer> T logging(GatewayLog gatewayLog, T buffer, ActionEnum actionEnum, ActionEnum typeEnum) {
+    public static <T extends DataBuffer> T logging(GatewayLog gatewayLog, T buffer, ActionEnum actionEnum, WebEnum webEnum) {
         GatewayRequestLogApplicationEvent event = new GatewayRequestLogApplicationEvent(gatewayLog.getId(), gatewayLog, actionEnum);
         InputStream dataBuffer = buffer.asInputStream();
-//        byte[] bytes = toByteArray(dataBuffer);
-//        使用hutool方法进行优化
         byte[] bytes = IoUtil.readBytes(dataBuffer);
         NettyDataBufferFactory nettyDataBufferFactory = new NettyDataBufferFactory(new UnpooledByteBufAllocator(false));
         String body = new String(bytes);
-        switch (typeEnum) {
+        switch (webEnum) {
             case REQUEST:
                 event.getGatewayLog().setRequestBody(body);
                 break;
@@ -60,19 +67,13 @@ public class LogUtils {
         return (T) nettyDataBufferFactory.wrap(bytes);
     }
 
-    private static byte[] toByteArray(InputStream inStream) {
-        ByteArrayOutputStream swapStream = new ByteArrayOutputStream();
-        byte[] buff = new byte[100]; //buff用于存放循环读取的临时数据
-        int rc = 0;
-        byte[] in_b = new byte[]{};
-        try {
-            while ((rc = inStream.read(buff, 0, 100)) > 0) {
-                swapStream.write(buff, 0, rc);
-            }
-            in_b = swapStream.toByteArray();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return in_b;
+    /**
+     * 记录非xml/json格式请求返回日志数据-无body
+     * @param gatewayLog
+     * @param actionEnum
+     */
+    public static void logging(GatewayLog gatewayLog,ActionEnum actionEnum) {
+        GatewayRequestLogApplicationEvent event = new GatewayRequestLogApplicationEvent(gatewayLog.getId(), gatewayLog, actionEnum);
+        SpringUtil.publishEvent(event);
     }
 }

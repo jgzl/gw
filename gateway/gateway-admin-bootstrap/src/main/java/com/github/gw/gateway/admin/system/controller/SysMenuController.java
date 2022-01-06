@@ -35,14 +35,27 @@ public class SysMenuController {
 	 * @param parentId 父节点ID
 	 * @return 当前用户的树形菜单
 	 */
-	@GetMapping
-	public R<List<Tree<Long>>> getUserMenu(String type, Long parentId) {
-
-		// 获取符合条件的菜单
+	@GetMapping(value = "/tree/user")
+	public R<List<Tree<Long>>> getTreeWithUser(String type, Long parentId) {
 		Set<SysMenu> all = new HashSet<>();
+		// 获取符合条件的菜单
 		SecurityUtils.getRoles().stream()
 				.map(sysRoleService::findRoleByRoleCode)
 				.forEach(sysRole -> all.addAll(sysMenuService.findMenuByRoleId(sysRole.getRoleId())));
+		return R.ok(sysMenuService.filterMenu(all, type, parentId));
+	}
+
+	/**
+	 * 返回特定角色的树形菜单集合
+	 * @param type 类型
+	 * @param parentId 父节点ID
+	 * @param roleId 角色id
+	 * @return 当前用户的树形菜单
+	 */
+	@GetMapping(value = "/tree/role")
+	public R<List<Tree<Long>>> getTreeWithRole(String type, Long parentId, @RequestParam Long roleId) {
+		// 获取符合条件的菜单
+		Set<SysMenu> all = new HashSet<>(sysMenuService.findMenuByRoleId(roleId));
 		return R.ok(sysMenuService.filterMenu(all, type, parentId));
 	}
 
@@ -62,7 +75,7 @@ public class SysMenuController {
 	 * @param roleId 角色ID
 	 * @return 属性集合
 	 */
-	@GetMapping("/tree/{roleId}")
+	@GetMapping("/list/{roleId}")
 	public R<List<Long>> getRoleTree(@PathVariable Long roleId) {
 		return R.ok(
 				sysMenuService.findMenuByRoleId(roleId).stream().map(SysMenu::getMenuId).collect(Collectors.toList()));

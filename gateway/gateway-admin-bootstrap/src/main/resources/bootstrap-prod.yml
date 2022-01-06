@@ -9,4 +9,4 @@ spring:
         namespace: gw-prod
         file-extension: yml
         shared-configs:
-          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+          - application.${spring.cloud.nacos.config.file-extension}

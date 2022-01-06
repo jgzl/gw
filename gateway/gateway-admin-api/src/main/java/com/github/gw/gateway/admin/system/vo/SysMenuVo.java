@@ -18,7 +18,7 @@ public class SysMenuVo {
     private String menuName;
     private String icon;
     private String tip;
-    private Boolean cacheable;
+    private Boolean keepAlive;
     private String parentPath;
     private List<SysMenuVo> children;
 }

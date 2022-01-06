@@ -22,7 +22,7 @@ public class GatewayPathProperties {
      */
     private List<String> blackPaths = Lists.newArrayList();
     /**
-     * 网关日志名单(日志无痕路径名单)
+     * 网关日志过滤名单(不记录日志路径名单),日志接口不允许通过网关进行调用,套娃调用会产生黑洞影响
      */
-    private List<String> withOutTracePaths = Lists.newArrayList("/gateway/gatewayLogs/**");
+    private List<String> withOutTracePaths = Lists.newArrayList("/actuator/**","/gateway/**");
 }

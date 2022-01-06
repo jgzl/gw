@@ -16,6 +16,7 @@
         <module>common</module>
         <module>dependencies-bom</module>
         <module>gateway</module>
+        <module>monitor</module>
     </modules>
 
     <properties>

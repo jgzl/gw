@@ -53,7 +53,7 @@ public class RedisAutoCacheManager extends RedisCacheManager {
     }
 
     /**
-     * 从上下文中获取租户ID，重写@Cacheable value 值
+     * 从上下文中获取租户ID，重写@keepAlive value 值
      * @param name
      * @return
      */

@@ -35,7 +35,7 @@ import java.io.IOException;
 @Slf4j
 public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
 
-    private PermitAllUrlResolver permitAllUrlResolver;
+    private final PermitAllUrlResolver permitAllUrlResolver;
 
     public TokenAuthenticationFilter(AuthenticationManager authenticationManager, PermitAllUrlResolver permitAllUrlResolver) {
         super(authenticationManager);
@@ -49,7 +49,7 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
         if (permitAllUrlResolver.match(request.getRequestURI())) {
             chain.doFilter(request, response);
         }
-        UsernamePasswordAuthenticationToken authentication = null;
+        UsernamePasswordAuthenticationToken authentication;
         try {
             authentication = getAuthentication(request);
         } catch (Exception e) {
@@ -67,8 +67,8 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
 
     /**
      * 从token中获取用户登陆信息
-     * @param request
-     * @return
+     * @param request 请求对象
+     * @return 用户名密码登录对象
      */
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = getToken(request);
@@ -95,17 +95,19 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
 
     /**
      * 从请求中获取token
-     * @param request
-     * @return
+     * @param request 请求对象
+     * @return token
      */
     private String getToken(HttpServletRequest request) {
         // 获取Token字符串，token 置于 header , cookie ,request param里
         String token = request.getHeader(TokenConstants.TOKEN_HEADER);
         if (!StringUtils.hasText(token)) {
             Cookie[] cookies = request.getCookies();
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals(TokenConstants.TOKEN_COOKIE)) {
-                    token = cookie.getValue();
+            if (cookies!=null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals(TokenConstants.TOKEN_COOKIE)) {
+                        token = cookie.getValue();
+                    }
                 }
             }
             if (!StringUtils.hasText(token)) {

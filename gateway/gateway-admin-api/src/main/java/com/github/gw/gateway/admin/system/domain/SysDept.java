@@ -9,7 +9,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -36,7 +35,7 @@ public class SysDept extends Model<SysDept> {
     /**
      * 排序
      */
-    @NotNull(message = "排序值不能为空")
+//    @NotNull(message = "排序值不能为空")
     private Integer sort;
 
     /**
@@ -47,7 +46,7 @@ public class SysDept extends Model<SysDept> {
     /**
      * 状态:0 禁用 1正常
      */
-    @NotNull(message = "状态不能为空")
+//    @NotNull(message = "状态不能为空")
     private Integer status;
 
     /**

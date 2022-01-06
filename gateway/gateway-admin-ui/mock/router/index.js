@@ -13,7 +13,7 @@ export const adminRoutes = [
         parentPath: '/system',
         menuUrl: "/system/department",
         menuName: "部门管理",
-        cacheable: true
+        keepAlive: true
       },
       {
         parentPath: '/system',
@@ -29,7 +29,7 @@ export const adminRoutes = [
         parentPath: '/system',
         menuUrl: "/system/menu",
         menuName: "菜单管理",
-        cacheable: true
+        keepAlive: true
       },
     ],
   },
@@ -72,13 +72,13 @@ export const adminRoutes = [
         parentPath: '/form',
         menuUrl: "/form/base-form-view",
         menuName: "基本表单",
-        cacheable: true,
+        keepAlive: true,
       },
       {
         parentPath: '/form',
         menuUrl: "/form/advance-form",
         menuName: "高级表单",
-        cacheable: true,
+        keepAlive: true,
       },
       {
         parentPath: '/form',
@@ -267,7 +267,7 @@ export const adminRoutes = [
         parentPath: '/draggable',
         menuUrl: "/draggable/card-draggable",
         menuName: "卡片拖拽",
-        cacheable: true,
+        keepAlive: true,
       },
     ],
   },
@@ -281,7 +281,7 @@ export const adminRoutes = [
         parentPath: '/next',
         menuUrl: "/next/menu1",
         menuName: "menu-1",
-        cacheable: true
+        keepAlive: true
       },
       {
         parentPath: '/next',
@@ -297,7 +297,7 @@ export const adminRoutes = [
                 parentPath: '/next/menu2/menu-2-1',
                 menuUrl: "/next/menu2/menu-2-1/menu-2-1-1",
                 menuName: "menu-2-1-1",
-                cacheable: true
+                keepAlive: true
               },
               {
                 parentPath: '/next/menu2/menu-2-1',
@@ -310,7 +310,7 @@ export const adminRoutes = [
             parentPath: '/next/menu2',
             menuUrl: "/next/menu2/menu-2-2",
             menuName: "menu-2-2",
-            cacheable: true
+            keepAlive: true
           },
         ],
       },
@@ -374,13 +374,13 @@ export const editorRoutes = [
         parentPath: '/form',
         menuUrl: "/form/base-form-view",
         menuName: "基本表单",
-        cacheable: true,
+        keepAlive: true,
       },
       {
         parentPath: '/form',
         menuUrl: "/form/advance-form",
         menuName: "高级表单",
-        cacheable: true,
+        keepAlive: true,
       },
       {
         parentPath: '/form',

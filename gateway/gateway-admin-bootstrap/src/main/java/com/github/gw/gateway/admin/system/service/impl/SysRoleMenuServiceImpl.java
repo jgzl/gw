@@ -32,7 +32,7 @@ public class SysRoleMenuServiceImpl extends ServiceImpl<SysRoleMenuMapper, SysRo
 	private final CacheManager cacheManager;
 
 	/**
-	 * @param role
+	 * @param role 角色code
 	 * @param roleId 角色
 	 * @param menuIds 菜单ID拼成的字符串，每个id之间根据逗号分隔
 	 * @return
@@ -56,7 +56,7 @@ public class SysRoleMenuServiceImpl extends ServiceImpl<SysRoleMenuMapper, SysRo
 		// 清空userinfo
 		cacheManager.getCache(CacheConstants.USER_DETAILS).clear();
 
-		baseMapper.insertBatchSomeColumn(roleMenuList);
+		roleMenuList.forEach(baseMapper::insert);
 		return Boolean.TRUE;
 	}
 
