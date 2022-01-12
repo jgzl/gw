@@ -26,5 +26,8 @@ public class GatewayConstants {
      * 访问系统
      */
     public static final String X_BUSINESS_API_SYSTEM = "x_business_api_system";
-
+    /**
+     * 默认大小限制
+     */
+    public static final Integer DEFAULT_LIMIT = 20*1024*1024;
 }

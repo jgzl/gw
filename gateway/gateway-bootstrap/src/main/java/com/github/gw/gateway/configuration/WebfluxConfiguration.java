@@ -1,9 +1,10 @@
 package com.github.gw.gateway.configuration;
 
 import com.github.gw.gateway.configuration.properties.GatewayProperties;
-import com.github.gw.gateway.filter.webflux.WhitePathFilter;
 import com.github.gw.gateway.filter.webflux.FileSizeFilter;
 import com.github.gw.gateway.filter.webflux.LogAopFilter;
+import com.github.gw.gateway.filter.webflux.WhitePathFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,28 +20,31 @@ import org.springframework.web.reactive.config.WebFluxConfigurer;
 @EnableConfigurationProperties(value = {
         GatewayProperties.class
 })
+@RequiredArgsConstructor
 public class WebfluxConfiguration implements WebFluxConfigurer {
 
+    private final GatewayProperties gatewayProperties;
+    
     @Bean
     @Order
-    public FileSizeFilter fileSizeFilter(GatewayProperties gatewayProperties) {
+    public FileSizeFilter fileSizeFilter() {
         return new FileSizeFilter(gatewayProperties.getFile().getFileMaxSize());
     }
 
     @Bean
     @Order
-    public WhitePathFilter excludePathFilter(GatewayProperties gatewayProperties) {
+    public WhitePathFilter excludePathFilter() {
         return new WhitePathFilter(gatewayProperties);
     }
 
     @Bean
     @Order
-    public LogAopFilter logAopFilter(GatewayProperties gatewayProperties) {
+    public LogAopFilter logAopFilter() {
         return new LogAopFilter(gatewayProperties);
     }
 
     @Override
     public void configureHttpMessageCodecs(ServerCodecConfigurer configurer) {
-        configurer.defaultCodecs().maxInMemorySize(20 * 1024 * 1024);
+        configurer.defaultCodecs().maxInMemorySize(gatewayProperties.getLimitBodySize());
     }
 }
