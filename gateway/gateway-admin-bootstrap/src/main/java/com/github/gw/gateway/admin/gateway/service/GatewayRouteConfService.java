@@ -12,20 +12,6 @@ import com.github.gw.gateway.admin.gateway.domain.GatewayRouteConf;
 public interface GatewayRouteConfService extends IService<GatewayRouteConf> {
 
 	/**
-	 * 新增路由信息
-	 * @param route 路由信息
-	 * @return
-	 */
-	public void createRoute(GatewayRouteConf route);
-
-	/**
-	 * 更新路由信息
-	 * @param route 路由信息
-	 * @return
-	 */
-	public void updateRoute(GatewayRouteConf route);
-
-	/**
 	 * 删除路由信息
 	 * @param routeId 路由id
 	 * @return

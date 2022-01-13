@@ -36,7 +36,7 @@ public class GatewayRouteConfController {
 	 */
 	@PostMapping
 	public R<Void> createRoutes(@RequestBody GatewayRouteConf vo) {
-		gatewayRouteConfService.createRoute(vo);
+		gatewayRouteConfService.saveOrUpdate(vo);
 		return R.ok();
 	}
 
@@ -47,7 +47,7 @@ public class GatewayRouteConfController {
 	 */
 	@PutMapping
 	public R<Void> updateRoutes(@RequestBody GatewayRouteConf vo) {
-		gatewayRouteConfService.updateRoute(vo);
+		gatewayRouteConfService.saveOrUpdate(vo);
 		return R.ok();
 	}
 
@@ -56,8 +56,8 @@ public class GatewayRouteConfController {
 	 * @param routeId 路由id
 	 * @return
 	 */
-	@DeleteMapping
-	public R<Void> updateRoutes(@RequestParam String routeId) {
+	@DeleteMapping("/{routeId}")
+	public R<Void> deleteRoutes(@PathVariable String routeId) {
 		gatewayRouteConfService.deleteRoute(routeId);
 		return R.ok();
 	}

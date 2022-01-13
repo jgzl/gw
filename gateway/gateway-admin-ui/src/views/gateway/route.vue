@@ -17,6 +17,15 @@
                             添加
                         </el-button>
                         <el-button
+                                type="primary"
+                                size="mini"
+                                icon="PlusIcon"
+                                :disabled="selectRows.length !== 1"
+                                @click="onCopyItem(selectRows[0])"
+                        >
+                            复制
+                        </el-button>
+                        <el-button
                                 type="danger"
                                 size="mini"
                                 icon="DeleteIcon"
@@ -228,7 +237,13 @@
         if (selectRows.value.length > 0) {
             ElMessageBox.confirm("确定要删除这些数据吗？", "提示")
                 .then(() => {
-                    httpDelete({url:gatewayRoute ,data: selectRows.value[0]})
+                  const idArray: string[] = [];
+                  selectRows.value.map((row: RouteModel)=>idArray.push(row.routeId));
+                  httpDelete({url:gatewayRoute+"/"+idArray.join(",")})                .then((res)=>{
+                    console.log(JSON.stringify(res))
+                    doRefresh();
+                  })
+                      .catch(console.log)
                 })
                 .catch(console.log);
             console.log("请求结束")
@@ -255,8 +270,29 @@
             dialogRef.value?.close();
         });
     }
+    function onCopyItem(item: RouteModel) {
+      routeIdDisabled.value = false;
+      routeModel.id = "";
+      routeModel.routeName = item.routeName;
+      routeModel.routeId = item.routeId;
+      routeModel.predicates = item.predicates;
+      routeModel.filters = item.filters;
+      routeModel.uri = item.uri;
+      routeModel.order = item.order;
+      routeModel.metadata = item.metadata;
+      dialogRef.value?.show(() => {
+        dialogRef.value?.showLoading();
+        post({url:gatewayRoute ,data: routeModel})
+            .then((res)=>{
+              console.log(JSON.stringify(res))
+              doRefresh();
+            })
+            .catch(console.log)
+        dialogRef.value?.close();
+      });
+    }
 
-    function onUpdateItem(item: any) {
+    function onUpdateItem(item: RouteModel) {
         routeIdDisabled.value = true;
         routeModel.routeName = item.routeName;
         routeModel.routeId = item.routeId;
@@ -277,23 +313,14 @@
         });
     }
 
-    function onDeleteItem(item: any) {
+    function onDeleteItem(item: RouteModel) {
         ElMessageBox.confirm("确定要删除此数据吗？", "提示")
             .then(() => {
-                httpDelete({url:gatewayRoute ,data: item})
-            })
-            .catch(console.log);
-    }
-
-    function onEnableItem(item: any) {
-        ElMessageBox.confirm(
-            "确定要" + (item.status === 1 ? "禁用" : "启用") + "此数据吗？",
-            "提示"
-        )
-            .then(() => {
-                ElMessage.success(
-                    "模拟成功, 参数为：" + JSON.stringify({uid: item.id})
-                );
+              httpDelete({url:gatewayRoute+"/"+item.routeId})                .then((res)=>{
+                console.log(JSON.stringify(res))
+                doRefresh();
+              })
+                  .catch(console.log)
             })
             .catch(console.log);
     }

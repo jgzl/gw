@@ -28,3 +28,15 @@ declare interface TablePropsType {
   prop: string;
   checked: boolean;
 }
+
+declare interface RouteModel {
+  id: string;
+  routeName: string;
+  routeId: string;
+  predicates: string;
+  filters: string;
+  uri: string;
+  order: string;
+  metadata: string;
+  [propName: string]: any
+}

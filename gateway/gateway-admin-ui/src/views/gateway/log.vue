@@ -20,7 +20,7 @@
                                 type="danger"
                                 size="mini"
                                 icon="DeleteIcon"
-                                :disabled="selectRows.length != 1"
+                                :disabled="selectRows.length === 0"
                                 @click="onDeleteItems"
                         >
                             删除
@@ -263,12 +263,14 @@
         if (selectRows.value.length > 0) {
             ElMessageBox.confirm("确定要删除这些数据吗？", "提示")
                 .then(() => {
-                    httpDelete({url:`${gatewayLogs}/${selectRows.value[0].id}`})
-                        .then((res)=>{
-                            console.log(JSON.stringify(res))
-                            doRefresh();
-                        })
-                        .catch(console.log)
+                  const idArray: string[] = [];
+                  selectRows.value.map((row: any)=>idArray.push(row.id));
+                  httpDelete({url:`${gatewayLogs}/${idArray.join(",")}`})
+                      .then((res)=>{
+                        console.log(JSON.stringify(res))
+                        doRefresh();
+                      })
+                      .catch(console.log)
                 })
                 .catch(console.log);
         }

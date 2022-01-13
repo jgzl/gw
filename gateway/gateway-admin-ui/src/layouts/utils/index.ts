@@ -38,6 +38,7 @@ export function toHump(str: string) {
   })
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import path from 'path'
 import { RouteRecordRaw } from 'vue-router'

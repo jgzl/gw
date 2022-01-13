@@ -97,7 +97,7 @@ public class GatewayLogController {
         if (StrUtil.isBlank(ids)) {
             return R.ok();
         }
-        List<String> idList = Arrays.stream(ids.split(",")).collect(Collectors.toList());
+        List<String> idList = StrUtil.split(ids,",");
         repository.deleteAllById(idList);
         return R.ok();
     }

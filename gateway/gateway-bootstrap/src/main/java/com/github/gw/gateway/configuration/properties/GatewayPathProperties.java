@@ -24,5 +24,5 @@ public class GatewayPathProperties {
     /**
      * 网关日志过滤名单(不记录日志路径名单),日志接口不允许通过网关进行调用,套娃调用会产生黑洞影响
      */
-    private List<String> withOutTracePaths = Lists.newArrayList("/actuator/**","/gateway/**");
+    private List<String> withOutTracePaths = Lists.newArrayList("/actuator/**","/gateway-admin/**");
 }
