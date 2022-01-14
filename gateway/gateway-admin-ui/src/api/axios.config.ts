@@ -1,14 +1,16 @@
 import Axios, { AxiosResponse } from "axios";
 import qs from "qs";
 import Cookies from 'js-cookie'
+import {
+    USER_INFO_KEY,
+    USER_TOKEN_KEY,
+} from "@/store/keys";
 
 const baseIp = "/api";
 
 const TOKEN_HEADER = "Authorization";
 
 const TOKEN_HEADER_PREFIX = "Bearer ";
-
-const TOKEN_COOKIE = "x-admin-token";
 
 export const CONTENT_TYPE = "Content-Type";
 
@@ -34,7 +36,7 @@ service.interceptors.request.use(
     if (config.headers[CONTENT_TYPE] === FORM_URLENCODED) {
       config.data = qs.stringify(config.data);
     }
-    config.headers[TOKEN_HEADER] = TOKEN_HEADER_PREFIX+Cookies.get(TOKEN_COOKIE);
+    config.headers[TOKEN_HEADER] = TOKEN_HEADER_PREFIX+Cookies.get(USER_TOKEN_KEY);
     return config;
   },
   (error) => {

@@ -14,7 +14,7 @@ const totalSize = 30;
 
 function computePageSize(totalSize, page, pageSize) {
   return Math.abs(
-    totalSize - pageSize * page >= 0 ? pageSize : totalSize - pageSize * page
+      totalSize - pageSize * page >= 0 ? pageSize : totalSize - pageSize * page
   );
 }
 

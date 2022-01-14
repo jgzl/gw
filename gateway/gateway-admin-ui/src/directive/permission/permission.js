@@ -1,9 +1,10 @@
-import store from '@/store'
+import useUserStore from "@/store/modules/user";
 
 function checkPermission(el, binding) {
   const { value } = binding
   const all_permission = "*:*:*";
-  const permissions = store.state.user.permissions
+  const userStore = useUserStore();
+  const permissions = userStore.permissions;
   if (value && value instanceof Array && value.length > 0) {
     const permissionFlag = value
     const hasPermissions = permissions.some(permission => {
@@ -18,10 +19,10 @@ function checkPermission(el, binding) {
 }
 
 export default {
-  mounted(el, binding, vnode) {
+  mounted(el, binding) {
     checkPermission(el, binding)
   },
-  updated(el, binding, vnode) {
+  updated(el, binding) {
     checkPermission(el, binding)
   }
 }

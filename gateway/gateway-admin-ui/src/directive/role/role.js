@@ -1,8 +1,9 @@
-import store from '@/store'
+import useUserStore from "@/store/modules/user";
 
 function checkRole(el, binding) {
   const { value } = binding
-  const roles = store.state.user.roles
+  const userStore = useUserStore();
+  const roles = userStore.roles;
   if (value && value instanceof Array && value.length > 0) {
     const roleFlag = value
     const hasRole = roles.some(role => {
@@ -18,10 +19,10 @@ function checkRole(el, binding) {
 }
 
 export default {
-  mounted(el, binding, vnode) {
+  mounted(el, binding) {
     checkRole(el, binding)
   },
-  updated(el, binding, vnode) {
+  updated(el, binding) {
     checkRole(el, binding)
   }
 }

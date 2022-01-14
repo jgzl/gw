@@ -112,12 +112,12 @@
       prop: "name",
     },
     {
-      label: "部门编号",
-      prop: "depCode",
-    },
-    {
       label: "排序",
       prop: "order",
+    },
+    {
+      label: "状态",
+      prop: "status",
     },
     {
       label: "操作",
@@ -201,13 +201,12 @@
         return;
       }
       (dialog.value as any).loading = true;
-      setTimeout(() => {
-        ElMessage.success(
-                "模拟修改成功，添加参数为：" +
-                JSON.stringify(baseForm.value?.generatorParams())
-        );
-        dialog.value?.close();
-      }, 3000);
+      post({url:systemDept ,data: baseForm.value?.generatorParams()})
+          .then((res)=>{
+            console.log(JSON.stringify(res))
+            doRefresh();
+          })
+          .catch(console.log)
     });
   };
   const doRefresh = () => {
@@ -234,14 +233,14 @@
   }
   const onDeleteItem = (item: any) => {
     ElMessageBox.confirm("确定要删除此信息，删除后不可恢复？", "提示")
-            .then(() => {
-              httpDelete({url:`${systemDept}/${item.id}`})
-                  .then((res)=>{
-                    console.log(JSON.stringify(res))
-                    doRefresh();
-                  })
-            })
-            .catch(console.log);
+        .then(() => {
+            httpDelete({url:`${systemDept}/${item.id}`})
+                .then((res)=>{
+                  console.log(JSON.stringify(res))
+                  doRefresh();
+                })
+        })
+        .catch(console.log);
   };
   const onAddItem = () => {
     dialogTitle.value = "添加部门";

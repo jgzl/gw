@@ -1,9 +1,0 @@
-management:
-  metrics:
-    export:
-      jmx:
-        enabled: true  
-  endpoints:
-    web:
-      exposure:
-        include: "*"

@@ -1,86 +1,78 @@
-import LayoutStore from '@/layouts'
-import Cookies from 'js-cookie'
-import { Module } from 'vuex'
-import { UserState, RootState } from '../types'
+import LayoutStore from "@/layouts";
+import Cookies from "js-cookie";
 
-import Avatar from '@/assets/img_avatar.gif'
+import Avatar from "@/assets/img_avatar.gif";
+import { defineStore } from "pinia";
+import { UserState } from "../types";
+import {
+  ROLE_ID_KEY,
+  USER_ID_KEY,
+  USER_INFO_KEY,
+  USER_TOKEN_KEY,
+} from "../keys";
 
-const defaultAvatar = Avatar
+const defaultAvatar = Avatar;
 
 const userInfo: UserState = JSON.parse(
-  localStorage.getItem('x-user-info') || '{}'
-)
-LayoutStore.setUserInfo({
-  nickName: userInfo.nickName || 'admin',
-  avatar: userInfo.avatar || defaultAvatar,
-})
+  localStorage.getItem(USER_INFO_KEY) || "{}"
+);
 
-export const userModule: Module<UserState, RootState> = {
-  namespaced: true,
-  state: {
-    userId: userInfo.userId || 0,
-    roles: userInfo.roles || null,
-    permissions: userInfo.permissions || null,
-    token: userInfo.token || '',
-    userName: userInfo.userName || '',
-    nickName: userInfo.nickName || '',
-    avatar: userInfo.avatar || defaultAvatar,
+const useUserStore = defineStore("user", {
+  state: () => {
+    return {
+      userId: userInfo.userId || "0",
+      roles: userInfo.roles || null,
+      permissions: userInfo.permissions || null,
+      token: userInfo.token || "",
+      userName: userInfo.userName || "",
+      nickName: userInfo.nickName || "",
+      avatar: userInfo.avatar || defaultAvatar,
+    };
   },
   getters: {
-    userId(state) {
-      return state.userId
+    getUserId(): string {
+      return this.userId;
     },
-    roles(state) {
-      return state.roles
+    getRoles(): string[] | null {
+      return this.roles;
     },
-    permissions(state) {
-      return state.permissions
+    getPermissions(): string[] | null {
+      return this.permissions
     },
   },
   actions: {
-    saveUser({ commit }, userInfo: UserState) {
+    saveUser(userInfo: UserState) {
       return new Promise<void>((res) => {
-        commit('SAVE_USER', userInfo)
-        res()
-      })
+        this.userId = userInfo.userId;
+        this.token = userInfo.token;
+        this.roles = userInfo.roles;
+	    this.permissions = userInfo.permissions
+        this.userName = userInfo.userName;
+        this.nickName = userInfo.nickName;
+        this.avatar = userInfo.avatar || defaultAvatar;
+        Cookies.set(USER_TOKEN_KEY, userInfo.token);
+        localStorage.setItem(USER_INFO_KEY, JSON.stringify(userInfo));
+        res();
+      });
     },
-    changeNickName({ commit }, newNickName) {
-      commit('CHANGE_NICKNAME', newNickName)
+    changeNickName(newNickName: string) {
+      this.nickName = newNickName;
     },
-    logout({ commit }) {
-      commit('LOGOUT')
-    },
-  },
-  mutations: {
-    CHANGE_NICKNAME(state, newNickName) {
-      state.nickName = newNickName
-    },
-    SAVE_USER(state, userInfo: UserState) {
-      state.userId = userInfo.userId
-      state.token = userInfo.token
-      state.roles = userInfo.roles
-      state.permissions = userInfo.permissions
-      state.userName = userInfo.userName
-      state.nickName = userInfo.nickName
-      state.avatar = userInfo.avatar || defaultAvatar
-      Cookies.set('x-admin-token', userInfo.token)
-      localStorage.setItem('x-user-info', JSON.stringify(userInfo))
-      LayoutStore.setUserInfo({
-        nickName: userInfo.nickName,
-        avatar: userInfo.avatar || defaultAvatar,
-      })
-    },
-    LOGOUT(state) {
-      state.userId = 0
-      state.avatar = ''
-      state.roles = []
-      state.permissions = []
-      state.userName = ''
-      state.nickName = ''
-      state.token = ''
-      Cookies.remove('x-admin-token')
-      localStorage.clear()
-      LayoutStore.reset()
+    logout() {
+      return new Promise<void>((res) => {
+        this.userId = "0";
+        this.avatar = "";
+        this.roles = [];
+        this.userName = "";
+        this.nickName = "";
+        this.token = "";
+        Cookies.remove(USER_TOKEN_KEY);
+        localStorage.clear();
+        LayoutStore.reset();
+        res();
+      });
     },
   },
-}
+});
+
+export default useUserStore;

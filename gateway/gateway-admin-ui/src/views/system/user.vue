@@ -1,15 +1,15 @@
 <template>
   <div class="main-container">
     <TableHeader
-        :can-collapsed="
+            :can-collapsed="
         likeSearchModel.conditionItems &&
         likeSearchModel.conditionItems.length !== 0
       "
-        :search-model="likeSearchModel.conditionItems"
-        :default-collapsed-state="true"
-        title="数据筛选"
-        @doSearch="doSearch"
-        @resetSearch="resetSearch"
+            :search-model="likeSearchModel.conditionItems"
+            :default-collapsed-state="true"
+            title="数据筛选"
+            @doSearch="doSearch"
+            @resetSearch="resetSearch"
     />
     <TableBody>
       <template #tableConfig>
@@ -249,23 +249,23 @@
               </el-option>
             </el-select>
           </el-form-item>
-<!--          <el-divider content-position="left">其它信息</el-divider>
-          <el-form-item label="登录密码" prop="path">
-            <el-input
-                    v-model="userModel.password"
-                    type="password"
-                    size="small"
-                    placeholder="请输入登录密码"
-                    clearable
-            >
-            </el-input>
-          </el-form-item>
-          <el-form-item label="用户状态" prop="path">
-            <el-radio-group v-model="userModel.lockFlag">
-              <el-radio :label="0">正常</el-radio>
-              <el-radio :label="9">禁用</el-radio>
-            </el-radio-group>
-          </el-form-item>-->
+          <!--          <el-divider content-position="left">其它信息</el-divider>
+                    <el-form-item label="登录密码" prop="path">
+                      <el-input
+                              v-model="userModel.password"
+                              type="password"
+                              size="small"
+                              placeholder="请输入登录密码"
+                              clearable
+                      >
+                      </el-input>
+                    </el-form-item>
+                    <el-form-item label="用户状态" prop="path">
+                      <el-radio-group v-model="userModel.lockFlag">
+                        <el-radio :label="0">正常</el-radio>
+                        <el-radio :label="9">禁用</el-radio>
+                      </el-radio-group>
+                    </el-form-item>-->
         </el-form>
       </template>
     </Dialog>
@@ -273,7 +273,7 @@
 </template>
 
 <script lang="ts" setup>
-import {useDataTable, useDelete, useGet, useLikeSearch, usePost, usePut} from "@/hooks";
+  import {useDataTable, useDelete, useGet, useLikeSearch, usePost, usePut} from "@/hooks";
   import { computed, onMounted, reactive, ref } from "vue";
   import { ElMessage, ElMessageBox } from "element-plus";
   import {
@@ -285,6 +285,7 @@ import {useDataTable, useDelete, useGet, useLikeSearch, usePost, usePut} from "@
     gatewayRoute
   } from "@/api/url";
   import type { DialogType, TableFooter } from "@/components/types";
+  import {UserState} from "@/store/types";
 
   const { likeSearchModel, getSearchParams, resetSearch } = useLikeSearch();
   const get = useGet();
@@ -311,7 +312,7 @@ import {useDataTable, useDelete, useGet, useLikeSearch, usePost, usePut} from "@
   });
 
   const userModel = reactive({
-    userId: 1,
+    userId: "1",
     userName: "",
     nickName: "",
     mobile: "",
@@ -336,14 +337,6 @@ import {useDataTable, useDelete, useGet, useLikeSearch, usePost, usePut} from "@
       type: "input",
       placeholder: "请输入用户姓名",
       span: 8,
-    },
-    {
-      name: "createTime",
-      label: "创建时间",
-      value: "",
-      type: "date-range",
-      placeholder: "请输入创建时间",
-      span: 8,
     }
   ]);
   const doSearch = () => {
@@ -352,25 +345,25 @@ import {useDataTable, useDelete, useGet, useLikeSearch, usePost, usePut} from "@
       url: systemUserList,
       data: params,
     })
-        .then((res) => {
-          return handleSuccess(res);
-        })
-        .then((res: any) => {
-          tableFooter.value?.setTotalSize(res.totalSize);
-          get({
-            url: systemDeptTree,
-          }).then((depRes) => {
-            departmentList.value = depRes.data;
-          });
-          get({
-            url: systemRolePage,
-          }).then((roleRes) => {
-            roleList.value = roleRes.data;
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+            .then((res) => {
+              return handleSuccess(res);
+            })
+            .then((res: any) => {
+              tableFooter.value?.setTotalSize(res.totalSize);
+              get({
+                url: systemDeptTree,
+              }).then((depRes) => {
+                departmentList.value = depRes.data;
+              });
+              get({
+                url: systemRolePage,
+              }).then((roleRes) => {
+                roleList.value = roleRes.data;
+              });
+            })
+            .catch((error) => {
+              console.log(error);
+            });
   };
 
   function doRefresh() {
@@ -520,10 +513,10 @@ import {useDataTable, useDelete, useGet, useLikeSearch, usePost, usePut} from "@
               switch (item.lockFlag) {
                 case "0":
                   item.lockFlag = "9"
-                      break;
+                  break;
                 case "9":
                   item.lockFlag = "0"
-                      break;
+                  break;
                 default:
                   item.lockFlag = "0"
               }
@@ -539,7 +532,6 @@ import {useDataTable, useDelete, useGet, useLikeSearch, usePost, usePut} from "@
   }
 
   onMounted(() => {
-    // console.log(tableConfig.height);
     doRefresh();
     useHeight();
   });

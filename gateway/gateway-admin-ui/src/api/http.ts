@@ -147,7 +147,9 @@ function install(app: App): void {
 export default {
   install,
   get,
-  post
+  post,
+  put,
+  httpDelete,
 };
 
 declare module "@vue/runtime-core" {

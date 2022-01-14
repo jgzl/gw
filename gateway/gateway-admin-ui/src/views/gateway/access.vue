@@ -30,94 +30,49 @@
             </template>
             <template #default>
                 <el-table
-                        ref="tableRef"
                         v-loading="tableLoading"
                         :data="dataList"
                         :header-cell-style="tableConfig.headerCellStyle"
                         :size="tableConfig.size"
                         :stripe="tableConfig.stripe"
                         :border="tableConfig.border"
-                        :height="tableConfig.height"
                         @selection-change="handleSelectionChange"
                 >
                     <el-table-column type="selection" width="45"/>
                     <el-table-column
                             align="center"
-                            label="主键"
+                            label="id"
                             prop="id"
-                            fixed="left"
                     />
                     <el-table-column
                             align="center"
-                            label="请求来源系统"
-                            prop="system"
-                            fixed="left"
-                    />
-                    <el-table-column
-                            align="center"
-                            label="请求来源key"
+                            label="网关访问key"
                             prop="apiKey"
                     />
                     <el-table-column
                             align="center"
-                            label="请求来源secret"
+                            label="网关访问secret"
                             prop="apiSecret"
                     />
                     <el-table-column
                             align="center"
-                            label="请求来源环境"
-                            prop="environment"
+                            label="调用系统"
+                            prop="system"
                     />
+                    <el-table-column align="center" label="状态">
+                        <template #default="scope">
+                            <el-tag
+                                    size="mini"
+                                    :type="scope.row.status === '0' ? 'success' : 'danger'"
+                            >
+                                {{ scope.row.status === "0" ? "正常" : "禁用" }}
+                            </el-tag>
+                        </template>
+                    </el-table-column>
                     <el-table-column
                             align="center"
-                            label="请求路径"
-                            prop="requestPath"
-                    />
-                    <el-table-column
-                            align="center"
-                            label="请求路径参数"
-                            prop="requestPathAndQuery"
-                    />
-                    <el-table-column
-                            align="center"
-                            label="请求方式"
-                            prop="requestMethod"
-                    />
-                    <el-table-column
-                            align="center"
-                            label="请求头"
-                            prop="requestHeader"
-                    />
-                    <el-table-column
-                            align="center"
-                            label="请求源IP"
-                            prop="requestSourceIp"
-                    />
-                    <el-table-column
-                            align="center"
-                            label="请求参数值"
-                            prop="requestBody"
-                    />
-                    <el-table-column
-                            align="center"
-                            label="返回参数值"
-                            prop="responseBody"
-                    />
-                    <el-table-column
-                            align="center"
-                            label="请求时长ms"
-                            prop="executeTime"
-                    />
-                    <el-table-column
-                            align="center"
-                            label="请求返回HTTP状态码"
-                            prop="httpStatus"
-                            width="160px"
-                    />
-                    <el-table-column
-                            align="center"
-                            label="请求错误信息"
-                            prop="errorMsg"
+                            label="备注"
+                            prop="remark"
                     />
                     <el-table-column
                             align="center"
@@ -131,71 +86,76 @@
                                     size="mini"
                                     plain
                                     @click="onUpdateItem(scope.row)"
-                            >编辑</el-button
+                            >编辑
+                            </el-button
                             >
                             <el-button
                                     type="danger"
                                     size="mini"
                                     plain
                                     @click="onDeleteItem(scope.row)"
-                            >删除</el-button
+                            >删除
+                            </el-button
+                            >
+                            <el-button
+                                    :type="scope.row.status === '0' ? 'warning' : 'success'"
+                                    size="mini"
+                                    plain
+                                    @click="onEnableItem(scope.row)"
+                            >{{ scope.row.status === "0" ? "禁用" : "启用" }}</el-button
                             >
                         </template>
                     </el-table-column>
                 </el-table>
-            </template>
-            <template #footer>
-                <TableFooter
-                        ref="tableFooter"
-                        @refresh="doRefresh"
-                        @pageChanged="doRefresh"
-                />
             </template>
         </TableBody>
         <Dialog ref="dialogRef">
             <template #content>
                 <el-form
                         class="base-form-container"
-                        :model="logModel"
+                        :model="accessModel"
                         :inline="true"
-                        label-width="80px"
+                        label-width="240px"
                         label-position="right"
                 >
                     <el-divider border-style="dashed" content-position="left">基本信息</el-divider>
-                    <el-form-item label="请求路径">
+                    <el-form-item label="网关访问key">
                         <el-input
-                                v-model="logModel.requestPath"
+                                v-model="accessModel.apiKey"
                                 size="small"
-                                placeholder="请输入请求路径"
-                                disabled
+                                placeholder="请输入网关访问key"
                                 clearable
                         />
                     </el-form-item>
-                    <el-form-item label="请求路径参数">
+                    <el-form-item label="网关访问secret">
                         <el-input
-                                v-model="logModel.requestPathAndQuery"
+                                v-model="accessModel.apiSecret"
                                 size="small"
-                                placeholder="请输入请求路径参数"
-                                disabled
+                                placeholder="请输入网关访问secret"
                                 clearable
                         />
                     </el-form-item>
-                    <el-form-item label="请求方法">
+                    <el-form-item label="访问系统">
                         <el-input
-                                v-model="logModel.requestMethod"
+                                v-model="accessModel.system"
                                 size="small"
-                                placeholder="请输入请求方法"
-                                disabled
+                                placeholder="请输入访问系统"
                                 clearable
                         />
                     </el-form-item>
-                    <el-form-item label="请求头">
+                    <el-form-item label="备注">
                         <el-input
-                                v-model="logModel.requestHeader"
+                                v-model="accessModel.remark"
                                 size="small"
-                                placeholder="请输入请求头"
-                                disabled
+                                placeholder="请输入备注"
                                 clearable
+                        />
+                    </el-form-item>
+                    <el-form-item label="状态">
+                        <el-switch
+                                v-model="accessModel.status"
+                                active-value="0"
+                                inactive-value="1"
                         />
                     </el-form-item>
                 </el-form>
@@ -206,10 +166,10 @@
 
 <script lang="ts" setup>
     import { useDataTable, useDelete, useGet, usePost, usePut } from "@/hooks";
-    import { computed, onMounted, reactive, ref } from "vue";
-    import { ElMessage, ElMessageBox } from "element-plus";
-    import { gatewayLogSearch,gatewayLogs } from "@/api/url";
-    import type { DialogType, TableFooter } from "@/components/types";
+    import {onMounted, reactive, ref} from "vue";
+    import {ElMessage, ElMessageBox} from "element-plus";
+    import {gatewayAccess, gatewayAccessStatus} from "@/api/url";
+    import {DialogType, TableFooter} from "@/components/types";
 
     const get = useGet();
     const post = usePost();
@@ -217,7 +177,6 @@
     const httpDelete = useDelete();
     const dialogRef = ref<DialogType>();
     const tableFooter = ref<TableFooter>();
-    const tableRef = ref();
     const {
         dataList,
         tableLoading,
@@ -228,30 +187,19 @@
         useHeight,
     } = useDataTable();
 
-    const tableHeight = computed(() => {
-        return tableConfig.height;
-    });
-
-    const logModel: LogModel = reactive({
+    const accessModel: AccessModel = reactive({
         id: "",
-        system: "",
         apiKey: "",
         apiSecret: "",
-        environment: "",
-        requestPath: "",
-        requestPathAndQuery: "",
-        requestMethod: "",
-        requestHeader: "",
-        requestSourceIp: "",
-        requestBody: "",
-        responseBody: "",
-        executeTime: "",
-        httpStatus: "",
+        system: "",
+        remark: "",
+        status: "",
     });
 
+    const routeIdDisabled = ref(true);
     function doRefresh() {
         get({
-            url: gatewayLogSearch,
+            url: gatewayAccess,
             data: tableFooter.value?.withPageInfoData(),
         })
             .then((res) => {
@@ -264,40 +212,93 @@
                 console.log(error);
             });
     }
+
     function onDeleteItems() {
         if (selectRows.value.length > 0) {
             ElMessageBox.confirm("确定要删除这些数据吗？", "提示")
                 .then(() => {
                   const idArray: string[] = [];
-                  selectRows.value.map((row: LogModel)=>idArray.push(row.id));
-                  httpDelete({url:`${gatewayLogs}/${idArray.join(",")}`})
+                  selectRows.value.map((row: AccessModel)=>idArray.push(row.id));
+                  httpDelete({ url:gatewayAccess+"/"+idArray.join(",") })
                       .then((res)=>{
-                          console.log(JSON.stringify(res))
-                          doRefresh();
+                        console.log(JSON.stringify(res))
+                        doRefresh();
                       })
                       .catch(console.log)
                 })
                 .catch(console.log);
+            console.log("请求结束")
         }
     }
 
     function onAddItem() {
-        console.log("add item")
+        accessModel.apiKey = "";
+        accessModel.id = "";
+        accessModel.apiSecret = "";
+        accessModel.system = "";
+        accessModel.remark = "";
+        accessModel.status = "0";
+        dialogRef.value?.show(() => {
+            dialogRef.value?.showLoading();
+            post({url:gatewayAccess ,data: accessModel})
+                .then((res)=>{
+                    console.log(JSON.stringify(res))
+                    doRefresh();
+                })
+                .catch(console.log)
+            dialogRef.value?.close();
+        });
     }
 
-    function onUpdateItem(item: LogModel) {
-        logModel.requestPath = item.requestPath;
-        logModel.requestPathAndQuery = item.requestPathAndQuery;
-        logModel.requestMethod = item.requestMethod;
-        logModel.requestHeader = item.requestHeader;
-        dialogRef.value?.show();
-        dialogRef.value?.showLoding();
+    function onUpdateItem(item: AccessModel) {
+        accessModel.id = item.id;
+        accessModel.apiKey = item.apiKey;
+        accessModel.apiSecret = item.apiSecret;
+        accessModel.system = item.system;
+        accessModel.remark = item.remark;
+        accessModel.status = item.status;
+        dialogRef.value?.show(() => {
+            dialogRef.value?.showLoading();
+            put({ url:gatewayAccess ,data: accessModel })
+                .then((res)=>{
+                    console.log(JSON.stringify(res))
+                    doRefresh();
+                })
+                .catch(console.log)
+            dialogRef.value?.close();
+        });
     }
 
-    function onDeleteItem(item: LogModel) {
+    function onDeleteItem(item: AccessModel) {
         ElMessageBox.confirm("确定要删除此数据吗？", "提示")
             .then(() => {
-                httpDelete({url:`${gatewayLogs}/${item.id}`})
+                httpDelete({ url:gatewayAccess+"/"+item.id })
+                    .then((res)=>{
+                      console.log(JSON.stringify(res))
+                      doRefresh();
+                    })
+                    .catch(console.log)
+            })
+            .catch(console.log);
+    }
+    function onEnableItem(item: any) {
+        ElMessageBox.confirm(
+            "确定要" + (item.status === "0" ? "禁用" : "启用") + "此数据吗？",
+            "提示"
+        )
+            .then(() => {
+                switch (item.status) {
+                    case "0":
+                        item.status = "1"
+                        break;
+                    case "1":
+                        item.status = "0"
+                        break;
+                    default:
+                        item.status = "0"
+                }
+                console.log(item.status)
+                put({url:gatewayAccessStatus , data:item})
                     .then((res)=>{
                         console.log(JSON.stringify(res))
                         doRefresh();
@@ -306,7 +307,6 @@
             })
             .catch(console.log);
     }
-
     onMounted(() => {
         doRefresh();
         useHeight();

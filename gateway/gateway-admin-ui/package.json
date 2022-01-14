@@ -1,12 +1,11 @@
 {
-  "name": "gw-gateway-admin",
-  "version": "2.1.0",
-  "private": true,
+  "name": "isdc-gateway-admin",
+  "version": "2.1.2",
   "scripts": {
     "serve": "vue-cli-service serve",
     "dev": "npm run serve",
     "build": "vue-cli-service build",
-    "build:docker": "vue-cli-service build --dest=./docker/dist",
+    "build:docker": "vue-cli-service build --dest=./docker/dist/",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -23,18 +22,17 @@
     "mockjs": "^1.1.0",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
+    "pinia": "^2.0.9",
     "print-js": "^1.6.0",
     "qrcode": "^1.4.4",
     "quill": "^1.3.7",
     "screenfull": "^5.1.0",
     "simplemde": "^1.11.2",
     "tiny-emitter": "^2.1.0",
-    "vue": "^3.2.22",
+    "vue": "^3.2.25",
     "vue-class-component": "^8.0.0-0",
     "vue-router": "^4.0.0-0",
-    "vue3-json-viewer": "^1.0.4",
     "vuedraggable": "^4.1.0",
-    "vuex": "^4.0.0-0",
     "xlsx": "^0.17.0"
   },
   "devDependencies": {
@@ -64,8 +62,7 @@
     "prettier": "^2.2.1",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
-    "typescript": "~4.1.5",
-    "vue3-json-viewer": "^1.0.4"
+    "typescript": "^4.4.4"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"

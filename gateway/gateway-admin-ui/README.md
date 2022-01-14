@@ -1,5 +1,5 @@
 # 2021/12/23拉取代码
-node 版本12.22.8
+node 版本12.22.8，共享服务器目录 \\ssavn1072.smc.saicmotor.com\PJ_PQCP\SOFT\node-v12.22.8-win-x64.zip
 
 ## 客户留步
 

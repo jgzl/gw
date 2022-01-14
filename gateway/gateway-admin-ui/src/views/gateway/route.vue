@@ -205,7 +205,7 @@
         selectRows,
     } = useDataTable();
 
-    const routeModel = reactive({
+    const routeModel: RouteModel = reactive({
         id: "",
         routeName: "",
         routeId: "",
@@ -237,12 +237,13 @@
         if (selectRows.value.length > 0) {
             ElMessageBox.confirm("确定要删除这些数据吗？", "提示")
                 .then(() => {
-                  const idArray: string[] = [];
+                  const idArray = [];
                   selectRows.value.map((row: RouteModel)=>idArray.push(row.routeId));
-                  httpDelete({url:gatewayRoute+"/"+idArray.join(",")})                .then((res)=>{
-                    console.log(JSON.stringify(res))
-                    doRefresh();
-                  })
+                  httpDelete({ url:gatewayRoute+"/"+idArray.join(",") })
+                      .then((res)=>{
+                        console.log(JSON.stringify(res))
+                        doRefresh();
+                      })
                       .catch(console.log)
                 })
                 .catch(console.log);
@@ -270,30 +271,10 @@
             dialogRef.value?.close();
         });
     }
-    function onCopyItem(item: RouteModel) {
-      routeIdDisabled.value = false;
-      routeModel.id = "";
-      routeModel.routeName = item.routeName;
-      routeModel.routeId = item.routeId;
-      routeModel.predicates = item.predicates;
-      routeModel.filters = item.filters;
-      routeModel.uri = item.uri;
-      routeModel.order = item.order;
-      routeModel.metadata = item.metadata;
-      dialogRef.value?.show(() => {
-        dialogRef.value?.showLoading();
-        post({url:gatewayRoute ,data: routeModel})
-            .then((res)=>{
-              console.log(JSON.stringify(res))
-              doRefresh();
-            })
-            .catch(console.log)
-        dialogRef.value?.close();
-      });
-    }
 
-    function onUpdateItem(item: RouteModel) {
-        routeIdDisabled.value = true;
+    function onCopyItem(item: RouteModel) {
+        routeIdDisabled.value = false;
+        routeModel.id = "";
         routeModel.routeName = item.routeName;
         routeModel.routeId = item.routeId;
         routeModel.predicates = item.predicates;
@@ -303,7 +284,29 @@
         routeModel.metadata = item.metadata;
         dialogRef.value?.show(() => {
             dialogRef.value?.showLoading();
-            put({url:gatewayRoute ,data: routeModel})
+            post({url:gatewayRoute ,data: routeModel})
+                .then((res)=>{
+                    console.log(JSON.stringify(res))
+                    doRefresh();
+                })
+                .catch(console.log)
+            dialogRef.value?.close();
+        });
+    }
+
+    function onUpdateItem(item: RouteModel) {
+        routeIdDisabled.value = true;
+        routeModel.id = item.id;
+        routeModel.routeName = item.routeName;
+        routeModel.routeId = item.routeId;
+        routeModel.predicates = item.predicates;
+        routeModel.filters = item.filters;
+        routeModel.uri = item.uri;
+        routeModel.order = item.order;
+        routeModel.metadata = item.metadata;
+        dialogRef.value?.show(() => {
+            dialogRef.value?.showLoading();
+            put({ url:gatewayRoute ,data: routeModel })
                 .then((res)=>{
                     console.log(JSON.stringify(res))
                     doRefresh();
@@ -316,15 +319,15 @@
     function onDeleteItem(item: RouteModel) {
         ElMessageBox.confirm("确定要删除此数据吗？", "提示")
             .then(() => {
-              httpDelete({url:gatewayRoute+"/"+item.routeId})                .then((res)=>{
-                console.log(JSON.stringify(res))
-                doRefresh();
-              })
-                  .catch(console.log)
+                httpDelete({ url:gatewayRoute+"/"+item.routeId })
+                    .then((res)=>{
+                      console.log(JSON.stringify(res))
+                      doRefresh();
+                    })
+                    .catch(console.log)
             })
             .catch(console.log);
     }
-
     onMounted(doRefresh);
 </script>
 

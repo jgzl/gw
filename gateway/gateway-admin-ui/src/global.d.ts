@@ -40,3 +40,31 @@ declare interface RouteModel {
   metadata: string;
   [propName: string]: any
 }
+
+declare interface AccessModel {
+  id: string;
+  apiKey: string;
+  apiSecret: string;
+  system: string;
+  status: string;
+  remark: string;
+  [propName: string]: any
+}
+
+declare interface LogModel {
+  id: string;
+  system: string;
+  apiKey: string;
+  apiSecret: string;
+  environment: string;
+  requestPath: string;
+  requestPathAndQuery: string;
+  requestMethod: string;
+  requestHeader: string;
+  requestSourceIp: string;
+  requestBody: string;
+  responseBody: string;
+  executeTime: string;
+  httpStatus: string;
+  [propName: string]: any
+}
