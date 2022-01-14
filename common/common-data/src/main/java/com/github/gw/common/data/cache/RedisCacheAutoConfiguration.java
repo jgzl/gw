@@ -31,9 +31,9 @@ import java.util.Map;
  * @date 2021/12/24
  */
 @Configuration
-@AutoConfigureAfter({ RedisAutoConfiguration.class })
-@ConditionalOnBean({ RedisConnectionFactory.class })
-@ConditionalOnMissingBean({ CacheManager.class })
+@AutoConfigureAfter({RedisAutoConfiguration.class})
+@ConditionalOnBean({RedisConnectionFactory.class})
+@ConditionalOnMissingBean({CacheManager.class})
 @EnableConfigurationProperties(CacheProperties.class)
 public class RedisCacheAutoConfiguration {
 
@@ -71,8 +71,7 @@ public class RedisCacheAutoConfiguration {
     private RedisCacheConfiguration determineConfiguration(ClassLoader classLoader) {
         if (this.redisCacheConfiguration != null) {
             return this.redisCacheConfiguration;
-        }
-        else {
+        } else {
             CacheProperties.Redis redisProperties = this.cacheProperties.getRedis();
             RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
             config = config.serializeValuesWith(RedisSerializationContext.SerializationPair

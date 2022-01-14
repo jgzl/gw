@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import "./utils/router";
-import ElementPlus from "element-plus";
+import ElementPlus,{ ElMessage } from "element-plus";
 import "element-plus/dist/index.css";
 import "dayjs/locale/zh-cn";
 import zhCn from "element-plus/es/locale/lang/zh-cn";
@@ -39,6 +39,8 @@ app.use(LayoutStore, {
         router.replace({ path: "/login", query: { redirect: "/" } }).then(() => {
           window.location.reload();
         });
+      }).catch(reason => {
+        ElMessage.error("登出异常")
       });
     },
   },

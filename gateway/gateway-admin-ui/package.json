@@ -1,6 +1,7 @@
 {
-  "name": "isdc-gateway-admin",
-  "version": "2.1.2",
+  "name": "gw-gateway-admin",
+  "version": "2.1.0",
+  "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "dev": "npm run serve",

@@ -53,8 +53,8 @@ class DefaultRedisCacheWriter implements RedisCacheWriter {
 
     /**
      * @param connectionFactory must not be {@literal null}.
-     * @param sleepTime sleep time between lock request attempts. Must not be
-     * {@literal null}. Use {@link Duration#ZERO} to disable locking.
+     * @param sleepTime         sleep time between lock request attempts. Must not be
+     *                          {@literal null}. Use {@link Duration#ZERO} to disable locking.
      */
     private DefaultRedisCacheWriter(RedisConnectionFactory connectionFactory, Duration sleepTime) {
 
@@ -76,8 +76,7 @@ class DefaultRedisCacheWriter implements RedisCacheWriter {
 
             if (shouldExpireWithin(ttl)) {
                 connection.set(key, value, Expiration.from(ttl.toMillis(), TimeUnit.MILLISECONDS), SetOption.upsert());
-            }
-            else {
+            } else {
                 connection.set(key, value);
             }
 
@@ -117,8 +116,7 @@ class DefaultRedisCacheWriter implements RedisCacheWriter {
                 }
 
                 return connection.get(key);
-            }
-            finally {
+            } finally {
 
                 if (isLockingCacheWriter()) {
                     doUnlock(name, connection);
@@ -159,8 +157,7 @@ class DefaultRedisCacheWriter implements RedisCacheWriter {
                 if (keys.length > 0) {
                     connection.del(keys);
                 }
-            }
-            finally {
+            } finally {
 
                 if (wasLocked && isLockingCacheWriter()) {
                     doUnlock(name, connection);
@@ -183,6 +180,7 @@ class DefaultRedisCacheWriter implements RedisCacheWriter {
 
     /**
      * Explicitly set a write lock on a cache.
+     *
      * @param name the name of the cache to lock.
      */
     void lock(String name) {
@@ -191,6 +189,7 @@ class DefaultRedisCacheWriter implements RedisCacheWriter {
 
     /**
      * Explicitly remove a write lock from a cache.
+     *
      * @param name the name of the cache to unlock.
      */
     void unlock(String name) {
@@ -223,8 +222,7 @@ class DefaultRedisCacheWriter implements RedisCacheWriter {
 
             checkAndPotentiallyWaitUntilUnlocked(name, connection);
             return callback.apply(connection);
-        }
-        finally {
+        } finally {
             connection.close();
         }
     }
@@ -235,8 +233,7 @@ class DefaultRedisCacheWriter implements RedisCacheWriter {
 
         try {
             callback.accept(connection);
-        }
-        finally {
+        } finally {
             connection.close();
         }
     }
@@ -252,8 +249,7 @@ class DefaultRedisCacheWriter implements RedisCacheWriter {
             while (doCheckLock(name, connection)) {
                 Thread.sleep(sleepTime.toMillis());
             }
-        }
-        catch (InterruptedException ex) {
+        } catch (InterruptedException ex) {
 
             // Re-interrupt current thread, to allow other participants to react.
             Thread.currentThread().interrupt();

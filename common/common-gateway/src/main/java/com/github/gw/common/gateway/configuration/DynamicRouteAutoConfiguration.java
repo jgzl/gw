@@ -31,47 +31,50 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 public class DynamicRouteAutoConfiguration {
 
-	/**
-	 * 配置文件设置为空 redis 加载为准
-	 * @return
-	 */
-	@Bean
-	public PropertiesRouteDefinitionLocator propertiesRouteDefinitionLocator() {
-		return new PropertiesRouteDefinitionLocator(new GatewayProperties());
-	}
+    /**
+     * 配置文件设置为空 redis 加载为准
+     *
+     * @return
+     */
+    @Bean
+    public PropertiesRouteDefinitionLocator propertiesRouteDefinitionLocator() {
+        return new PropertiesRouteDefinitionLocator(new GatewayProperties());
+    }
 
-	/**
-	 * redis 监听配置
-	 * @param redisConnectionFactory redis 配置
-	 * @return
-	 */
-	@Bean
-	public RedisMessageListenerContainer redisContainer(RedisConnectionFactory redisConnectionFactory) {
-		RedisMessageListenerContainer container = new RedisMessageListenerContainer();
-		container.setConnectionFactory(redisConnectionFactory);
-		container.addMessageListener((message, bytes) -> {
-			log.warn("接收到重新JVM 重新加载路由事件");
-			RouteCacheHolder.removeRouteList();
-			// 发送刷新路由事件
-			SpringUtil.publishEvent(new RefreshRoutesEvent(this));
-		}, new ChannelTopic(CacheConstants.ROUTE_JVM_RELOAD_TOPIC));
-		return container;
-	}
+    /**
+     * redis 监听配置
+     *
+     * @param redisConnectionFactory redis 配置
+     * @return
+     */
+    @Bean
+    public RedisMessageListenerContainer redisContainer(RedisConnectionFactory redisConnectionFactory) {
+        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        container.setConnectionFactory(redisConnectionFactory);
+        container.addMessageListener((message, bytes) -> {
+            log.warn("接收到重新JVM 重新加载路由事件");
+            RouteCacheHolder.removeRouteList();
+            // 发送刷新路由事件
+            SpringUtil.publishEvent(new RefreshRoutesEvent(this));
+        }, new ChannelTopic(CacheConstants.ROUTE_JVM_RELOAD_TOPIC));
+        return container;
+    }
 
-	/**
-	 * 动态路由监控检查
-	 * @param redisTemplate redis
-	 * @return
-	 */
-	@Bean
-	public DynamicRouteHealthIndicator healthIndicator(RedisTemplate redisTemplate) {
+    /**
+     * 动态路由监控检查
+     *
+     * @param redisTemplate redis
+     * @return
+     */
+    @Bean
+    public DynamicRouteHealthIndicator healthIndicator(RedisTemplate redisTemplate) {
 
-		redisTemplate.setKeySerializer(new StringRedisSerializer());
-		if (!redisTemplate.hasKey(CacheConstants.ROUTE_KEY)) {
-			throw new RouteCheckException("路由信息未初始化，网关启动失败");
-		}
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        if (!redisTemplate.hasKey(CacheConstants.ROUTE_KEY)) {
+            throw new RouteCheckException("路由信息未初始化，网关启动失败");
+        }
 
-		return new DynamicRouteHealthIndicator(redisTemplate);
-	}
+        return new DynamicRouteHealthIndicator(redisTemplate);
+    }
 
 }

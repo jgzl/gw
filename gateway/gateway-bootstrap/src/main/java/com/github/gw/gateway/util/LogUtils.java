@@ -37,6 +37,7 @@ public class LogUtils {
 
     /**
      * 记录xml/json格式请求返回日志数据-有body
+     *
      * @param gatewayLog
      * @param buffer
      * @param actionEnum
@@ -69,10 +70,11 @@ public class LogUtils {
 
     /**
      * 记录非xml/json格式请求返回日志数据-无body
+     *
      * @param gatewayLog
      * @param actionEnum
      */
-    public static void logging(GatewayLog gatewayLog,ActionEnum actionEnum) {
+    public static void logging(GatewayLog gatewayLog, ActionEnum actionEnum) {
         GatewayRequestLogApplicationEvent event = new GatewayRequestLogApplicationEvent(gatewayLog.getId(), gatewayLog, actionEnum);
         SpringUtil.publishEvent(event);
     }

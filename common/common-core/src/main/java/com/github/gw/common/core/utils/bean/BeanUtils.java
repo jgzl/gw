@@ -40,7 +40,7 @@ public class BeanUtils extends org.springframework.beans.BeanUtils {
         try {
             copyProperties(src, dest);
         } catch (Exception e) {
-            log.error("拷贝属性发生错误:",e);
+            log.error("拷贝属性发生错误:", e);
         }
     }
 

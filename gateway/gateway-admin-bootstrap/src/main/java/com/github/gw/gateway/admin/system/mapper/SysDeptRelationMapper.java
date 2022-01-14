@@ -1,7 +1,7 @@
 package com.github.gw.gateway.admin.system.mapper;
 
-import com.github.gw.gateway.admin.system.domain.SysDeptRelation;
 import com.github.gw.common.data.mapper.ExtendBaseMapper;
+import com.github.gw.gateway.admin.system.domain.SysDeptRelation;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -15,16 +15,18 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SysDeptRelationMapper extends ExtendBaseMapper<SysDeptRelation> {
 
-	/**
-	 * 删除部门关系表数据
-	 * @param id 部门ID
-	 */
-	void deleteDeptRelationsById(Integer id);
+    /**
+     * 删除部门关系表数据
+     *
+     * @param id 部门ID
+     */
+    void deleteDeptRelationsById(Integer id);
 
-	/**
-	 * 更改部分关系表数据
-	 * @param deptRelation
-	 */
-	void updateDeptRelations(SysDeptRelation deptRelation);
+    /**
+     * 更改部分关系表数据
+     *
+     * @param deptRelation
+     */
+    void updateDeptRelations(SysDeptRelation deptRelation);
 
 }

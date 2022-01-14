@@ -35,7 +35,7 @@ public class WebmvcUtil {
     public static String getParameterByHeaderOrPath(HttpServletRequest request, String name) {
         String value = getParameter(request, name);
         if (StrUtil.isBlank(value)) {
-            value = getHeader(request,name);
+            value = getHeader(request, name);
         }
         return value;
     }
@@ -145,9 +145,9 @@ public class WebmvcUtil {
             printWriter = response.getWriter();
             printWriter.append(JacksonUtil.writeValueAsString(result));
         } catch (IOException e) {
-            log.error("生成文件流失败:",e);
+            log.error("生成文件流失败:", e);
         } finally {
-            if (printWriter!=null) {
+            if (printWriter != null) {
                 printWriter.flush();
                 printWriter.close();
             }

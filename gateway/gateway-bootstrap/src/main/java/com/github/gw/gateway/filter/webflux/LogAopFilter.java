@@ -54,10 +54,10 @@ public class LogAopFilter implements WebFilter {
         String fastUUID = IdUtil.fastUUID();
         String methodValue = Optional.ofNullable(request.getMethod()).orElse(HttpMethod.GET).name();
         String jsonHeader = JSON.toJSONString(httpHeaders);
-        String env = WebfluxUtil.getParameterByHeaderOrPath(request,GatewayConstants.X_BUSINESS_ENV);
-        String apiKey = WebfluxUtil.getParameterByHeaderOrPath(request,GatewayConstants.X_BUSINESS_API_KEY);
-        String apiSecret = WebfluxUtil.getParameterByHeaderOrPath(request,GatewayConstants.X_BUSINESS_API_SECRET);
-        String system = WebfluxUtil.getParameterByHeaderOrPath(request,GatewayConstants.X_BUSINESS_API_SYSTEM);
+        String env = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_ENV);
+        String apiKey = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_KEY);
+        String apiSecret = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_SECRET);
+        String system = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_SYSTEM);
 
         log.info("开始访问[{}]", path);
         List<String> withOutTracePaths = properties.getPath().getWithOutTracePaths();

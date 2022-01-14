@@ -16,55 +16,56 @@ public class ExtendUser extends User {
      * 用户ID
      */
     @Getter
-    private Long userId;
+    private final Long userId;
 
     /**
      * 部门ID
      */
     @Getter
-    private Long deptId;
+    private final Long deptId;
 
     /**
      * 别名
      */
     @Getter
-    private String nickName;
+    private final String nickName;
 
     /**
      * 手机号
      */
     @Getter
-    private String mobile;
+    private final String mobile;
 
     /**
      * 头像
      */
     @Getter
-    private String avatar;
+    private final String avatar;
 
     /**
      * Construct the <code>User</code> with the details required by
      * {@link org.springframework.security.authentication.dao.DaoAuthenticationProvider}.
-     * @param userId 用户ID
-     * @param deptId 部门ID
-     * @param userName the userName presented to the
-     * <code>DaoAuthenticationProvider</code>
-     * @param password the password that should be presented to the
-     * <code>DaoAuthenticationProvider</code>
-     * @param enabled set to <code>true</code> if the user is enabled
-     * @param accountNonExpired set to <code>true</code> if the account has not expired
+     *
+     * @param userId                用户ID
+     * @param deptId                部门ID
+     * @param userName              the userName presented to the
+     *                              <code>DaoAuthenticationProvider</code>
+     * @param password              the password that should be presented to the
+     *                              <code>DaoAuthenticationProvider</code>
+     * @param enabled               set to <code>true</code> if the user is enabled
+     * @param accountNonExpired     set to <code>true</code> if the account has not expired
      * @param credentialsNonExpired set to <code>true</code> if the credentials have not
-     * expired
-     * @param accountNonLocked set to <code>true</code> if the account is not locked
-     * @param authorities the authorities that should be granted to the caller if they
-     * presented the correct userName and password and the user is enabled. Not null.
+     *                              expired
+     * @param accountNonLocked      set to <code>true</code> if the account is not locked
+     * @param authorities           the authorities that should be granted to the caller if they
+     *                              presented the correct userName and password and the user is enabled. Not null.
      * @throws IllegalArgumentException if a <code>null</code> value was passed either as
-     * a parameter or as an element in the <code>GrantedAuthority</code> collection
+     *                                  a parameter or as an element in the <code>GrantedAuthority</code> collection
      */
     @JsonCreator
     public ExtendUser(@JsonProperty("userId") Long userId, @JsonProperty("deptId") Long deptId,
                       @JsonProperty("mobile") String mobile, @JsonProperty("avatar") String avatar,
-                      @JsonProperty("userName") String userName,@JsonProperty("nickName") String nickName,
+                      @JsonProperty("userName") String userName, @JsonProperty("nickName") String nickName,
                       @JsonProperty("password") String password, @JsonProperty("enabled") boolean enabled,
                       @JsonProperty("accountNonExpired") boolean accountNonExpired,
                       @JsonProperty("credentialsNonExpired") boolean credentialsNonExpired,

@@ -18,13 +18,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 网关日志管理模块
+ * 网关管理-网关日志模块
+ *
  * @author li7hai26@gmail.com
  */
 @Slf4j
 @AllArgsConstructor
 @RestController
-@RequestMapping("/gateway")
+@RequestMapping("/gateway/logs")
 public class GatewayLogController {
 
     private final GatewayLogElasticsearchRepository repository;
@@ -36,7 +37,7 @@ public class GatewayLogController {
      *
      * @return
      */
-    @GetMapping("/logs")
+    @GetMapping
     public R<Iterable<GatewayLog>> findAll() {
         Iterable<GatewayLog> result = repository.findAll();
         return R.ok(result);
@@ -44,10 +45,11 @@ public class GatewayLogController {
 
     /**
      * 根据ID集合获取网关日志
+     *
      * @param ids id集合字符串
      * @return
      */
-    @GetMapping("/logs/{ids}")
+    @GetMapping("/{ids}")
     public R<Iterable<GatewayLog>> findAllById(@PathVariable String ids) {
         if (StrUtil.isBlank(ids)) {
             return R.ok();
@@ -63,7 +65,7 @@ public class GatewayLogController {
      * @param list 网关请求对象集合
      * @return
      */
-    @PostMapping("/logs")
+    @PostMapping
     public R<Iterable<GatewayLog>> saveAll(@RequestBody List<GatewayLog> list) {
         if (CollUtil.isEmpty(list)) {
             list = ListUtil.toList();
@@ -80,7 +82,7 @@ public class GatewayLogController {
      *
      * @return
      */
-    @DeleteMapping("/logs")
+    @DeleteMapping
     public R<Void> deleteAll() {
         repository.deleteAll();
         return R.ok();
@@ -92,22 +94,23 @@ public class GatewayLogController {
      * @param ids id集合字符串
      * @return
      */
-    @DeleteMapping("/logs/{ids}")
+    @DeleteMapping("/{ids}")
     public R<Void> deleteAllByIds(@PathVariable String ids) {
         if (StrUtil.isBlank(ids)) {
             return R.ok();
         }
-        List<String> idList = StrUtil.split(ids,",");
+        List<String> idList = Arrays.stream(ids.split(",")).collect(Collectors.toList());
         repository.deleteAllById(idList);
         return R.ok();
     }
 
     /**
      * 根据参数从数据仓库中获取网关日志
+     *
      * @param gatewayRequestLog 网关请求对象
      * @return
      */
-    @GetMapping("/logs/search")
+    @GetMapping("/search")
     public R<List<GatewayLog>> search(GatewayLogVo gatewayRequestLog) {
         List<GatewayLog> result = service.getByGatewayRequestLog(gatewayRequestLog);
         return R.ok(result);

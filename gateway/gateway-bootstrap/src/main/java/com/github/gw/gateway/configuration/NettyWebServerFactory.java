@@ -66,15 +66,15 @@ public class NettyWebServerFactory {
         @Override
         public HttpServer apply(final HttpServer httpServer) {
             return httpServer.runOn(LoopResources.create("gateway-netty", nettyTcpConfig.getSelectCount(), nettyTcpConfig.getWorkerCount(), true))
-                            .option(ChannelOption.SO_BACKLOG, nettyTcpConfig.getSoBacklog())
-                            .option(ChannelOption.SO_REUSEADDR, nettyTcpConfig.isSoReuseaddr())
-                            .childOption(ChannelOption.CONNECT_TIMEOUT_MILLIS, nettyTcpConfig.getConnectTimeoutMillis())
-                            .childOption(ChannelOption.WRITE_BUFFER_WATER_MARK, new WriteBufferWaterMark(nettyTcpConfig.getWriteBufferLowWaterMark(),
-                                    nettyTcpConfig.getWriteBufferHighWaterMark()))
-                            .childOption(ChannelOption.SO_KEEPALIVE, nettyTcpConfig.isSoKeepalive())
-                            .childOption(ChannelOption.SO_REUSEADDR, nettyTcpConfig.isSoReuseaddr())
-                            .childOption(ChannelOption.SO_LINGER, nettyTcpConfig.getSoLinger())
-                            .childOption(ChannelOption.TCP_NODELAY, nettyTcpConfig.isTcpNodelay());
+                    .option(ChannelOption.SO_BACKLOG, nettyTcpConfig.getSoBacklog())
+                    .option(ChannelOption.SO_REUSEADDR, nettyTcpConfig.isSoReuseaddr())
+                    .childOption(ChannelOption.CONNECT_TIMEOUT_MILLIS, nettyTcpConfig.getConnectTimeoutMillis())
+                    .childOption(ChannelOption.WRITE_BUFFER_WATER_MARK, new WriteBufferWaterMark(nettyTcpConfig.getWriteBufferLowWaterMark(),
+                            nettyTcpConfig.getWriteBufferHighWaterMark()))
+                    .childOption(ChannelOption.SO_KEEPALIVE, nettyTcpConfig.isSoKeepalive())
+                    .childOption(ChannelOption.SO_REUSEADDR, nettyTcpConfig.isSoReuseaddr())
+                    .childOption(ChannelOption.SO_LINGER, nettyTcpConfig.getSoLinger())
+                    .childOption(ChannelOption.TCP_NODELAY, nettyTcpConfig.isTcpNodelay());
         }
     }
 }

@@ -16,6 +16,7 @@ import java.util.List;
 
 /**
  * 白名单日志过滤器
+ *
  * @author li7hai26@gmail.com
  * @date 2021/12/21
  */
@@ -34,7 +35,7 @@ public class WhitePathFilter implements WebFilter {
         String path = uri.getPath();
         GatewayPathProperties propertiesPath = properties.getPath();
         List<String> whitePaths = propertiesPath.getWhitePaths();
-        whitePaths.forEach(p->log.info("白名单地址为:{}",p));
+        whitePaths.forEach(p -> log.info("白名单地址为:{}", p));
         return chain.filter(exchange);
     }
 }

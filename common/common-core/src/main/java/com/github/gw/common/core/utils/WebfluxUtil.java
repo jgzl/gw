@@ -1,11 +1,11 @@
 package com.github.gw.common.core.utils;
 
+import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.github.gw.common.core.constant.Constants;
 import com.github.gw.common.core.domain.R;
-import cn.hutool.core.convert.Convert;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -36,7 +36,7 @@ public class WebfluxUtil {
     public static String getParameterByHeaderOrPath(ServerHttpRequest request, String name) {
         String value = getHeader(request, name);
         if (StrUtil.isBlank(value)) {
-            value = getParameter(request,name);
+            value = getParameter(request, name);
         }
         return value;
     }
@@ -109,7 +109,7 @@ public class WebfluxUtil {
         try {
             response.getWriter().print(string);
         } catch (IOException e) {
-            log.error("生成文件流失败:",e);
+            log.error("生成文件流失败:", e);
         }
         return null;
     }

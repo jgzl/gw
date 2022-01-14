@@ -1,7 +1,7 @@
 package com.github.gw.gateway.decorator;
 
-import com.github.gw.gateway.common.ActionEnum;
 import com.github.gw.common.gateway.domain.GatewayLog;
+import com.github.gw.gateway.common.ActionEnum;
 import com.github.gw.gateway.common.WebEnum;
 import com.github.gw.gateway.util.LogUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ import static reactor.core.scheduler.Schedulers.single;
 @Slf4j
 public class PartnerServerHttpRequestDecorator extends ServerHttpRequestDecorator {
 
-    private Flux<DataBuffer> body;
+    private final Flux<DataBuffer> body;
 
     PartnerServerHttpRequestDecorator(ServerHttpRequest delegate, GatewayLog gatewayLog) {
         super(delegate);
@@ -31,9 +31,9 @@ public class PartnerServerHttpRequestDecorator extends ServerHttpRequestDecorato
             body = flux.publishOn(single()).map(dataBuffer -> LogUtils.logging(gatewayLog, dataBuffer, ActionEnum.CREATE, WebEnum.REQUEST));
         } else {
             if (log.isDebugEnabled()) {
-                log.debug("网关只记录xml,json格式的请求相应内容,当前请求的Content-Type为{}",contentType);
+                log.debug("网关只记录xml,json格式的请求相应内容,当前请求的Content-Type为{}", contentType);
             }
-            LogUtils.logging(gatewayLog,ActionEnum.CREATE);
+            LogUtils.logging(gatewayLog, ActionEnum.CREATE);
             body = flux;
         }
     }

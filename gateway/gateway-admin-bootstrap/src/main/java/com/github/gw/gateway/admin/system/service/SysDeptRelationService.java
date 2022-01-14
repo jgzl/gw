@@ -14,22 +14,25 @@ import com.github.gw.gateway.admin.system.domain.SysDeptRelation;
  */
 public interface SysDeptRelationService extends IService<SysDeptRelation> {
 
-	/**
-	 * 新建部门关系
-	 * @param sysDept 部门
-	 */
-	void insertDeptRelation(SysDept sysDept);
+    /**
+     * 新建部门关系
+     *
+     * @param sysDept 部门
+     */
+    void insertDeptRelation(SysDept sysDept);
 
-	/**
-	 * 通过ID删除部门关系
-	 * @param id
-	 */
-	void deleteAllDeptRelation(Integer id);
+    /**
+     * 通过ID删除部门关系
+     *
+     * @param id
+     */
+    void deleteAllDeptRelation(Integer id);
 
-	/**
-	 * 更新部门关系
-	 * @param relation
-	 */
-	void updateDeptRelation(SysDeptRelation relation);
+    /**
+     * 更新部门关系
+     *
+     * @param relation
+     */
+    void updateDeptRelation(SysDeptRelation relation);
 
 }

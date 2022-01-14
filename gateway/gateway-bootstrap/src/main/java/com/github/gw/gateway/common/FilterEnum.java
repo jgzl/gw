@@ -8,13 +8,13 @@ package com.github.gw.gateway.common;
  */
 public enum FilterEnum {
 
-    EXCLUDE_PATH(-30,"黑/白名单,不记录日志过滤器"),
-    LOG_AOP(-20,"请求响应日志记录过滤器"),
-    FILE_SIZE(-10,"文件大小限制过滤器"),
+    EXCLUDE_PATH(-30, "黑/白名单,不记录日志过滤器"),
+    LOG_AOP(-20, "请求响应日志记录过滤器"),
+    FILE_SIZE(-10, "文件大小限制过滤器"),
     ;
 
-    private Integer code;
-    private String name;
+    private final Integer code;
+    private final String name;
 
     FilterEnum(Integer code, String name) {
         this.code = code;

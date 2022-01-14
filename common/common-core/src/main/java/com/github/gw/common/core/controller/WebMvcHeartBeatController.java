@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * webmvc通用心跳管理模块
+ *
  * @author li7hai26@gmail.com
  */
 @RestController
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class WebMvcHeartBeatController {
     /**
      * 心跳
+     *
      * @return
      */
     @GetMapping

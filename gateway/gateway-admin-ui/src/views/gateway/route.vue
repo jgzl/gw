@@ -12,6 +12,7 @@
                                 type="primary"
                                 size="mini"
                                 icon="PlusIcon"
+                                v-permission="['gateway_route_add']"
                                 @click="onAddItem"
                         >
                             添加
@@ -20,6 +21,7 @@
                                 type="primary"
                                 size="mini"
                                 icon="PlusIcon"
+                                v-permission="['gateway_route_copy']"
                                 :disabled="selectRows.length !== 1"
                                 @click="onCopyItem(selectRows[0])"
                         >
@@ -29,6 +31,7 @@
                                 type="danger"
                                 size="mini"
                                 icon="DeleteIcon"
+                                v-permission="['gateway_route_del']"
                                 :disabled="selectRows.length === 0"
                                 @click="onDeleteItems"
                         >
@@ -94,6 +97,7 @@
                                     type="primary"
                                     size="mini"
                                     plain
+                                    v-permission="['gateway_route_edit']"
                                     @click="onUpdateItem(scope.row)"
                             >编辑
                             </el-button
@@ -102,6 +106,7 @@
                                     type="danger"
                                     size="mini"
                                     plain
+                                    v-permission="['gateway_route_del']"
                                     @click="onDeleteItem(scope.row)"
                             >删除
                             </el-button

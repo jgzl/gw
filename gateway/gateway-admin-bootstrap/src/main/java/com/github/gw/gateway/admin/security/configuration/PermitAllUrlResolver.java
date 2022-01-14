@@ -18,6 +18,7 @@ import java.util.List;
 
 /**
  * 资源暴露处理器
+ *
  * @author li7hai26@gmail.com
  * @date 2021/4/13
  */
@@ -35,6 +36,7 @@ public class PermitAllUrlResolver {
 
     /**
      * 获取对外暴露的URL，注册到 spring security
+     *
      * @param registry spring security context
      */
     public void registry(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry) {
@@ -61,7 +63,7 @@ public class PermitAllUrlResolver {
 
     public boolean match(String url) {
         for (String ignoreUrl : ignoreUrls) {
-            if (PATHMATCHER.match(ignoreUrl,url)) {
+            if (PATHMATCHER.match(ignoreUrl, url)) {
                 return true;
             }
         }

@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 @Configuration
 @ConditionalOnBean(DataSource.class)
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
-public class MybatisPlusConfiguration{
+public class MybatisPlusConfiguration {
 
     /**
      * mybatis plus 拦截器配置

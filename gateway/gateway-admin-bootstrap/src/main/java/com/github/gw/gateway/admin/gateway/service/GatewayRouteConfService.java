@@ -11,10 +11,11 @@ import com.github.gw.gateway.admin.gateway.domain.GatewayRouteConf;
  */
 public interface GatewayRouteConfService extends IService<GatewayRouteConf> {
 
-	/**
-	 * 删除路由信息
-	 * @param routeId 路由id
-	 * @return
-	 */
-	public void deleteRoute(String routeId);
+    /**
+     * 删除路由信息
+     *
+     * @param routeId 路由id
+     * @return
+     */
+	void deleteRoute(String routeId);
 }

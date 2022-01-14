@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 
 /**
  * 菜单权限表
+ *
  * @author li7hai26@gmail.com
  * @since 2021-11-08
  */

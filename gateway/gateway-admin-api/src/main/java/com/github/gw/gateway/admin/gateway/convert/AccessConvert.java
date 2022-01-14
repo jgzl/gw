@@ -1,8 +1,8 @@
-package com.github.gw.gateway.admin.system.convert;
+package com.github.gw.gateway.admin.gateway.convert;
 
 import com.github.gw.common.core.convert.BaseConvert;
-import com.github.gw.gateway.admin.system.domain.SysUser;
-import com.github.gw.gateway.admin.system.vo.SysUserVo;
+import com.github.gw.gateway.admin.gateway.domain.GatewayAccessConf;
+import com.github.gw.gateway.admin.gateway.vo.GatewayAccessConfVo;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -11,6 +11,6 @@ import org.mapstruct.factory.Mappers;
  * @date 2021/12/24
  */
 @Mapper
-public interface UserConvert extends BaseConvert<SysUserVo,SysUser> {
-    UserConvert INSTANCE = Mappers.getMapper(UserConvert.class);
+public interface AccessConvert extends BaseConvert<GatewayAccessConfVo, GatewayAccessConf> {
+    AccessConvert INSTANCE = Mappers.getMapper(AccessConvert.class);
 }

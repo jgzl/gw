@@ -12,6 +12,7 @@
                                 type="primary"
                                 size="mini"
                                 icon="PlusIcon"
+                                v-permission="['gateway_access_add']"
                                 @click="onAddItem"
                         >
                             添加
@@ -20,6 +21,7 @@
                                 type="danger"
                                 size="mini"
                                 icon="DeleteIcon"
+                                v-permission="['gateway_access_del']"
                                 :disabled="selectRows.length === 0"
                                 @click="onDeleteItems"
                         >
@@ -85,6 +87,7 @@
                                     type="primary"
                                     size="mini"
                                     plain
+                                    v-permission="['gateway_access_edit']"
                                     @click="onUpdateItem(scope.row)"
                             >编辑
                             </el-button
@@ -93,6 +96,7 @@
                                     type="danger"
                                     size="mini"
                                     plain
+                                    v-permission="['gateway_access_del']"
                                     @click="onDeleteItem(scope.row)"
                             >删除
                             </el-button
@@ -101,6 +105,7 @@
                                     :type="scope.row.status === '0' ? 'warning' : 'success'"
                                     size="mini"
                                     plain
+                                    v-permission="['gateway_access_status']"
                                     @click="onEnableItem(scope.row)"
                             >{{ scope.row.status === "0" ? "禁用" : "启用" }}</el-button
                             >

@@ -81,8 +81,7 @@ public class ExtendFeignClientsRegistrar
                     String contextId = getContextId(attributes);
                     aliasBuilder.append(contextId);
                     definition.addPropertyValue("contextId", contextId);
-                }
-                else {
+                } else {
                     aliasBuilder.append(name);
                 }
 
@@ -108,11 +107,10 @@ public class ExtendFeignClientsRegistrar
                 }
 
                 BeanDefinitionHolder holder = new BeanDefinitionHolder(beanDefinition, className,
-                        new String[] { alias });
+                        new String[]{alias});
                 BeanDefinitionReaderUtils.registerBeanDefinition(holder, registry);
 
-            }
-            catch (ClassNotFoundException e) {
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }
@@ -121,6 +119,7 @@ public class ExtendFeignClientsRegistrar
     /**
      * Return the class used by {@link SpringFactoriesLoader} to load configuration
      * candidates.
+     *
      * @return the factory class
      */
     private Class<?> getSpringFactoriesLoaderFactoryClass() {

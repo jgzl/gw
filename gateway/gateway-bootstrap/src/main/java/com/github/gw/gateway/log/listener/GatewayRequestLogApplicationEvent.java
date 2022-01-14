@@ -1,7 +1,7 @@
 package com.github.gw.gateway.log.listener;
 
-import com.github.gw.gateway.common.ActionEnum;
 import com.github.gw.common.gateway.domain.GatewayLog;
+import com.github.gw.gateway.common.ActionEnum;
 import org.springframework.context.ApplicationEvent;
 
 /**
@@ -10,8 +10,8 @@ import org.springframework.context.ApplicationEvent;
  */
 public class GatewayRequestLogApplicationEvent extends ApplicationEvent {
 
-    private GatewayLog gatewayLog;
-    private ActionEnum actionEnum;
+    private final GatewayLog gatewayLog;
+    private final ActionEnum actionEnum;
 
     public GatewayRequestLogApplicationEvent(Object source, GatewayLog event, ActionEnum actionEnum) {
         super(source);

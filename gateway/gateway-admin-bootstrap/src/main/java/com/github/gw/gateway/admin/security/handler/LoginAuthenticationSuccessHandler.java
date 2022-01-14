@@ -27,9 +27,9 @@ public class LoginAuthenticationSuccessHandler implements AuthenticationSuccessH
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         ExtendUser user = (ExtendUser) authentication.getPrincipal();
-        Map<String,Object> kvMap = Maps.newHashMap();
-        kvMap.put(SecurityConstants.DETAILS_USER_ID,user.getUserId());
-        kvMap.put(SecurityConstants.DETAILS_USERNAME,user.getUsername());
+        Map<String, Object> kvMap = Maps.newHashMap();
+        kvMap.put(SecurityConstants.DETAILS_USER_ID, user.getUserId());
+        kvMap.put(SecurityConstants.DETAILS_USERNAME, user.getUsername());
         String token = JwtTokenUtil.createToken(kvMap);
         LoginUserVo result = new LoginUserVo();
         result.setToken(token);

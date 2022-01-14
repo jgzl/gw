@@ -14,6 +14,7 @@ public interface ExtendBaseMapper<T> extends BaseMapper<T> {
 
     /**
      * 批量插入 仅适用于 mysql
+     *
      * @param entityList 实体列表
      * @return 影响行数
      */

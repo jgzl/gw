@@ -19,7 +19,7 @@ import java.io.IOException;
 public class LoginAuthenticationFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
-        log.error("登录认证发生异常:",e);
-        WebmvcUtil.out(response, R.fail("登录异常",e.getMessage()));
+        log.error("登录认证发生异常:", e);
+        WebmvcUtil.out(response, R.fail("登录异常", e.getMessage()));
     }
 }

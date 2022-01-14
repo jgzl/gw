@@ -1,4 +1,4 @@
-package com.github.gw.gateway.configuration;
+package com.github.gw.common.gateway.configuration;
 
 import com.github.gw.common.core.utils.WebfluxUtil;
 import lombok.RequiredArgsConstructor;
@@ -24,29 +24,29 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class GlobalExceptionConfiguration implements ErrorWebExceptionHandler {
 
-	@Override
-	public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
-		ServerHttpResponse response = exchange.getResponse();
+    @Override
+    public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
+        ServerHttpResponse response = exchange.getResponse();
 
-		if (response.isCommitted()) {
-			return Mono.error(ex);
-		}
+        if (response.isCommitted()) {
+            return Mono.error(ex);
+        }
 
-		String msg;
+        String msg;
 
-		if (ex instanceof NotFoundException) {
-			msg = "未找到服务";
-		} else if (ex instanceof ResponseStatusException) {
-			ResponseStatusException responseStatusException = (ResponseStatusException) ex;
-			msg = responseStatusException.getMessage();
-			response.setStatusCode(responseStatusException.getStatus());
-		} else {
-			msg = "内部服务器错误";
-		}
+        if (ex instanceof NotFoundException) {
+            msg = "未找到服务";
+        } else if (ex instanceof ResponseStatusException) {
+            ResponseStatusException responseStatusException = (ResponseStatusException) ex;
+            msg = responseStatusException.getMessage();
+            response.setStatusCode(responseStatusException.getStatus());
+        } else {
+            msg = "内部服务器错误";
+        }
 
-		log.error("[网关异常处理]请求路径:[" + exchange.getRequest().getPath() + "],异常信息:", ex);
+        log.error("[网关异常处理]请求路径:[" + exchange.getRequest().getPath() + "],异常信息:", ex);
 
-		return WebfluxUtil.webFluxResponseWriter(response, msg);
-	}
+        return WebfluxUtil.webFluxResponseWriter(response, msg);
+    }
 
 }

@@ -38,7 +38,7 @@ public class ExtendUserDetailsService implements UserDetailsService {
     }
 
     private UserDetails getUserDetails(UserInfo info) {
-        if (info == null ) {
+        if (info == null) {
             throw new UsernameNotFoundException("用户不存在");
         }
         Set<String> dbAuthSet = new HashSet<>();

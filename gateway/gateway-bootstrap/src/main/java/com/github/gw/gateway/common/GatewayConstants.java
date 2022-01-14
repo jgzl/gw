@@ -29,5 +29,5 @@ public class GatewayConstants {
     /**
      * 默认大小限制
      */
-    public static final Integer DEFAULT_LIMIT = 20*1024*1024;
+    public static final Integer DEFAULT_LIMIT = 20 * 1024 * 1024;
 }

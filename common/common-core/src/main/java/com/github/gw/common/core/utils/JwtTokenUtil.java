@@ -17,7 +17,7 @@ public class JwtTokenUtil {
 
     private static final byte[] keyBytes = StrUtil.bytes(TokenConstants.SECRET);
 
-    public String createToken(Map<String,Object> map){
+    public String createToken(Map<String, Object> map) {
         return JWTUtil.createToken(map, keyBytes);
     }
 
@@ -25,7 +25,7 @@ public class JwtTokenUtil {
         return JWTUtil.parseToken(token).getPayload();
     }
 
-    public boolean verify(String token){
+    public boolean verify(String token) {
         return JWTUtil.verify(token, keyBytes);
     }
 }

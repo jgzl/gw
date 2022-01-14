@@ -11,10 +11,10 @@ import org.springframework.boot.diagnostics.FailureAnalysis;
  */
 public class RouteCheckFailureAnalyzer extends AbstractFailureAnalyzer<RouteCheckException> {
 
-	@Override
-	protected FailureAnalysis analyze(Throwable rootFailure, RouteCheckException cause) {
+    @Override
+    protected FailureAnalysis analyze(Throwable rootFailure, RouteCheckException cause) {
 
-		return new FailureAnalysis(cause.getMessage(), "必须先启动网关管理服务初始化路由,再启动网关核心服务", cause);
-	}
+        return new FailureAnalysis(cause.getMessage(), "必须先启动网关管理服务初始化路由,再启动网关核心服务", cause);
+    }
 
 }

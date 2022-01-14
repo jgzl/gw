@@ -39,7 +39,7 @@ public class DynamicRouteInitRunner {
 
     @Async
     @Order
-    @EventListener({ WebServerInitializedEvent.class, DynamicRouteInitEvent.class })
+    @EventListener({WebServerInitializedEvent.class, DynamicRouteInitEvent.class})
     public void initRoute() {
         redisTemplate.delete(CacheConstants.ROUTE_KEY);
         log.info("开始初始化网关路由");
@@ -68,6 +68,7 @@ public class DynamicRouteInitRunner {
 
     /**
      * redis 监听配置,监听 gateway_redis_route_reload_topic,重新加载Redis
+     *
      * @param redisConnectionFactory redis 配置
      * @return
      */

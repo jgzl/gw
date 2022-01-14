@@ -1,4 +1,4 @@
-FROM 10.91.196.30/library/nginx:1.21.3-alpine
+FROM docker.io/nginx:1.21.3-alpine
 
 MAINTAINER li7hai26@gmail.com
 

@@ -22,33 +22,37 @@ import java.util.List;
 @Mapper
 public interface SysUserMapper extends ExtendBaseMapper<SysUser> {
 
-	/**
-	 * 通过用户名查询用户信息（含有角色信息）
-	 * @param username 用户名
-	 * @return sysUserVo
-	 */
-	SysUserVo getUserVoByUsername(String username);
+    /**
+     * 通过用户名查询用户信息（含有角色信息）
+     *
+     * @param username 用户名
+     * @return sysUserVo
+     */
+    SysUserVo getUserVoByUsername(String username);
 
-	/**
-	 * 分页查询用户信息（含角色）
-	 * @param page 分页
-	 * @param userDTO 查询参数
-	 * @return list
-	 */
-	IPage<SysUserVo> getUserVosPage(Page page, @Param("query") SysUserDto userDTO);
+    /**
+     * 分页查询用户信息（含角色）
+     *
+     * @param page    分页
+     * @param userDTO 查询参数
+     * @return list
+     */
+    IPage<SysUserVo> getUserVosPage(Page page, @Param("query") SysUserDto userDTO);
 
-	/**
-	 * 查询用户信息（含角色）
-	 * @param userDTO 查询参数
-	 * @return list
-	 */
-	List<SysUserVo> getUserVosPage(@Param("query") SysUserDto userDTO);
+    /**
+     * 查询用户信息（含角色）
+     *
+     * @param userDTO 查询参数
+     * @return list
+     */
+    List<SysUserVo> getUserVosPage(@Param("query") SysUserDto userDTO);
 
-	/**
-	 * 通过ID查询用户信息
-	 * @param id 用户ID
-	 * @return sysUserVo
-	 */
-	SysUserVo getUserVoById(Integer id);
+    /**
+     * 通过ID查询用户信息
+     *
+     * @param id 用户ID
+     * @return sysUserVo
+     */
+    SysUserVo getUserVoById(Integer id);
 
 }

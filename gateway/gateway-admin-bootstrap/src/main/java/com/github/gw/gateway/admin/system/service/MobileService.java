@@ -8,11 +8,12 @@ import com.github.gw.common.core.domain.R;
  */
 public interface MobileService {
 
-	/**
-	 * 发送手机验证码
-	 * @param mobile mobile
-	 * @return code
-	 */
-	R<Boolean> sendSmsCode(String mobile);
+    /**
+     * 发送手机验证码
+     *
+     * @param mobile mobile
+     * @return code
+     */
+    R<Boolean> sendSmsCode(String mobile);
 
 }

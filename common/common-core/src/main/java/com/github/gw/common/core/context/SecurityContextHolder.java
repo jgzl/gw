@@ -29,7 +29,7 @@ public class SecurityContextHolder {
 
     public static <T> T get(String key, Class<T> clazz) {
         Map<String, Object> map = getLocalMap();
-        return (T)(map.getOrDefault(key, null));
+        return (T) (map.getOrDefault(key, null));
     }
 
     public static Map<String, Object> getLocalMap() {

@@ -1,8 +1,8 @@
-package com.saicmotor.engine.gateway.admin.gateway.service;
+package com.github.gw.gateway.admin.gateway.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.saicmotor.engine.gateway.admin.gateway.domain.GatewayAccessConf;
-import com.saicmotor.engine.gateway.admin.gateway.vo.GatewayAccessConfVo;
+import com.github.gw.gateway.admin.gateway.domain.GatewayAccessConf;
+import com.github.gw.gateway.admin.gateway.vo.GatewayAccessConfVo;
 
 /**
  * 路由
@@ -12,12 +12,13 @@ import com.saicmotor.engine.gateway.admin.gateway.vo.GatewayAccessConfVo;
  */
 public interface GatewayAccessConfService extends IService<GatewayAccessConf> {
 
-	/**
-	 * 删除路由信息
-	 * @param id 路由id
-	 * @return
-	 */
-	public void deleteItem(String id);
+    /**
+     * 删除路由信息
+     *
+     * @param id 路由id
+     * @return
+     */
+	void deleteItem(String id);
 
-	public Boolean updateStatus(GatewayAccessConfVo vo);
+    Boolean updateStatus(GatewayAccessConfVo vo);
 }

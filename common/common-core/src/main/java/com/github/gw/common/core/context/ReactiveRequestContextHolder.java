@@ -13,6 +13,7 @@ public class ReactiveRequestContextHolder {
 
     /**
      * Gets the {@code Mono<ServerHttpRequest>} from Reactor {@link reactor.util.context.Context}
+     *
      * @return the {@code Mono<ServerHttpRequest>}
      */
     public static Mono<ServerHttpRequest> getRequest() {

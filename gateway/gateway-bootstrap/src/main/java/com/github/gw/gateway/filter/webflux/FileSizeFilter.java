@@ -25,6 +25,7 @@ import java.util.List;
 
 /**
  * 文件大小过滤器
+ *
  * @author li7hai26@gmail.com
  * @date 2021/12/21
  */
@@ -52,7 +53,7 @@ public class FileSizeFilter implements WebFilter {
             return serverRequest.bodyToMono(DataBuffer.class)
                     .flatMap(size -> {
                         if (size.capacity() > BYTES_PER_MB * fileMaxSize) {
-                            return Mono.error(new RuntimeException(String.format("文件超过最大[%s]mb限制",fileMaxSize)));
+                            return Mono.error(new RuntimeException(String.format("文件超过最大[%s]mb限制", fileMaxSize)));
                         }
                         BodyInserter<Mono<DataBuffer>, ReactiveHttpOutputMessage> bodyInsert = BodyInserters.fromPublisher(Mono.just(size), DataBuffer.class);
                         HttpHeaders headers = new HttpHeaders();

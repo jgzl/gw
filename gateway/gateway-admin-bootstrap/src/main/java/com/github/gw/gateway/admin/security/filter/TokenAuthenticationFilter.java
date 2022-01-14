@@ -29,6 +29,7 @@ import java.io.IOException;
 
 /**
  * token认证授权模块
+ *
  * @author li7hai26@gmail.com
  * @date 2021/12/24
  */
@@ -48,12 +49,13 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
         //不需要鉴权
         if (permitAllUrlResolver.match(request.getRequestURI())) {
             chain.doFilter(request, response);
+            return;
         }
         UsernamePasswordAuthenticationToken authentication;
         try {
             authentication = getAuthentication(request);
         } catch (Exception e) {
-            WebmvcUtil.out(response, R.fail(e,e.getMessage()));
+            WebmvcUtil.out(response, R.fail(e, e.getMessage()));
             return;
         }
         if (authentication != null) {
@@ -67,6 +69,7 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
 
     /**
      * 从token中获取用户登陆信息
+     *
      * @param request 请求对象
      * @return 用户名密码登录对象
      */
@@ -75,14 +78,14 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
         if (StrUtil.isNotBlank(token)) {
             if (JwtTokenUtil.verify(token)) {
                 throw new TokenException("token已失效,请重新登陆");
-            }else {
+            } else {
                 // 从Token中解密获取用户名
                 JWTPayload jwtPayload = JwtTokenUtil.getPayLoad(token);
-                String userName = Convert.toStr(jwtPayload.getClaim(SecurityConstants.DETAILS_USERNAME),SecurityConstants.DEFAULT_USER);
+                String userName = Convert.toStr(jwtPayload.getClaim(SecurityConstants.DETAILS_USERNAME), SecurityConstants.DEFAULT_USER);
                 ExtendUserDetailsService service = SpringUtil.getBean(ExtendUserDetailsService.class);
                 if (StrUtil.isNotBlank(userName)) {
                     UserDetails userDetails = service.loadUserByUsername(userName);
-                    if (userDetails!=null) {
+                    if (userDetails != null) {
                         return new UsernamePasswordAuthenticationToken(userName, token, userDetails.getAuthorities());
                     }
                     return null;
@@ -95,6 +98,7 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
 
     /**
      * 从请求中获取token
+     *
      * @param request 请求对象
      * @return token
      */
@@ -103,7 +107,7 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
         String token = request.getHeader(TokenConstants.TOKEN_HEADER);
         if (!StringUtils.hasText(token)) {
             Cookie[] cookies = request.getCookies();
-            if (cookies!=null) {
+            if (cookies != null) {
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equals(TokenConstants.TOKEN_COOKIE)) {
                         token = cookie.getValue();
@@ -113,9 +117,9 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
             if (!StringUtils.hasText(token)) {
                 token = request.getParameter(TokenConstants.TOKEN_PARAMETER);
             }
-        }else {
+        } else {
             // 移除Bearer 字段
-            token = token.substring(7,token.length()-1);
+            token = token.substring(7, token.length() - 1);
         }
         return token;
     }

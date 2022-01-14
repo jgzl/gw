@@ -18,6 +18,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * @author L.cm
  * @date 2021/12/24
  */
+
 /**
  * RedisTemplate 配置
  *
@@ -27,8 +28,8 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @EnableCaching
 @Configuration
 @AllArgsConstructor
-@AutoConfigureBefore(name = { "org.redisson.spring.starter.RedissonAutoConfiguration",
-        "org.springframework.boot.autoconfigure.data.redis.RedisReactiveAutoConfiguration" })
+@AutoConfigureBefore(name = {"org.redisson.spring.starter.RedissonAutoConfiguration",
+        "org.springframework.boot.autoconfigure.data.redis.RedisReactiveAutoConfiguration"})
 public class ReactiveRedisTemplateConfiguration {
 
     @Bean
@@ -37,7 +38,7 @@ public class ReactiveRedisTemplateConfiguration {
         StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
         GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
         RedisSerializationContext<String, Object> serializationContext = RedisSerializationContext
-                .<String,Object>newSerializationContext().key(stringRedisSerializer).value(genericJackson2JsonRedisSerializer).hashKey(stringRedisSerializer)
+                .<String, Object>newSerializationContext().key(stringRedisSerializer).value(genericJackson2JsonRedisSerializer).hashKey(stringRedisSerializer)
                 .hashValue(genericJackson2JsonRedisSerializer).build();
         return new ReactiveRedisTemplate<>(reactiveRedisConnectionFactory, serializationContext);
     }

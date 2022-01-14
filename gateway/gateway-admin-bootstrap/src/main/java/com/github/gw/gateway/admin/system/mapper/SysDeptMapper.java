@@ -1,7 +1,7 @@
 package com.github.gw.gateway.admin.system.mapper;
 
-import com.github.gw.gateway.admin.system.domain.SysDept;
 import com.github.gw.common.data.mapper.ExtendBaseMapper;
+import com.github.gw.gateway.admin.system.domain.SysDept;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

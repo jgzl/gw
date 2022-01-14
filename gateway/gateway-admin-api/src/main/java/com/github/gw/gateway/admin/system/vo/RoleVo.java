@@ -9,14 +9,14 @@ import lombok.Data;
 @Data
 public class RoleVo {
 
-	/**
-	 * 角色id
-	 */
-	private Long roleId;
+    /**
+     * 角色id
+     */
+    private Long roleId;
 
-	/**
-	 * 菜单列表
-	 */
-	private String menuIds;
+    /**
+     * 菜单列表
+     */
+    private String menuIds;
 
 }

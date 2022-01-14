@@ -24,7 +24,7 @@ import org.springframework.web.reactive.config.WebFluxConfigurer;
 public class WebfluxConfiguration implements WebFluxConfigurer {
 
     private final GatewayProperties gatewayProperties;
-    
+
     @Bean
     @Order
     public FileSizeFilter fileSizeFilter() {

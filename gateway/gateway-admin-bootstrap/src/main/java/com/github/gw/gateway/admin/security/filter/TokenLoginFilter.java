@@ -24,15 +24,16 @@ import java.io.InputStream;
 
 /**
  * token登陆模块
+ *
  * @author li7hai26@gmail.com
  * @date 2021/12/24
  */
 @Slf4j
 public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
 
-    private CaptchaService captchaService;
+    private final CaptchaService captchaService;
 
-    public TokenLoginFilter(AuthenticationManager authenticationManager,CaptchaService captchaService) {
+    public TokenLoginFilter(AuthenticationManager authenticationManager, CaptchaService captchaService) {
         super(authenticationManager);
         this.captchaService = captchaService;
         this.setPostOnly(false);
@@ -42,28 +43,29 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
         // 用以支持json登录
-        if(req.getContentType().equals(MediaType.APPLICATION_JSON_UTF8_VALUE)
-                ||req.getContentType().equals(MediaType.APPLICATION_JSON_VALUE)){
+        if (req.getContentType().equals(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                || req.getContentType().equals(MediaType.APPLICATION_JSON_VALUE)) {
             UsernamePasswordAuthenticationToken authRequest = null;
-            try (InputStream is = req.getInputStream()){
-                LoginUserVo authenticationBean = JacksonUtil.getInstance().readValue(is,LoginUserVo.class);
+            try (InputStream is = req.getInputStream()) {
+                LoginUserVo authenticationBean = JacksonUtil.getInstance().readValue(is, LoginUserVo.class);
                 authRequest = new UsernamePasswordAuthenticationToken(
                         authenticationBean.getUsername(), authenticationBean.getPassword());
-            }catch (IOException e) {
-                log.error("IO发生异常:",e);
+            } catch (IOException e) {
+                log.error("IO发生异常:", e);
                 authRequest = new UsernamePasswordAuthenticationToken(
                         "", "");
             } finally {
                 setDetails(req, authRequest);
                 return this.getAuthenticationManager().authenticate(authRequest);
             }
-        }else{
-            return super.attemptAuthentication(req,res);
+        } else {
+            return super.attemptAuthentication(req, res);
         }
     }
 
     /**
      * 校验验证码
+     *
      * @param request
      */
     private void validate(HttpServletRequest request) {

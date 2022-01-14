@@ -1,7 +1,7 @@
 package com.github.gw.gateway.admin.system.mapper;
 
-import com.github.gw.gateway.admin.system.domain.SysMenu;
 import com.github.gw.common.data.mapper.ExtendBaseMapper;
+import com.github.gw.gateway.admin.system.domain.SysMenu;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -17,18 +17,20 @@ import java.util.List;
 @Mapper
 public interface SysMenuMapper extends ExtendBaseMapper<SysMenu> {
 
-	/**
-	 * 通过角色编号查询菜单
-	 * @param roleId 角色ID
-	 * @return
-	 */
-	List<SysMenu> listMenusByRoleId(Long roleId);
+    /**
+     * 通过角色编号查询菜单
+     *
+     * @param roleId 角色ID
+     * @return
+     */
+    List<SysMenu> listMenusByRoleId(Long roleId);
 
-	/**
-	 * 通过角色ID查询权限
-	 * @param roleIds Ids
-	 * @return
-	 */
-	List<String> listPermissionsByRoleIds(String roleIds);
+    /**
+     * 通过角色ID查询权限
+     *
+     * @param roleIds Ids
+     * @return
+     */
+    List<String> listPermissionsByRoleIds(String roleIds);
 
 }

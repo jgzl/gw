@@ -85,10 +85,10 @@ public class GatewayLogService implements IGatewayLogService {
         if (StrUtil.isNotBlank(errorMsg)) {
             boolQueryBuilder.must(QueryBuilders.matchQuery("errorMsg", errorMsg));
         }
-        if (fromCreateTime!=null&&toCreateTime!=null) {
+        if (fromCreateTime != null && toCreateTime != null) {
             boolQueryBuilder.must(QueryBuilders.rangeQuery("createTime").from(fromCreateTime).to(toCreateTime));
         }
-        if (fromUpdateTime!=null&&toUpdateTime!=null) {
+        if (fromUpdateTime != null && toUpdateTime != null) {
             boolQueryBuilder.must(QueryBuilders.rangeQuery("updateTime").from(fromUpdateTime).to(toUpdateTime));
         }
         SearchHits<GatewayLog> searchHits = elasticsearchRestTemplate.search(nativeSearchQuery, GatewayLog.class);

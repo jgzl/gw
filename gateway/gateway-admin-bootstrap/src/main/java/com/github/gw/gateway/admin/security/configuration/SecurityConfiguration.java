@@ -28,6 +28,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 /**
  * 安全认证配置累
  * 启用方法级别的权限认证
+ *
  * @author li7hai26@gmail.com
  * @date 2021/12/24
  */

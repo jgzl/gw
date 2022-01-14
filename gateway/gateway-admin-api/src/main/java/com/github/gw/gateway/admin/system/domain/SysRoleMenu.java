@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * 角色菜单
+ *
  * @author li7hai26@gmail.com
  * @date 2021/12/23
  */

@@ -12,6 +12,7 @@
                                 type="primary"
                                 size="mini"
                                 icon="PlusIcon"
+                                v-permission="['gateway_log_add']"
                                 @click="onAddItem"
                         >
                             添加
@@ -20,6 +21,7 @@
                                 type="danger"
                                 size="mini"
                                 icon="DeleteIcon"
+                                v-permission="['gateway_log_del']"
                                 :disabled="selectRows.length === 0"
                                 @click="onDeleteItems"
                         >
@@ -130,6 +132,7 @@
                                     type="primary"
                                     size="mini"
                                     plain
+                                    v-permission="['gateway_log_edit']"
                                     @click="onUpdateItem(scope.row)"
                             >编辑</el-button
                             >
@@ -137,6 +140,7 @@
                                     type="danger"
                                     size="mini"
                                     plain
+                                    v-permission="['gateway_log_del']"
                                     @click="onDeleteItem(scope.row)"
                             >删除</el-button
                             >

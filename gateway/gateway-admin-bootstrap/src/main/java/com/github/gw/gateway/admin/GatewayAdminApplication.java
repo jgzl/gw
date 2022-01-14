@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * 获取验证码地址 http://localhost:8000/captcha/get
  * 验证验证码地址 http://localhost:8000/captcha/check
+ *
  * @author li7hai26@gmail.com
  * @date 2021/10/8
  */

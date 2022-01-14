@@ -1,7 +1,7 @@
 package com.github.gw.gateway.admin.gateway.mapper;
 
-import com.github.gw.gateway.admin.gateway.domain.GatewayRouteConf;
 import com.github.gw.common.data.mapper.ExtendBaseMapper;
+import com.github.gw.gateway.admin.gateway.domain.GatewayRouteConf;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

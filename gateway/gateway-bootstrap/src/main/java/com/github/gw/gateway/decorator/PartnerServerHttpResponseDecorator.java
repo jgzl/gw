@@ -2,8 +2,8 @@ package com.github.gw.gateway.decorator;
 
 import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
-import com.github.gw.gateway.common.ActionEnum;
 import com.github.gw.common.gateway.domain.GatewayLog;
+import com.github.gw.gateway.common.ActionEnum;
 import com.github.gw.gateway.common.WebEnum;
 import com.github.gw.gateway.util.LogUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ import static reactor.core.scheduler.Schedulers.single;
 @Slf4j
 public class PartnerServerHttpResponseDecorator extends ServerHttpResponseDecorator {
 
-    private GatewayLog gatewayLog;
+    private final GatewayLog gatewayLog;
 
     public PartnerServerHttpResponseDecorator(ServerHttpResponse response, GatewayLog gatewayLog) {
         super(response);
@@ -60,9 +60,9 @@ public class PartnerServerHttpResponseDecorator extends ServerHttpResponseDecora
             }
         } else {
             if (log.isDebugEnabled()) {
-                log.debug("网关只记录非xml,json格式的请求内容,当前请求的Content-Type为{}",contentType);
+                log.debug("网关只记录非xml,json格式的请求内容,当前请求的Content-Type为{}", contentType);
             }
-            LogUtils.logging(gatewayLog,ActionEnum.CREATE);
+            LogUtils.logging(gatewayLog, ActionEnum.CREATE);
         }
         if (log.isDebugEnabled()) {
             log.debug("结束访问[{}],合计共消耗时间为:{}ms", gatewayLog.getRequestPath(), gatewayLog.getExecuteTime());
