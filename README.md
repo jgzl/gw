@@ -32,10 +32,44 @@ GW是一套基于SpringCloudGateway开发的网关管理平台，毫无保留给
 账号 admin
 密码 123456
 
+## 部署步骤
+1.安装mysql,nacos,redis,elasticsearch步骤如下所示
+
+[安装mysql](https://www.yuque.com/yuque_lihaifeng/cloudnative/docker-mysql)
+
+[安装nacos](https://www.yuque.com/yuque_lihaifeng/cloudnative/docker-nacos)
+
+[安装redis](https://www.yuque.com/yuque_lihaifeng/cloudnative/docker-redis)
+
+[安装elasticsearch](https://www.yuque.com/yuque_lihaifeng/cloudnative/docker-elasticsearch7)
+
+2.build.sh 打包脚本(用法如下)
+```shell
+# sh build.sh 需要打包的profile
+sh build.sh prod
+```
+3.run.sh 运行脚本(用法如下)
+```shell
+sh run.sh
+```
+
 ## 计划完成功能
--[ ] 需要给接入方提供一个apiKey和apiSecret,管控非微服务接口及微服务层级接口
--[ ] 限流配置(漏桶,令牌桶,固定时间窗口,滑动时间窗口)
--[ ] 权限认证RBAC
--[ ] token(jwt,oauth2)
--[ ] 非微服接口文档生成
--[x] 网关管理平台(web)-日志记录查看,路由配置,用户管理,菜单管理,部门管理
+- [ ] 需要给接入方提供一个apiKey和apiSecret,管控非微服务接口及微服务层级接口
+- [ ] 限流配置(漏桶,令牌桶,固定时间窗口,滑动时间窗口)
+- [ ] 权限认证RBAC
+- [ ] token(jwt,oauth2)
+- [ ] 非微服接口文档生成
+- [x] 网关管理平台(web)-日志记录查看,路由配置,用户管理,菜单管理,部门管理
+
+## 内网发布
+内网地址 192.168.192.201
+
+外网地址 140.83.39.222
+
+使用Zerotier进行内网发布,公网使用Oracle Cloud LB进行负载均衡发布
+
+使用如下方式加入内网（linux）
+```shell
+curl -s https://install.zerotier.com | sudo bash
+zerotier-cli join 83048a0632ecb930
+```
