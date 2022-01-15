@@ -2,7 +2,8 @@
 const CompressionPlugin = require("compression-webpack-plugin")
 console.log(process.env.NODE_ENV)
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'development' ? '/' : "/",
+  // publicPath: process.env.NODE_ENV === 'development' ? '/' : "/vue-admin-work-x",
+  publicPath: '/',
   outputDir: "dist",
   assetsDir: "static",
   lintOnSave: true,
@@ -23,7 +24,8 @@ module.exports = {
     }
   },
   configureWebpack: {
-    devtool: '#eval-source-map',
+    // 使用debugger需要如下配置,打包一定需要关闭
+    // devtool: '#eval-source-map',
     module: {
       rules: [
         {
@@ -41,7 +43,7 @@ module.exports = {
           filename: '[path].gz[query]',
           algorithm: 'gzip',
           test: /\.js$|\.html$|\.css/,
-          threshold: 50240,
+          threshold: 40960,
           deleteOriginalAssets: false
         }))
     }

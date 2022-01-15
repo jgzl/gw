@@ -3,29 +3,29 @@
     <TableBody>
       <template #tableConfig>
         <TableConfig
-                v-model:border="tableConfig.border"
-                v-model:stripe="tableConfig.stripe"
-                @refresh="doRefresh"
+          v-model:border="tableConfig.border"
+          v-model:stripe="tableConfig.stripe"
+          @refresh="doRefresh"
         >
           <template #actions>
             <el-button
-                    type="primary"
-                    size="mini"
-                    icon="PlusIcon"
-                    @click="onAddItem"
-            >添加
+              type="primary"
+              size="mini"
+              icon="PlusIcon"
+              @click="onAddItem"
+              >添加
             </el-button>
           </template>
         </TableConfig>
       </template>
       <template #default>
         <el-table
-                v-loading="tableLoading"
-                :data="dataList"
-                :header-cell-style="tableConfig.headerCellStyle"
-                :size="tableConfig.size"
-                :stripe="tableConfig.stripe"
-                :border="tableConfig.border"
+          v-loading="tableLoading"
+          :data="dataList"
+          :header-cell-style="tableConfig.headerCellStyle"
+          :size="tableConfig.size"
+          :stripe="tableConfig.stripe"
+          :border="tableConfig.border"
         >
           <el-table-column align="center" label="序号" fixed="left" width="80">
             <template #default="scope">
@@ -75,11 +75,11 @@
       <template #content>
         <el-tree
                 ref="tree"
-                :data="menuData"
+                :data="allMenuList"
                 show-checkbox
+                :check-strictly="true"
                 node-key="id"
                 :default-expanded-keys="defaultExpandedKeys"
-                :default-checked-keys="defaultCheckedKeys"
                 :props="defaultProps"
         />
       </template>
@@ -89,7 +89,7 @@
 
 <script lang="ts" setup>
   import type { DialogType } from "@/components/types";
-  import { onMounted, reactive, ref, shallowReactive } from "vue";
+  import { nextTick, onMounted, reactive, ref, shallowReactive } from "vue";
   import { ElMessage, ElMessageBox } from "element-plus";
   import {useGet, useDataTable, usePost, usePut, useDelete} from "@/hooks";
   import {
@@ -100,6 +100,7 @@
     systemUser,
     systemRole, systemRoleMenu
   } from "@/api/url";
+  import { Plus } from "@element-plus/icons";
   import useUserStore from "@/store/modules/user";
   const userStore = useUserStore();
   const ROLE_CODE_FLAG = "ROLE_";
@@ -112,13 +113,12 @@
     description: "",
     createTime: "",
   });
-  const menuData = shallowReactive<Array<any>>([]);
   const defaultProps = {
     children: "children",
     label: "menuName",
   };
-  const defaultCheckedKeys = reactive<Array<any>>([]);
-  const defaultExpandedKeys = reactive<Array<any>>([]);
+  const defaultCheckedKeys = ref<string[]>([]);
+  const defaultExpandedKeys = ref<string[]>([]);
   const formItems = reactive([
     {
       label: "角色名称",
@@ -187,54 +187,57 @@
   const put = usePut();
   const httpDelete = useDelete();
   const { handleSuccess, dataList, tableLoading, tableConfig } = useDataTable();
+  const allMenuList = ref([]);
   function doRefresh() {
     get({
       url: systemRolePage,
       data: {},
     })
-            .then(handleSuccess)
-            .catch(console.log);
+    .then(handleSuccess)
+    .catch(console.log);
   }
-  function showMenu(item: RoleModel) {
-    menuData.length = 0;
-    defaultCheckedKeys.length = 0;
-    defaultExpandedKeys.length = 0;
+
+  function getAllMenuList() {
     get({
       url: systemMenuTree,
       data: {
         lazy: false
       }
-    })
-    .then((res) => {
-      menuData.push(...res.data);
-    }).then(()=>{
-      get({
-        url: systemMenuList+"/"+item.roleId
-      }).then((roleRes) => {
-        const roleMenus = [];
-        if (roleRes.data!=null) {
-          roleMenus.push(...roleRes.data);
-        }
-        handleRoleMenusSelected(menuData,roleMenus);
-        console.log(`defaultCheckedKeys:${JSON.stringify(defaultCheckedKeys)}`)
-        console.log(`defaultExpandedKeys:${JSON.stringify(defaultExpandedKeys)}`)
-        menuDialogRef.value?.show(() => {
-          const menuIds = tree.value.getCheckedKeys().join(",")
-          put({
-            url:systemRoleMenu ,
-            data: {
-              roleId: item.roleId,
-              menuIds: menuIds
-            }
-          })
-          .then((res)=>{
-            console.log(JSON.stringify(res))
-            doRefresh();
-          })
-          .catch(console.log)
-          menuDialogRef.value?.close();
-        });
-      }).catch(console.log);
+    }).then((res) => {
+      allMenuList.value = res.data;
+    });
+  }
+
+  function showMenu(item: RoleModel) {
+    defaultCheckedKeys.value = [];
+    defaultExpandedKeys.value = [];
+    get({
+      url: systemMenuTreeByRole,
+      data: {
+        type: MENU_LEFT+","+MENU_BUTTON,
+        roleId: item.roleId
+      }
+    }).then((res) => {
+      handleRoleMenusSelected(res.data);
+      menuDialogRef.value?.show(() => {
+        const menuIds = tree.value.getCheckedKeys().join(",")
+        put({
+          url:systemRoleMenu ,
+          data: {
+            roleId: item.roleId,
+            menuIds: menuIds
+          }
+        })
+        .then((res)=>{
+          console.log(JSON.stringify(res))
+          doRefresh();
+        })
+        .catch(console.log)
+        menuDialogRef.value?.close();
+      });
+      nextTick(() => {
+        tree.value.setCheckedKeys(defaultCheckedKeys.value);
+      });
     })
     .catch(console.log);
   }
@@ -289,17 +292,17 @@
             }
     );
   }
-  function handleRoleMenusSelected(menus: Array<any>,roleMenus: Array<any>) {
+  function handleRoleMenusSelected(menus: Array<any>) {
     menus.forEach((it: any) => {
-        if (roleMenus.includes(it.id)) {
-          console.log(`it.id:${it.id}`);
-          defaultCheckedKeys.push(it.id);
-        }
+        defaultCheckedKeys.value.push(it.id);
         if (it.children) {
-          defaultExpandedKeys.push(it.id);
-          handleRoleMenusSelected(it.children,roleMenus);
+          defaultExpandedKeys.value.push(it.id);
+          handleRoleMenusSelected(it.children);
         }
       })
   }
-  onMounted(doRefresh);
+  onMounted(async () => {
+    await getAllMenuList();
+    doRefresh();
+  });
 </script>

@@ -53,8 +53,8 @@ app.use(http);
 app.use(dragger);
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignores
-app.use(role)
+app.use(role);
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-app.use(permission)
+app.use(permission);
 app.mount("#app");

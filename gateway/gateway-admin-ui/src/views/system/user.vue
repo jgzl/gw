@@ -371,25 +371,25 @@
       url: systemUserList,
       data: tableFooter.value?.withPageInfoData(),
     })
-            .then((res) => {
-              return handleSuccess(res);
-            })
-            .then((res: any) => {
-              tableFooter.value?.setTotalSize(res.totalSize);
-              get({
-                url: systemDeptTree,
-              }).then((depRes) => {
-                departmentList.value = depRes.data;
-              });
-              get({
-                url: systemRolePage,
-              }).then((roleRes) => {
-                roleList.value = roleRes.data;
-              });
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+    .then((res) => {
+      return handleSuccess(res);
+    })
+    .then((res: any) => {
+      tableFooter.value?.setTotalSize(res.totalSize);
+      get({
+        url: systemDeptTree,
+      }).then((depRes) => {
+        departmentList.value = depRes.data;
+      });
+      get({
+        url: systemRolePage,
+      }).then((roleRes) => {
+        roleList.value = roleRes.data;
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
   function onDeleteItems() {
     if (selectRows.value.length > 0) {

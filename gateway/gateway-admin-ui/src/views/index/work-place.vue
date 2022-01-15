@@ -91,7 +91,7 @@
           </template>
           <el-row v-for="(item, index) of trendsItems" :key="index">
             <TrendsItem :item="item">
-              <template #title="{title}">
+              <template #title="{ title }">
                 <div v-html="title"></div>
               </template>
             </TrendsItem>
@@ -99,7 +99,7 @@
         </el-card>
       </div>
       <div style="flex: 2; margin-left: 5px">
-        <el-card :body-style="{padding: 0}">
+        <el-card :body-style="{ padding: 0 }">
           <template #header>
             <div class="flex justify-between">
               <span class="text-bold text-sm">
@@ -174,7 +174,7 @@
         </el-row>
       </el-card>
       <el-card
-        :body-style="{padding: '5px'}"
+        :body-style="{ padding: '5px' }"
         shadow="never"
         class="margin-top-xs"
       >
@@ -188,7 +188,7 @@
         </template>
         <el-row v-for="(item, index) of trendsItems" :key="index">
           <TrendsItem :item="item">
-            <template #title="{title}">
+            <template #title="{ title }">
               <div v-html="title"></div>
             </template>
           </TrendsItem>
@@ -196,7 +196,7 @@
       </el-card>
       <el-card
         shadow="never"
-        :body-style="{padding: 0}"
+        :body-style="{ padding: 0 }"
         class="margin-top-xs"
       >
         <template #header>

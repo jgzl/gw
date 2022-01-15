@@ -240,8 +240,8 @@
       url: systemMenuTree,
       data: {},
     })
-            .then(handleSuccess)
-            .catch(console.log);
+    .then(handleSuccess)
+    .catch(console.log);
   }
   function onAddItem() {
     menuModel.menuId = "";
