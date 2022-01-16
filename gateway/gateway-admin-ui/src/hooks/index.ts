@@ -1,5 +1,6 @@
 import {post, get, put, httpDelete} from '@/api/http'
 import dataTable from './DataTable'
+import pageDataTable from "./PageDataTable";
 import likeSearch from './LikeSearch'
 import baseForm from './Form'
 import createScript from './CreateScript'
@@ -29,6 +30,10 @@ export function useGet() {
 
 export function useDataTable() {
   return dataTable()
+}
+
+export function usePageDataTable() {
+  return pageDataTable()
 }
 
 export function useLikeSearch() {

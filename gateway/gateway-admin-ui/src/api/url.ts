@@ -32,9 +32,13 @@ export const systemRole = "/system/role";
 // 系统管理-根据角色更新菜单
 export const systemRoleMenu = "/system/role/menu";
 // 系统管理-角色列表查询
+export const systemRoleList = "/system/role/list";
+// 系统管理-角色分页列表查询
 export const systemRolePage = "/system/role/page";
 // 系统管理-用户列表查询
 export const systemUserList = "/system/user/list";
+// 系统管理-用户分页列表查询
+export const systemUserPage = "/system/user/page";
 // 系统管理-用户增删改
 export const systemUser = "/system/user";
 // 系统管理-用户禁用启用

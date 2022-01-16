@@ -2,6 +2,7 @@ package com.github.gw.gateway.admin.system.controller;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.gw.common.core.constant.CacheConstants;
@@ -97,9 +98,9 @@ public class SysRoleController {
      * @return 分页对象
      */
     @GetMapping("/page")
-    public R<List<SysRole>> getRolePage(Page page, SysRole role) {
+    public R<IPage<SysRole>> getRolePage(Page page, SysRole role) {
         Page result = sysRoleService.page(page, Wrappers.query(role));
-        return R.ok(result.getRecords());
+        return R.ok(result);
     }
 
     /**

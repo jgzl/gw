@@ -11,6 +11,25 @@ interface HeaderCellStyle {
   color: string
 }
 
+interface TableResult {
+  code: string,
+  msg: string,
+  data: []
+}
+
+interface TablePageResult {
+  code: string,
+  msg: string,
+  data: TablePageData
+}
+
+interface TablePageData {
+  records: [],
+  total: number,
+  size: number,
+  current: number,
+}
+
 interface TableConfig {
   dataList: Array<any>;
   stripe: boolean,

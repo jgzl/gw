@@ -249,23 +249,6 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <!--          <el-divider content-position="left">其它信息</el-divider>
-                    <el-form-item label="登录密码" prop="path">
-                      <el-input
-                              v-model="userModel.password"
-                              type="password"
-                              size="small"
-                              placeholder="请输入登录密码"
-                              clearable
-                      >
-                      </el-input>
-                    </el-form-item>
-                    <el-form-item label="用户状态" prop="path">
-                      <el-radio-group v-model="userModel.lockFlag">
-                        <el-radio :label="0">正常</el-radio>
-                        <el-radio :label="9">禁用</el-radio>
-                      </el-radio-group>
-                    </el-form-item>-->
         </el-form>
       </template>
     </Dialog>
@@ -273,19 +256,18 @@
 </template>
 
 <script lang="ts" setup>
-  import {useDataTable, useDelete, useGet, useLikeSearch, usePost, usePut} from "@/hooks";
+  import {useDataTable, usePageDataTable, useDelete, useGet, useLikeSearch, usePost, usePut} from "@/hooks";
   import { computed, onMounted, reactive, ref } from "vue";
   import { ElMessage, ElMessageBox } from "element-plus";
   import {
     systemUserList,
+    systemUserPage,
     systemUser,
     systemUserForLockFlag,
     systemDeptTree,
     systemRolePage,
-    gatewayRoute
   } from "@/api/url";
   import type { DialogType, TableFooter } from "@/components/types";
-  import {UserState} from "@/store/types";
 
   const { likeSearchModel, getSearchParams, resetSearch } = useLikeSearch();
   const get = useGet();
@@ -303,7 +285,7 @@
     handleSelectionChange,
     selectRows,
     useHeight,
-  } = useDataTable();
+  } = usePageDataTable();
   const departmentList = ref([]);
   const roleList = ref([]);
 
@@ -342,7 +324,7 @@
   const doSearch = () => {
     const params = getSearchParams();
     get({
-      url: systemUserList,
+      url: systemUserPage,
       data: params,
     })
             .then((res) => {
@@ -357,8 +339,10 @@
               });
               get({
                 url: systemRolePage,
-              }).then((roleRes) => {
-                roleList.value = roleRes.data;
+              }).then((res) => {
+                return handleSuccess(res);
+              }).then((res) => {
+                roleList.value = res.data;
               });
             })
             .catch((error) => {
@@ -368,7 +352,7 @@
 
   function doRefresh() {
     get({
-      url: systemUserList,
+      url: systemUserPage,
       data: tableFooter.value?.withPageInfoData(),
     })
     .then((res) => {

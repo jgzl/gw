@@ -65,6 +65,13 @@
           </el-table-column>
         </el-table>
       </template>
+      <template #footer>
+        <TableFooter
+            ref="tableFooter"
+            @refresh="doRefresh"
+            @pageChanged="doRefresh"
+        />
+      </template>
     </TableBody>
     <Dialog ref="dialogRef">
       <template #content>
@@ -91,14 +98,16 @@
   import type { DialogType } from "@/components/types";
   import { nextTick, onMounted, reactive, ref, shallowReactive } from "vue";
   import { ElMessage, ElMessageBox } from "element-plus";
-  import {useGet, useDataTable, usePost, usePut, useDelete} from "@/hooks";
+  import {useGet, useDataTable, usePost, usePut, useDelete, usePageDataTable} from "@/hooks";
   import {
+    systemRole,
+    systemRoleList,
     systemRolePage,
     systemMenuTree,
     systemMenuTreeByRole,
     systemMenuList,
     systemUser,
-    systemRole, systemRoleMenu
+    systemRoleMenu
   } from "@/api/url";
   import { Plus } from "@element-plus/icons";
   import useUserStore from "@/store/modules/user";
@@ -186,7 +195,7 @@
   const post = usePost();
   const put = usePut();
   const httpDelete = useDelete();
-  const { handleSuccess, dataList, tableLoading, tableConfig } = useDataTable();
+  const { handleSuccess, dataList, tableLoading, tableConfig } = usePageDataTable();
   const allMenuList = ref([]);
   function doRefresh() {
     get({
@@ -218,7 +227,11 @@
         roleId: item.roleId
       }
     }).then((res) => {
-      handleRoleMenusSelected(res.data);
+      if (res.data===null||res.data===undefined) {
+        handleRoleMenusSelected([]);
+      }else {
+        handleRoleMenusSelected(res.data);
+      }
       menuDialogRef.value?.show(() => {
         const menuIds = tree.value.getCheckedKeys().join(",")
         put({
