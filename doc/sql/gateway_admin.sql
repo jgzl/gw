@@ -178,6 +178,8 @@ INSERT INTO `sys_menu` VALUES (2301, '网关访问新增', 'gateway_access_add',
 INSERT INTO `sys_menu` VALUES (2302, '网关访问修改', 'gateway_access_edit', NULL, 2300, NULL, 1, b'0', '1', '2018-01-20 14:56:59', '2021-05-25 03:12:55', '0');
 INSERT INTO `sys_menu` VALUES (2303, '网关访问删除', 'gateway_access_del', NULL, 2300, NULL, 1, b'0', '1', '2018-01-20 14:57:28', '2021-05-25 03:12:55', '0');
 INSERT INTO `sys_menu` VALUES (2304, '网关访问状态启用禁用', 'gateway_access_status', NULL, 2300, NULL, 1, b'0', '1', '2018-01-20 14:57:28', '2021-05-25 03:12:55', '0');
+INSERT INTO `sys_menu` VALUES (3000, '关于', NULL, '/about', -1, 'MapLocationIcon', 2, b'0', '0', '2018-09-04 05:58:41', '2021-12-31 16:17:42', '0');
+INSERT INTO `sys_menu` VALUES (3100, '项目依赖', NULL, '/about/dependency', 3000, 'MenuIcon', 1, b'0', '0', '2018-09-04 05:58:41', '2021-12-28 20:14:25', '0');
 COMMIT;
 
 -- ----------------------------
@@ -252,6 +254,8 @@ INSERT INTO `sys_role_menu` VALUES (1, 2301);
 INSERT INTO `sys_role_menu` VALUES (1, 2302);
 INSERT INTO `sys_role_menu` VALUES (1, 2303);
 INSERT INTO `sys_role_menu` VALUES (1, 2304);
+INSERT INTO `sys_role_menu` VALUES (1, 3000);
+INSERT INTO `sys_role_menu` VALUES (1, 3100);
 INSERT INTO `sys_role_menu` VALUES (2, 2000);
 INSERT INTO `sys_role_menu` VALUES (2, 2100);
 INSERT INTO `sys_role_menu` VALUES (2, 2101);
@@ -265,6 +269,8 @@ INSERT INTO `sys_role_menu` VALUES (2, 2300);
 INSERT INTO `sys_role_menu` VALUES (2, 2301);
 INSERT INTO `sys_role_menu` VALUES (2, 2302);
 INSERT INTO `sys_role_menu` VALUES (2, 2303);
+INSERT INTO `sys_role_menu` VALUES (2, 3000);
+INSERT INTO `sys_role_menu` VALUES (2, 3100);
 COMMIT;
 
 -- ----------------------------
