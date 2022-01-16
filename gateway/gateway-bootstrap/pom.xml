@@ -76,6 +76,11 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <!--打包关联最新 git commit 信息插件-->
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+            </plugin>
             <!--smart-doc接口文档生成插件-->
             <plugin>
                 <groupId>com.github.shalousun</groupId>

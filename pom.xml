@@ -181,12 +181,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--打包关联最新 git commit 信息插件-->
-            <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
-                <version>${git-commit-id-plugin.version}</version>
-            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
@@ -202,6 +196,47 @@
                         </execution>
                     </executions>
                 </plugin>
+                <!--打包关联最新 git commit 信息插件-->
+                <plugin>
+                    <groupId>pl.project13.maven</groupId>
+                    <artifactId>git-commit-id-plugin</artifactId>
+                    <version>${git-commit-id-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>revision</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <!--日期格式;默认值:dd.MM.yyyy '@' HH:mm:ss z;-->
+                        <dateFormat>yyyy.MM.dd HH:mm:ss</dateFormat>
+                        <!--,构建过程中,是否打印详细信息;默认值:false;-->
+                        <verbose>true</verbose>
+                        <!--若项目打包类型为pom,是否取消构建;默认值:true;-->
+                        <skipPoms>false</skipPoms>
+                        <!--是否生成"git.properties"文件;默认值:false;-->
+                        <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                        <!--指定"git.properties"文件的存放路径(相对于${project.basedir}的一个路径);-->
+                        <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+                        <!--".git"文件夹未找到时,构建是否失败;若设置true,则构建失败;若设置false,则跳过执行该目标;默认值:true;-->
+                        <failOnNoGitDirectory>true</failOnNoGitDirectory>
+                        <!--git描述配置,可选;由JGit提供实现;-->
+                        <gitDescribe>
+                            <!--是否生成描述属性-->
+                            <skip>false</skip>
+                            <!--提交操作未发现tag时,仅打印提交操作ID,-->
+                            <always>false</always>
+                            <!--提交操作ID显式字符长度,最大值为:40;默认值:7;
+                                0代表特殊意义;后面有解释;
+                            -->
+                            <abbrev>7</abbrev>
+                            <!--构建触发时,代码有修改时(即"dirty state"),添加指定后缀;默认值:"";-->
+                            <dirty>-dirty</dirty>
+                            <forceLongFormat>false</forceLongFormat>
+                        </gitDescribe>
+                    </configuration>
+                </plugin>
                 <!--smart-doc接口文档生成插件-->
                 <plugin>
                     <groupId>com.github.shalousun</groupId>
@@ -212,8 +247,12 @@
                         <projectName>${project.name}</projectName><!--smart-doc实现自动分析依赖树加载第三方依赖的源码，如果一些框架依赖库加载不到导致报错，这时请使用excludes排除掉-->
                         <includes>
                             <!--格式为：groupId:artifactId;参考如下-->
-                            <include>com.github.jgzl.gw:common</include>
-                            <include>com.github.jgzl.gw:gateway</include>
+                            <include>com.github.jgzl.gw:common-core</include>
+                            <include>com.github.jgzl.gw:common-data</include>
+                            <include>com.github.jgzl.gw:common-feign</include>
+                            <include>com.github.jgzl.gw:common-gateway</include>
+                            <include>com.github.jgzl.gw:common-security</include>
+                            <include>com.github.jgzl.gw:gateway-admin-api</include>
                         </includes>
                     </configuration>
                     <executions>

@@ -22,8 +22,8 @@
   }],
   "displayActualType":false,
   "tornaDebug": true,
-  "appToken": "819e7b37bcb14ea4ad0d2f7d6c464d43",
-  "openUrl": "http://10.91.196.29/api",
-  "debugEnvName":"开发环境",
-  "debugEnvUrl":"http://10.91.249.44:7000"
+  "appToken": "710f153e74bf447a83940b034c157e57",
+  "openUrl": "http://192.168.192.201:7700/api",
+  "debugEnvName":"本地环境",
+  "debugEnvUrl":"http://192.168.192.1:7000"
 }
