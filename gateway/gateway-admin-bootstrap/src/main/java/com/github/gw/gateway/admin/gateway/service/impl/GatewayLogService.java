@@ -1,12 +1,18 @@
 package com.github.gw.gateway.admin.gateway.service.impl;
 
+import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.gw.common.gateway.domain.GatewayLog;
 import com.github.gw.common.gateway.vo.GatewayLogVo;
 import com.github.gw.gateway.admin.gateway.service.IGatewayLogService;
 import lombok.RequiredArgsConstructor;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
@@ -28,7 +34,7 @@ public class GatewayLogService implements IGatewayLogService {
     private final ElasticsearchRestTemplate elasticsearchRestTemplate;
 
     @Override
-    public List<GatewayLog> getByGatewayRequestLog(GatewayLogVo gatewayRequestLog) {
+    public Page<GatewayLogVo> getByGatewayRequestLog(Page<GatewayLogVo> page,GatewayLogVo gatewayRequestLog) {
 
         String environment = gatewayRequestLog.getEnvironment();
         String apiKey = gatewayRequestLog.getApiKey();
@@ -42,10 +48,8 @@ public class GatewayLogService implements IGatewayLogService {
         String responseBody = gatewayRequestLog.getResponseBody();
         String httpStatus = gatewayRequestLog.getHttpStatus();
         String errorMsg = gatewayRequestLog.getErrorMsg();
-        LocalDateTime fromCreateTime = gatewayRequestLog.getFromCreateTime();
-        LocalDateTime toCreateTime = gatewayRequestLog.getToCreateTime();
-        LocalDateTime fromUpdateTime = gatewayRequestLog.getFromUpdateTime();
-        LocalDateTime toUpdateTime = gatewayRequestLog.getToUpdateTime();
+        String[] createTimeRange = gatewayRequestLog.getCreateTimeRange();
+        String[] updateTimeRange = gatewayRequestLog.getUpdateTimeRange();
 
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
         NativeSearchQuery nativeSearchQuery = new NativeSearchQuery(boolQueryBuilder);
@@ -85,14 +89,27 @@ public class GatewayLogService implements IGatewayLogService {
         if (StrUtil.isNotBlank(errorMsg)) {
             boolQueryBuilder.must(QueryBuilders.matchQuery("errorMsg", errorMsg));
         }
-        if (fromCreateTime != null && toCreateTime != null) {
+
+        if (ArrayUtil.isNotEmpty(createTimeRange)) {
+            LocalDateTime fromCreateTime = DateUtil.parseLocalDateTime(createTimeRange[0], DatePattern.NORM_DATETIME_PATTERN);
+            LocalDateTime toCreateTime = DateUtil.parseLocalDateTime(createTimeRange[1], DatePattern.NORM_DATETIME_PATTERN);
             boolQueryBuilder.must(QueryBuilders.rangeQuery("createTime").from(fromCreateTime).to(toCreateTime));
         }
-        if (fromUpdateTime != null && toUpdateTime != null) {
+        if (ArrayUtil.isNotEmpty(updateTimeRange)) {
+            LocalDateTime fromUpdateTime = DateUtil.parseLocalDateTime(updateTimeRange[0], DatePattern.NORM_DATETIME_PATTERN);
+            LocalDateTime toUpdateTime = DateUtil.parseLocalDateTime(updateTimeRange[1], DatePattern.NORM_DATETIME_PATTERN);
             boolQueryBuilder.must(QueryBuilders.rangeQuery("updateTime").from(fromUpdateTime).to(toUpdateTime));
         }
-        SearchHits<GatewayLog> searchHits = elasticsearchRestTemplate.search(nativeSearchQuery, GatewayLog.class);
-        List<GatewayLog> result = searchHits.stream().map(SearchHit::getContent).collect(Collectors.toList());
-        return result;
+        if (page.getCurrent()>Integer.MAX_VALUE) {
+            throw new RuntimeException("current过大,不允许分页查询");
+        }
+        Pageable pageable = PageRequest.of((int) page.getCurrent() -1, (int) page.getSize());
+        nativeSearchQuery.setPageable(pageable);
+        SearchHits<GatewayLogVo> searchHits = elasticsearchRestTemplate.search(nativeSearchQuery, GatewayLogVo.class);
+        long totalHits = searchHits.getTotalHits();
+        List<GatewayLogVo> result = searchHits.stream().map(SearchHit::getContent).collect(Collectors.toList());
+        page.setRecords(result);
+        page.setTotal(totalHits);
+        return page;
     }
 }

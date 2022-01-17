@@ -41,7 +41,6 @@
       </template>
       <template #default>
         <el-table
-                ref="tableRef"
                 v-loading="tableLoading"
                 :data="dataList"
                 :header-cell-style="tableConfig.headerCellStyle"
@@ -256,7 +255,7 @@
 </template>
 
 <script lang="ts" setup>
-  import {useDataTable, usePageDataTable, useDelete, useGet, useLikeSearch, usePost, usePut} from "@/hooks";
+  import { useGet, usePost, usePut, useDelete, useLikeSearch, usePageDataTable } from "@/hooks";
   import { computed, onMounted, reactive, ref } from "vue";
   import { ElMessage, ElMessageBox } from "element-plus";
   import {
@@ -265,7 +264,7 @@
     systemUser,
     systemUserForLockFlag,
     systemDeptTree,
-    systemRolePage,
+    systemRolePage, systemRoleList,
   } from "@/api/url";
   import type { DialogType, TableFooter } from "@/components/types";
 
@@ -327,53 +326,46 @@
       url: systemUserPage,
       data: params,
     })
-            .then((res) => {
-              return handleSuccess(res);
-            })
-            .then((res: any) => {
-              tableFooter.value?.setTotalSize(res.totalSize);
-              get({
-                url: systemDeptTree,
-              }).then((depRes) => {
-                departmentList.value = depRes.data;
-              });
-              get({
-                url: systemRolePage,
-              }).then((res) => {
-                return handleSuccess(res);
-              }).then((res) => {
-                roleList.value = res.data;
-              });
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-  };
-
-  function doRefresh() {
-    get({
-      url: systemUserPage,
-      data: tableFooter.value?.withPageInfoData(),
-    })
-    .then((res) => {
-      return handleSuccess(res);
-    })
+    .then(handleSuccess)
     .then((res: any) => {
-      tableFooter.value?.setTotalSize(res.totalSize);
+      tableFooter.value?.setTotalSize(res.total);
       get({
         url: systemDeptTree,
       }).then((depRes) => {
         departmentList.value = depRes.data;
       });
       get({
-        url: systemRolePage,
+        url: systemRoleList,
+      }).then((res) => {
+        roleList.value = res.data;
+      });
+    })
+    .catch(console.log);
+  };
+
+  function doRefresh() {
+    get({
+      url: systemUserPage,
+      data: {
+        ...tableFooter.value?.withPageInfoData(),
+        ...getSearchParams(),
+      },
+    })
+    .then(handleSuccess)
+    .then((res: any) => {
+      tableFooter.value?.setTotalSize(res.total);
+      get({
+        url: systemDeptTree,
+      }).then((depRes) => {
+        departmentList.value = depRes.data;
+      });
+      get({
+        url: systemRoleList,
       }).then((roleRes) => {
         roleList.value = roleRes.data;
       });
     })
-    .catch((error) => {
-      console.log(error);
-    });
+    .catch(console.log);
   }
   function onDeleteItems() {
     if (selectRows.value.length > 0) {
@@ -442,9 +434,9 @@
     userModel.email = item.email;
     userModel.gender = item.gender;
     userModel.deptId = item.deptId;
+    userModel.role = [];
     if (item.roleList != null) {
       item.roleList.forEach(({roleId})=>{
-        console.log(`roleId:${roleId}`)
         userModel.role.push(roleId)
       })
     }

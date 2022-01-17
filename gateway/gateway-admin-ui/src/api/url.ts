@@ -51,8 +51,12 @@ export const gatewayLogSearch = "/gateway/logs/search";
 export const gatewayLogs = "/gateway/logs";
 // 网关管理-路由增删改查
 export const gatewayRoute = "/gateway/route";
+// 网关管理-分页查询
+export const gatewayRoutePage = "/gateway/route/page";
 // 网关管理-访问增删改查
 export const gatewayAccess = "/gateway/access";
+// 网关管理-分页查询
+export const gatewayAccessPage = "/gateway/access/page";
 // 网关管理-访问禁用启用
 export const gatewayAccessStatus = "/gateway/access/status";
 

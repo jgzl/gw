@@ -26,7 +26,7 @@ while [ -h "$SOURCE"  ]; do
     [[ $SOURCE != /*  ]] && SOURCE="$DIR/$SOURCE"
 done
 DIR="$( cd -P "$( dirname "$SOURCE"  )" && pwd  )"
-echo 'build.sh脚本地址上层目录为' $DIR
+echo $0 '脚本地址上层目录为' $DIR
 
 cd $DIR/gateway/gateway-admin-ui/
 echo '开始删除网关管理平台前端包'

@@ -1,8 +1,12 @@
 package com.github.gw.gateway.admin.gateway.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.gw.common.core.domain.R;
 import com.github.gw.gateway.admin.gateway.domain.GatewayRouteConf;
 import com.github.gw.gateway.admin.gateway.service.GatewayRouteConfService;
+import com.github.gw.gateway.admin.gateway.vo.GatewayRouteConfVo;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +23,15 @@ import java.util.List;
 @RequestMapping("/gateway/route")
 public class GatewayRouteConfController {
 
-    private final GatewayRouteConfService gatewayRouteConfService;
+    private final GatewayRouteConfService service;
+    /**
+     * 分页获取当前定义的信息
+     * @return
+     */
+    @GetMapping("/page")
+    public R<IPage<GatewayRouteConf>> pageListRoutes(Page page, GatewayRouteConfVo vo) {
+        return R.ok(service.page(page, new QueryWrapper<GatewayRouteConf>(vo)));
+    }
 
     /**
      * 获取当前定义的路由信息
@@ -28,7 +40,7 @@ public class GatewayRouteConfController {
      */
     @GetMapping
     public R<List<GatewayRouteConf>> listRoutes() {
-        return R.ok(gatewayRouteConfService.list());
+        return R.ok(service.list());
     }
 
     /**
@@ -39,7 +51,7 @@ public class GatewayRouteConfController {
      */
     @PostMapping
     public R<Void> createRoutes(@RequestBody GatewayRouteConf vo) {
-        gatewayRouteConfService.saveOrUpdate(vo);
+        service.saveOrUpdate(vo);
         return R.ok();
     }
 
@@ -51,7 +63,7 @@ public class GatewayRouteConfController {
      */
     @PutMapping
     public R<Void> updateRoutes(@RequestBody GatewayRouteConf vo) {
-        gatewayRouteConfService.saveOrUpdate(vo);
+        service.saveOrUpdate(vo);
         return R.ok();
     }
 
@@ -63,7 +75,7 @@ public class GatewayRouteConfController {
      */
     @DeleteMapping("/{routeId}")
     public R<Void> deleteRoutes(@PathVariable String routeId) {
-        gatewayRouteConfService.deleteRoute(routeId);
+        service.deleteRoute(routeId);
         return R.ok();
     }
 

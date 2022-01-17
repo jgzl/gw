@@ -1,5 +1,8 @@
 package com.github.gw.gateway.admin.gateway.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.gw.common.core.domain.R;
 import com.github.gw.gateway.admin.gateway.domain.GatewayAccessConf;
 import com.github.gw.gateway.admin.gateway.service.GatewayAccessConfService;
@@ -22,6 +25,15 @@ import java.util.List;
 public class GatewayAccessConfController {
 
     private final GatewayAccessConfService service;
+
+    /**
+     * 分页获取当前定义的信息
+     * @return
+     */
+    @GetMapping("/page")
+    public R<IPage<GatewayAccessConfVo>> pageListRoutes(Page page, GatewayAccessConfVo vo) {
+        return R.ok(service.page(page, new QueryWrapper<GatewayAccessConf>(vo)));
+    }
 
     /**
      * 分页获取当前定义的信息

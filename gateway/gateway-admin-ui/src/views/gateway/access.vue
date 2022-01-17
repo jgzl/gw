@@ -1,5 +1,16 @@
 <template>
     <div class="main-container">
+        <TableHeader
+                :can-collapsed="
+        likeSearchModel.conditionItems &&
+        likeSearchModel.conditionItems.length !== 0
+      "
+                :search-model="likeSearchModel.conditionItems"
+                :default-collapsed-state="true"
+                title="数据筛选"
+                @doSearch="doSearch"
+                @resetSearch="resetSearch"
+        />
         <TableBody>
             <template #tableConfig>
                 <TableConfig
@@ -38,6 +49,7 @@
                         :size="tableConfig.size"
                         :stripe="tableConfig.stripe"
                         :border="tableConfig.border"
+                        :height="tableConfig.height"
                         @selection-change="handleSelectionChange"
                 >
                     <el-table-column type="selection" width="45"/>
@@ -113,6 +125,13 @@
                     </el-table-column>
                 </el-table>
             </template>
+            <template #footer>
+                <TableFooter
+                        ref="tableFooter"
+                        @refresh="doRefresh"
+                        @pageChanged="doRefresh"
+                />
+            </template>
         </TableBody>
         <Dialog ref="dialogRef">
             <template #content>
@@ -170,11 +189,15 @@
 </template>
 
 <script lang="ts" setup>
-    import { useDataTable, useDelete, useGet, usePost, usePut } from "@/hooks";
+    import { useGet, usePost, usePut, useDelete, useLikeSearch, usePageDataTable } from "@/hooks";
     import {onMounted, reactive, ref} from "vue";
     import {ElMessage, ElMessageBox} from "element-plus";
-    import {gatewayAccess, gatewayAccessStatus} from "@/api/url";
-    import {DialogType, TableFooter} from "@/components/types";
+    import {
+        gatewayAccess,
+        gatewayAccessPage,
+        gatewayAccessStatus,
+        systemRolePage} from "@/api/url";
+    import type { DialogType, TableFooter } from "@/components/types";
 
     const get = useGet();
     const post = usePost();
@@ -190,7 +213,7 @@
         handleSelectionChange,
         selectRows,
         useHeight,
-    } = useDataTable();
+    } = usePageDataTable();
 
     const accessModel: AccessModel = reactive({
         id: "",
@@ -201,21 +224,53 @@
         status: "",
     });
 
-    const routeIdDisabled = ref(true);
+    const { likeSearchModel, getSearchParams, resetSearch } = useLikeSearch();
+    likeSearchModel.extraParams = () => ({
+        ...tableFooter.value?.withPageInfoData(),
+    });
+    likeSearchModel.conditionItems = reactive([
+        {
+            name: "apiKey",
+            label: "网关访问key",
+            value: "",
+            type: "input",
+            placeholder: "请输入网关访问key",
+            span: 8,
+        },
+        {
+            name: "system",
+            label: "访问系统",
+            value: "",
+            type: "input",
+            placeholder: "请输入访问系统",
+            span: 8,
+        }
+    ]);
+    const doSearch = () => {
+        const params = getSearchParams();
+        get({
+            url: gatewayAccessPage,
+            data: params,
+        })
+        .then(handleSuccess)
+        .then((res: any) => {
+            tableFooter.value?.setTotalSize(res.total);
+        })
+        .catch(console.log);
+    };
     function doRefresh() {
         get({
-            url: gatewayAccess,
-            data: tableFooter.value?.withPageInfoData(),
+            url: gatewayAccessPage,
+            data: {
+                ...tableFooter.value?.withPageInfoData(),
+                ...getSearchParams(),
+            },
         })
-            .then((res) => {
-                return handleSuccess(res);
-            })
-            .then((res: any) => {
-                tableFooter.value?.setTotalSize(res.totalSize);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        .then(handleSuccess)
+        .then((res: any) => {
+            tableFooter.value?.setTotalSize(res.total);
+        })
+        .catch(console.log);
     }
 
     function onDeleteItems() {

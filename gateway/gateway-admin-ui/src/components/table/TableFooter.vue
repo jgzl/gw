@@ -42,7 +42,7 @@ export default defineComponent({
     pageSizes: {
       type: Array as PropType<Array<number>>,
       default: () => {
-        return [10, 20, 30, 40];
+        return [5, 10, 20, 50, 100];
       },
     },
     showRefresh: {
@@ -72,8 +72,8 @@ export default defineComponent({
     const withPageInfoData = (otherParams = {}) => {
       return {
         ...otherParams,
-        page: pageModel.currentPage,
-        pageSize: pageModel.pageSize,
+        current: pageModel.currentPage,
+        size: pageModel.pageSize,
       };
     };
     const setTotalSize = (totalSize: number) => {

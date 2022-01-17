@@ -93,6 +93,8 @@
                   range-separator="-"
                   start-placeholder="开始日期"
                   end-placeholder="结束日期"
+                  format="YYYY-MM-DD HH:mm:ss"
+                  value-format="YYYY-MM-DD HH:mm:ss"
                   class="form-item"
                   size="small"
                 />
@@ -120,6 +122,8 @@
                   v-model="item.value"
                   type="datetime"
                   :placeholder="item.placeholder || '请选择日期'"
+                  format="YYYY-MM-DD HH:mm:ss"
+                  value-format="YYYY-MM-DD HH:mm:ss"
                   class="form-item"
                   size="small"
                 />
@@ -145,17 +149,17 @@
                 class="flex justify-end"
               >
                 <el-button
-                  type="success"
-                  size="mini"
-                  :icon="RefreshIcon"
-                  @click="doResetSearch"
-                >重置</el-button>
-                <el-button
                   type="primary"
                   size="mini"
                   :icon="SearchIcon"
                   @click="doSearch"
                 >搜索</el-button>
+                <el-button
+                  type="success"
+                  size="mini"
+                  :icon="RefreshIcon"
+                  @click="doResetSearch"
+                >重置</el-button>
               </div>
             </el-col>
           </el-row>

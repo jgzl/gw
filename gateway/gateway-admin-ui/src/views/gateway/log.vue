@@ -1,5 +1,16 @@
 <template>
     <div class="main-container">
+        <TableHeader
+                :can-collapsed="
+        likeSearchModel.conditionItems &&
+        likeSearchModel.conditionItems.length !== 0
+      "
+                :search-model="likeSearchModel.conditionItems"
+                :default-collapsed-state="true"
+                title="数据筛选"
+                @doSearch="doSearch"
+                @resetSearch="resetSearch"
+        />
         <TableBody>
             <template #tableConfig>
                 <TableConfig
@@ -123,6 +134,16 @@
                     />
                     <el-table-column
                             align="center"
+                            label="创建时间"
+                            prop="createTime"
+                    />
+                    <el-table-column
+                            align="center"
+                            label="更新时间"
+                            prop="updateTime"
+                    />
+                    <el-table-column
+                            align="center"
                             label="操作"
                             fixed="right"
                             width="220"
@@ -209,10 +230,13 @@
 </template>
 
 <script lang="ts" setup>
-    import { useDataTable, useDelete, useGet, usePost, usePut } from "@/hooks";
+    import { useGet, usePost, usePut, useDelete, useLikeSearch, usePageDataTable } from "@/hooks";
     import { computed, onMounted, reactive, ref } from "vue";
     import { ElMessage, ElMessageBox } from "element-plus";
-    import { gatewayLogSearch,gatewayLogs } from "@/api/url";
+    import {
+        gatewayLogs,
+        gatewayLogSearch,
+    } from "@/api/url";
     import type { DialogType, TableFooter } from "@/components/types";
 
     const get = useGet();
@@ -230,7 +254,7 @@
         handleSelectionChange,
         selectRows,
         useHeight,
-    } = useDataTable();
+    } = usePageDataTable();
 
     const tableHeight = computed(() => {
         return tableConfig.height;
@@ -253,20 +277,83 @@
         httpStatus: "",
     });
 
+    const { likeSearchModel, getSearchParams, resetSearch } = useLikeSearch();
+    likeSearchModel.extraParams = () => ({
+        ...tableFooter.value?.withPageInfoData(),
+    });
+    likeSearchModel.conditionItems = reactive([
+        {
+            name: "apiKey",
+            label: "网关访问key",
+            value: "",
+            type: "input",
+            placeholder: "请输入网关访问key",
+            span: 8,
+        },
+        {
+            name: "system",
+            label: "访问系统",
+            value: "",
+            type: "input",
+            placeholder: "请输入访问系统",
+            span: 8,
+        },
+        {
+            name: "requestPath",
+            label: "请求路径",
+            value: "",
+            type: "input",
+            placeholder: "请输入请求路径",
+            span: 8,
+        },
+        {
+            name: "environment",
+            label: "请求来源环境",
+            value: "",
+            type: "input",
+            placeholder: "请求来源环境",
+            span: 8,
+        },
+        {
+            name: "createTimeRange",
+            label: "创建时间",
+            value: [],
+            type: "date-range",
+            span: 8,
+        },
+        {
+            name: "updateTimeRange",
+            label: "更新时间",
+            value: [],
+            type: "date-range",
+            span: 8,
+        }
+    ]);
+    const doSearch = () => {
+        const params = getSearchParams();
+        get({
+            url: gatewayLogSearch,
+            data: params,
+        })
+        .then(handleSuccess)
+        .then((res: any) => {
+            tableFooter.value?.setTotalSize(res.total);
+        })
+        .catch(console.log);
+    };
     function doRefresh() {
         get({
             url: gatewayLogSearch,
-            data: tableFooter.value?.withPageInfoData(),
+            data: {
+                ...tableFooter.value?.withPageInfoData(),
+                ...getSearchParams(),
+            },
         })
-            .then((res) => {
-                return handleSuccess(res);
-            })
-            .then((res: any) => {
-                tableFooter.value?.setTotalSize(res.totalSize);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        .then(handleSuccess)
+        .then((res: any) => {
+            tableFooter.value?.setTotalSize(res.total);
+        })
+        .catch(console.log);
     }
     function onDeleteItems() {
         if (selectRows.value.length > 0) {
@@ -318,9 +405,5 @@
 </script>
 
 <style lang="scss" scoped>
-    .gender-container {
-        .gender-icon {
-            width: 20px;
-        }
-    }
+
 </style>

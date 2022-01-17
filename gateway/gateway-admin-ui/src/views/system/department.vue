@@ -88,7 +88,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { get,post,put,httpDelete } from "@/api/http";
+  import { useGet, usePost, usePut, useDelete, useLikeSearch, usePageDataTable } from "@/hooks";
   import {systemDept, systemDeptTree, systemRole} from "@/api/url";
   import type { BaseFormType, DialogType } from "@/components/types";
   import { computed, onMounted, reactive, ref } from "vue";
@@ -124,6 +124,12 @@
       prop: "actions",
     },
   ]);
+
+  const get = useGet();
+  const post = usePost();
+  const put = usePut();
+  const httpDelete = useDelete();
+
   const dialog = ref<DialogType>();
   const baseForm = ref();
   const dialogTitle = ref("添加部门");

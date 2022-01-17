@@ -163,7 +163,7 @@ INSERT INTO `sys_menu` VALUES (1400, '部门管理', NULL, '/system/department',
 INSERT INTO `sys_menu` VALUES (1401, '部门新增', 'sys_dept_add', NULL, 1400, NULL, 1, b'0', '1', '2018-01-20 14:56:16', '2021-05-25 03:12:55', '0');
 INSERT INTO `sys_menu` VALUES (1402, '部门修改', 'sys_dept_edit', NULL, 1400, NULL, 1, b'0', '1', '2018-01-20 14:56:59', '2021-05-25 03:12:55', '0');
 INSERT INTO `sys_menu` VALUES (1403, '部门删除', 'sys_dept_del', NULL, 1400, NULL, 1, b'0', '1', '2018-01-20 14:57:28', '2021-05-25 03:12:55', '0');
-INSERT INTO `sys_menu` VALUES (2000, '网关管理', NULL, '/gateway', -1, 'MapLocationIcon', 1, b'0', '0', '2018-09-04 05:58:41', '2021-12-31 16:17:42', '0');
+INSERT INTO `sys_menu` VALUES (2000, '网关管理', NULL, '/gateway', -1, 'OperationIcon', 1, b'0', '0', '2018-09-04 05:58:41', '2021-12-31 16:17:42', '0');
 INSERT INTO `sys_menu` VALUES (2100, '网关日志', NULL, '/gateway/log', 2000, 'MenuIcon', 1, b'0', '0', '2018-09-04 05:58:41', '2021-12-28 20:14:25', '0');
 INSERT INTO `sys_menu` VALUES (2101, '网关日志新增', 'gateway_log_add', NULL, 2100, NULL, 1, b'0', '1', '2018-01-20 14:56:16', '2021-05-25 03:12:55', '0');
 INSERT INTO `sys_menu` VALUES (2102, '网关日志修改', 'gateway_log_edit', NULL, 2100, NULL, 1, b'0', '1', '2018-01-20 14:56:59', '2021-05-25 03:12:55', '0');
@@ -178,8 +178,8 @@ INSERT INTO `sys_menu` VALUES (2301, '网关访问新增', 'gateway_access_add',
 INSERT INTO `sys_menu` VALUES (2302, '网关访问修改', 'gateway_access_edit', NULL, 2300, NULL, 1, b'0', '1', '2018-01-20 14:56:59', '2021-05-25 03:12:55', '0');
 INSERT INTO `sys_menu` VALUES (2303, '网关访问删除', 'gateway_access_del', NULL, 2300, NULL, 1, b'0', '1', '2018-01-20 14:57:28', '2021-05-25 03:12:55', '0');
 INSERT INTO `sys_menu` VALUES (2304, '网关访问状态启用禁用', 'gateway_access_status', NULL, 2300, NULL, 1, b'0', '1', '2018-01-20 14:57:28', '2021-05-25 03:12:55', '0');
-INSERT INTO `sys_menu` VALUES (3000, '关于', NULL, '/about', -1, 'MapLocationIcon', 2, b'0', '0', '2018-09-04 05:58:41', '2021-12-31 16:17:42', '0');
-INSERT INTO `sys_menu` VALUES (3100, '项目依赖', NULL, '/about/dependency', 3000, 'MenuIcon', 1, b'0', '0', '2018-09-04 05:58:41', '2021-12-28 20:14:25', '0');
+INSERT INTO `sys_menu` VALUES (3000, '项目信息', NULL, '/project', -1, 'MapLocationIcon', 2, b'0', '0', '2018-09-04 05:58:41', '2021-12-31 16:17:42', '0');
+INSERT INTO `sys_menu` VALUES (3100, '项目依赖', NULL, '/project/information', 3000, 'MenuIcon', 1, b'0', '0', '2018-09-04 05:58:41', '2021-12-28 20:14:25', '0');
 COMMIT;
 
 -- ----------------------------

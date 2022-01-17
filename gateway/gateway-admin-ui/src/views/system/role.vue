@@ -1,5 +1,16 @@
 <template>
   <div class="main-container">
+    <TableHeader
+            :can-collapsed="
+        likeSearchModel.conditionItems &&
+        likeSearchModel.conditionItems.length !== 0
+      "
+            :search-model="likeSearchModel.conditionItems"
+            :default-collapsed-state="true"
+            title="数据筛选"
+            @doSearch="doSearch"
+            @resetSearch="resetSearch"
+    />
     <TableBody>
       <template #tableConfig>
         <TableConfig
@@ -20,12 +31,14 @@
       </template>
       <template #default>
         <el-table
-          v-loading="tableLoading"
-          :data="dataList"
-          :header-cell-style="tableConfig.headerCellStyle"
-          :size="tableConfig.size"
-          :stripe="tableConfig.stripe"
-          :border="tableConfig.border"
+                v-loading="tableLoading"
+                :data="dataList"
+                :header-cell-style="tableConfig.headerCellStyle"
+                :size="tableConfig.size"
+                :stripe="tableConfig.stripe"
+                :border="tableConfig.border"
+                :height="tableConfig.height"
+                @selection-change="handleSelectionChange"
         >
           <el-table-column align="center" label="序号" fixed="left" width="80">
             <template #default="scope">
@@ -95,10 +108,10 @@
 </template>
 
 <script lang="ts" setup>
-  import type { DialogType } from "@/components/types";
+  import { useGet, usePost, usePut, useDelete, useLikeSearch, usePageDataTable } from "@/hooks";
+  import type { DialogType, TableFooter } from "@/components/types";
   import { nextTick, onMounted, reactive, ref, shallowReactive } from "vue";
   import { ElMessage, ElMessageBox } from "element-plus";
-  import {useGet, useDataTable, usePost, usePut, useDelete, usePageDataTable} from "@/hooks";
   import {
     systemRole,
     systemRoleList,
@@ -107,10 +120,13 @@
     systemMenuTreeByRole,
     systemMenuList,
     systemUser,
-    systemRoleMenu
+    systemRoleMenu, systemUserPage, systemDeptTree
   } from "@/api/url";
+
   import { Plus } from "@element-plus/icons";
   import useUserStore from "@/store/modules/user";
+
+  const { likeSearchModel, getSearchParams, resetSearch } = useLikeSearch();
   const userStore = useUserStore();
   const ROLE_CODE_FLAG = "ROLE_";
   const MENU_LEFT = "0";
@@ -189,20 +205,78 @@
   ]);
   const menuDialogRef = ref<DialogType>();
   const dialogRef = ref<DialogType>();
+  const tableFooter = ref<TableFooter>();
   const baseFormRef = ref();
   const tree = ref()
   const get = useGet();
   const post = usePost();
   const put = usePut();
   const httpDelete = useDelete();
-  const { handleSuccess, dataList, tableLoading, tableConfig } = usePageDataTable();
+  const {
+    dataList,
+    tableLoading,
+    tableConfig,
+    handleSuccess,
+    handleSelectionChange,
+    selectRows,
+    useHeight,
+  } = usePageDataTable();
   const allMenuList = ref([]);
+
+  likeSearchModel.extraParams = () => ({
+    ...tableFooter.value?.withPageInfoData(),
+  });
+  likeSearchModel.conditionItems = reactive([
+    {
+      name: "roleName",
+      label: "角色名称",
+      value: "",
+      type: "input",
+      placeholder: "请输入角色名称",
+      span: 8,
+    },
+    {
+      name: "roleCode",
+      label: "角色编码",
+      value: "",
+      type: "input",
+      placeholder: "请输入角色编码",
+      span: 8,
+    },
+    {
+      name: "roleDesc",
+      label: "角色描述",
+      value: "",
+      type: "input",
+      placeholder: "请输入角色描述",
+      span: 8,
+    }
+  ]);
+  const doSearch = () => {
+    const params = getSearchParams();
+    get({
+      url: systemRolePage,
+      data: params,
+    })
+    .then(handleSuccess)
+    .then((res: any) => {
+      tableFooter.value?.setTotalSize(res.total);
+    })
+    .catch(console.log);
+  };
+
   function doRefresh() {
     get({
       url: systemRolePage,
-      data: {},
+      data: {
+        ...tableFooter.value?.withPageInfoData(),
+        ...getSearchParams(),
+      },
     })
     .then(handleSuccess)
+    .then((res: any) => {
+      tableFooter.value?.setTotalSize(res.total);
+    })
     .catch(console.log);
   }
 
@@ -317,5 +391,6 @@
   onMounted(async () => {
     await getAllMenuList();
     doRefresh();
+    useHeight();
   });
 </script>

@@ -4,6 +4,8 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.gw.common.core.domain.R;
 import com.github.gw.common.gateway.domain.GatewayLog;
 import com.github.gw.common.gateway.vo.GatewayLogVo;
@@ -106,13 +108,13 @@ public class GatewayLogController {
 
     /**
      * 根据参数从数据仓库中获取网关日志
-     *
+     * @param page 分页参数
      * @param gatewayRequestLog 网关请求对象
      * @return
      */
     @GetMapping("/search")
-    public R<List<GatewayLog>> search(GatewayLogVo gatewayRequestLog) {
-        List<GatewayLog> result = service.getByGatewayRequestLog(gatewayRequestLog);
+    public R<IPage<GatewayLogVo>> search(Page<GatewayLogVo> page, GatewayLogVo gatewayRequestLog) {
+        Page<GatewayLogVo> result = service.getByGatewayRequestLog(page,gatewayRequestLog);
         return R.ok(result);
     }
 }

@@ -1,5 +1,16 @@
 <template>
     <div class="main-container">
+        <TableHeader
+                :can-collapsed="
+        likeSearchModel.conditionItems &&
+        likeSearchModel.conditionItems.length !== 0
+      "
+                :search-model="likeSearchModel.conditionItems"
+                :default-collapsed-state="true"
+                title="数据筛选"
+                @doSearch="doSearch"
+                @resetSearch="resetSearch"
+        />
         <TableBody>
             <template #tableConfig>
                 <TableConfig
@@ -42,12 +53,14 @@
             </template>
             <template #default>
                 <el-table
+                        ref="tableRef"
                         v-loading="tableLoading"
                         :data="dataList"
                         :header-cell-style="tableConfig.headerCellStyle"
                         :size="tableConfig.size"
                         :stripe="tableConfig.stripe"
                         :border="tableConfig.border"
+                        :height="tableConfig.height"
                         @selection-change="handleSelectionChange"
                 >
                     <el-table-column type="selection" width="45"/>
@@ -114,6 +127,13 @@
                         </template>
                     </el-table-column>
                 </el-table>
+            </template>
+            <template #footer>
+                <TableFooter
+                        ref="tableFooter"
+                        @refresh="doRefresh"
+                        @pageChanged="doRefresh"
+                />
             </template>
         </TableBody>
         <Dialog ref="dialogRef">
@@ -189,11 +209,14 @@
 </template>
 
 <script lang="ts" setup>
-    import { useDataTable, useDelete, useGet, usePost, usePut } from "@/hooks";
+    import {useGet, usePost, usePut, useDelete, useLikeSearch, usePageDataTable} from "@/hooks";
     import {onMounted, reactive, ref} from "vue";
     import {ElMessage, ElMessageBox} from "element-plus";
-    import {gatewayRoute} from "@/api/url";
-    import {DialogType, TableFooter} from "@/components/types";
+    import {
+        gatewayRoute,
+        gatewayRoutePage,
+    } from "@/api/url";
+    import type { DialogType, TableFooter } from "@/components/types";
 
     const get = useGet();
     const post = usePost();
@@ -208,7 +231,8 @@
         handleSuccess,
         handleSelectionChange,
         selectRows,
-    } = useDataTable();
+        useHeight,
+    } = usePageDataTable();
 
     const routeModel: RouteModel = reactive({
         id: "",
@@ -222,20 +246,45 @@
     });
 
     const routeIdDisabled = ref(true);
+    const { likeSearchModel, getSearchParams, resetSearch } = useLikeSearch();
+    likeSearchModel.extraParams = () => ({
+        ...tableFooter.value?.withPageInfoData(),
+    });
+    likeSearchModel.conditionItems = reactive([
+        {
+            name: "routeName",
+            label: "路由名称",
+            value: "",
+            type: "input",
+            placeholder: "请输入路由名称",
+            span: 8,
+        }
+    ]);
+    const doSearch = () => {
+        const params = getSearchParams();
+        get({
+            url: gatewayRoutePage,
+            data: params,
+        })
+        .then(handleSuccess)
+        .then((res: any) => {
+            tableFooter.value?.setTotalSize(res.total);
+        })
+        .catch(console.log);
+    };
     function doRefresh() {
         get({
-            url: gatewayRoute,
-            data: tableFooter.value?.withPageInfoData(),
+            url: gatewayRoutePage,
+            data: {
+                ...tableFooter.value?.withPageInfoData(),
+                ...getSearchParams(),
+            },
         })
-            .then((res) => {
-                return handleSuccess(res);
-            })
-            .then((res: any) => {
-                tableFooter.value?.setTotalSize(res.totalSize);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        .then(handleSuccess)
+        .then((res: any) => {
+            tableFooter.value?.setTotalSize(res.total);
+        })
+        .catch(console.log);
     }
 
     function onDeleteItems() {
@@ -333,13 +382,12 @@
             })
             .catch(console.log);
     }
-    onMounted(doRefresh);
+    onMounted(() => {
+        doRefresh();
+        useHeight();
+    });
 </script>
 
 <style lang="scss" scoped>
-    .gender-container {
-        .gender-icon {
-            width: 20px;
-        }
-    }
+
 </style>
