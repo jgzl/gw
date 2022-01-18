@@ -10,7 +10,6 @@ import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -36,7 +35,6 @@ public class RedisRouteDefinitionWriter implements RouteDefinitionRepository {
             RouteDefinitionVo vo = new RouteDefinitionVo();
             BeanUtils.copyProperties(r, vo);
             log.info("保存路由信息{}", vo);
-            redisTemplate.setKeySerializer(new StringRedisSerializer());
             redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(RouteDefinitionVo.class));
             redisTemplate.opsForHash().put(CacheConstants.ROUTE_KEY, r.getId(), vo);
             redisTemplate.convertAndSend(CacheConstants.ROUTE_JVM_RELOAD_TOPIC, "新增路由信息,网关缓存更新");
@@ -48,7 +46,6 @@ public class RedisRouteDefinitionWriter implements RouteDefinitionRepository {
     public Mono<Void> delete(Mono<String> routeId) {
         return routeId.flatMap(id -> {
             log.info("删除路由信息{}", id);
-            redisTemplate.setKeySerializer(new StringRedisSerializer());
             redisTemplate.opsForHash().delete(CacheConstants.ROUTE_KEY, id);
             redisTemplate.convertAndSend(CacheConstants.ROUTE_JVM_RELOAD_TOPIC, "删除路由信息,网关缓存更新");
             return Mono.empty();
@@ -69,7 +66,6 @@ public class RedisRouteDefinitionWriter implements RouteDefinitionRepository {
             log.debug("内存 中路由定义条数： {}， {}", routeList.size(), routeList);
             return Flux.fromIterable(routeList);
         }
-        redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(RouteDefinitionVo.class));
         List<RouteDefinitionVo> values = redisTemplate.<String, RouteDefinitionVo>opsForHash().values(CacheConstants.ROUTE_KEY);
 

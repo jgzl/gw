@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -342,6 +343,22 @@ public class ExcelUtil<T> {
         try {
             writeSheet();
             wb.write(response.getOutputStream());
+        } catch (Exception e) {
+            log.error("导出Excel异常{}", e.getMessage());
+        } finally {
+            IOUtils.closeQuietly(wb);
+        }
+    }
+
+    /**
+     * 对list数据源将其里面的数据导入到excel表单
+     *
+     * @return 结果
+     */
+    public void exportExcel(OutputStream outputStream) {
+        try {
+            writeSheet();
+            wb.write(outputStream);
         } catch (Exception e) {
             log.error("导出Excel异常{}", e.getMessage());
         } finally {
