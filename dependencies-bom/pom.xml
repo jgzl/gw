@@ -42,7 +42,7 @@
         <ttl.version>2.12.1</ttl.version>
         <jasypt.version>3.0.4</jasypt.version>
         <javassist.version>3.28.0-GA</javassist.version>
-        <nacos.version>1.4.2</nacos.version>
+        <nacos.version>2.0.4</nacos.version>
         <mybatis.jsr.version>1.0.2</mybatis.jsr.version>
         <okhttp.version>4.9.2</okhttp.version>
         <ip2region.version>1.7.2</ip2region.version>
