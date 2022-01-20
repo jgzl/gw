@@ -6,7 +6,15 @@ import {
     USER_TOKEN_KEY,
 } from "@/store/keys";
 
-const baseIp = "/api";
+let baseIp: string;
+
+switch (process.env.NODE_ENV) {
+    case 'github':
+        baseIp = 'http://152.70.108.210/api'
+        break;
+    default:
+        baseIp = '/api'
+}
 
 const TOKEN_HEADER = "Authorization";
 
