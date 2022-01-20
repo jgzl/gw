@@ -3,11 +3,14 @@
   "version": "2.1.3",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "dev": "npm run serve",
-    "build": "vue-cli-service build",
-    "build:github": "vue-cli-service build --mode github",
-    "build:docker": "vue-cli-service build --dest=./docker/dist/",
+    "serve": "vue-cli-service serve --mode dev",
+    "dev": "vue-cli-service serve --mode dev",
+    "build:dev": "vue-cli-service build --mode dev",
+    "build:sit": "vue-cli-service build --mode sit",
+    "build:uat": "vue-cli-service build --mode uat",
+    "build:prod": "vue-cli-service build --mode prod",
+    "build:pages": "vue-cli-service build --mode pages",
+    "build:docker": "vue-cli-service build --mode prod --dest=./docker/dist/",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

@@ -8,7 +8,7 @@
         <div class="desc">Vue3 + Webpack + Typescript + Element Plus</div>
         <div class="ttiipp">博观而约取 厚积而薄发</div>
         <div class="bottom">
-          {{ projectName + "    " + version }} · Made by saicmotor engine team
+          {{ projectName + "    " + version }} · Made by engine team
         </div>
       </div>
     </div>

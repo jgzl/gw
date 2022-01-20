@@ -6,16 +6,6 @@ import {
     USER_TOKEN_KEY,
 } from "@/store/keys";
 
-let baseIp: string;
-
-switch (process.env.NODE_ENV) {
-    case 'github':
-        baseIp = 'http://152.70.108.210/api'
-        break;
-    default:
-        baseIp = '/api'
-}
-
 const TOKEN_HEADER = "Authorization";
 
 const TOKEN_HEADER_PREFIX = "Bearer ";
@@ -30,7 +20,7 @@ export const APPLICATION_JSON = "application/json;charset=UTF-8";
 export const TEXT_PLAIN = "text/plain;charset=UTF-8";
 
 const service = Axios.create({
-  baseURL: baseIp,
+  baseURL: process.env.VUE_APP_BASE_API,
   timeout: 10 * 60 * 1000,
   withCredentials: true, // 跨域请求时发送cookie
 });
