@@ -2,7 +2,7 @@
 const CompressionPlugin = require("compression-webpack-plugin")
 console.log(process.env.NODE_ENV)
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'pages' ? '/' : "/",
+  publicPath: process.env.NODE_ENV === 'pages' ? '/gw' : "/",
   outputDir: "dist",
   assetsDir: "static",
   lintOnSave: true,
