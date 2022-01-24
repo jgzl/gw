@@ -4,7 +4,7 @@ gateway-admin-ui为前端,参考前端项目 [vue-admin-work-x](https://gitee.co
 
 ## 平台简介
 
-GW是一套基于SpringCloudGateway开发的网关管理平台，毫无保留给个人及企业免费使用。
+GW是一套基于Spring Cloud Gateway开发的网关管理平台，毫无保留给个人及企业免费使用。
 
 * 前端采用Vue、Element UI。
 * 后端采用Spring Boot、Spring Security、Redis & Jwt。
@@ -63,15 +63,22 @@ sh run.sh
 
 ## 生产发布(内网)
 内网地址 
+
 http://192.168.192.201
+
 http://192.168.192.202
 
 外网地址
+
+http://dlhf.gitee.io/gw
+
 http://152.70.108.210/
+
 http://140.83.39.222/
+
 http://155.248.183.128/
 
-使用Zerotier进行内网发布,公网使用Oracle Cloud LB进行负载均衡发布
+使用**Zerotier**进行内网发布,公网使用Oracle Cloud LB进行负载均衡发布
 
 使用如下方式加入内网（linux）
 ```shell
@@ -82,8 +89,4 @@ zerotier-cli join 83048a0632ecb930
 ## 接口文档(内网)
 使用smart-doc + torna来管理接口文档
 
-torna地址 http://192.168.192.201:7700,账号密码自行注册
-
-内网直接访问[分享地址-网关核心模块](http://192.168.192.201:7700/#/share/7YX0lXxR)
-
-内网直接访问[分享地址-网关管理模块](http://192.168.192.201:7700/#/share/rnzdb8jY)
+~~torna地址 http://192.168.192.201:7700,账号密码自行注册~~

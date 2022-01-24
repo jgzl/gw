@@ -25,7 +25,7 @@ public class RedisSerializerInstance {
         if (instance == null){
             synchronized (RedisSerializerInstance.class){
                 if (instance == null){
-                    return new RedisSerializerInstance();
+                    instance = new RedisSerializerInstance();
                 }
             }
         }
@@ -33,7 +33,7 @@ public class RedisSerializerInstance {
     }
 
     public RedisSerializer<Object> defaultSerializer(){
-        Jackson2JsonRedisSerializer redisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+        Jackson2JsonRedisSerializer<Object> redisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
         //解决查询缓存转换异常的问题
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
