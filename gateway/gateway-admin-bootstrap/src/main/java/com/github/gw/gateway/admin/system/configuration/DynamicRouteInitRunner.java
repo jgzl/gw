@@ -6,16 +6,13 @@ import com.github.gw.common.core.constant.CacheConstants;
 import com.github.gw.common.gateway.support.DynamicRouteInitEvent;
 import com.github.gw.common.gateway.vo.RouteDefinitionVo;
 import com.github.gw.gateway.admin.gateway.service.GatewayRouteConfService;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.context.WebServerInitializedEvent;
 import org.springframework.cloud.gateway.filter.FilterDefinition;
 import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
@@ -30,12 +27,11 @@ import java.net.URI;
  */
 @Slf4j
 @Configuration
-@AllArgsConstructor
 public class DynamicRouteInitRunner {
 
-    private final RedisTemplate redisTemplate;
+    private RedisTemplate redisTemplate;
 
-    private final GatewayRouteConfService routeConfService;
+    private GatewayRouteConfService routeConfService;
 
     @Async
     @Order
@@ -69,18 +65,16 @@ public class DynamicRouteInitRunner {
     /**
      * redis 监听配置,监听 gateway_redis_route_reload_topic,重新加载Redis
      *
-     * @param redisConnectionFactory redis 配置
-     * @return
      */
-    @Bean
-    public RedisMessageListenerContainer redisContainer(RedisConnectionFactory redisConnectionFactory) {
-        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
-        container.setConnectionFactory(redisConnectionFactory);
+    public DynamicRouteInitRunner(RedisTemplate redisTemplate,
+                                  GatewayRouteConfService routeConfService,
+                                  RedisMessageListenerContainer container) {
+        this.redisTemplate = redisTemplate;
+        this.routeConfService = routeConfService;
         container.addMessageListener((message, bytes) -> {
             log.warn("接收到重新Redis 重新加载路由事件");
             initRoute();
         }, new ChannelTopic(CacheConstants.ROUTE_REDIS_RELOAD_TOPIC));
-        return container;
     }
 
 }

@@ -13,19 +13,19 @@ public class GatewayConstants {
     /**
      * 环境
      */
-    public static final String X_BUSINESS_ENV = "x_business_env";
+    public static final String X_BUSINESS_ENV = "x-business-env";
     /**
      * 访问key
      */
-    public static final String X_BUSINESS_API_KEY = "x_business_api_key";
+    public static final String X_BUSINESS_API_KEY = "x-business-api-key";
     /**
      * 访问secret
      */
-    public static final String X_BUSINESS_API_SECRET = "x_business_api_secret";
+    public static final String X_BUSINESS_API_SECRET = "x-business-api-secret";
     /**
      * 访问系统
      */
-    public static final String X_BUSINESS_API_SYSTEM = "x_business_api_system";
+    public static final String X_BUSINESS_API_SYSTEM = "x-business-api-system";
     /**
      * 默认大小限制
      */

@@ -1,5 +1,6 @@
 package com.github.gw.gateway.configuration.properties;
 
+import com.github.gw.common.core.enums.RecordLogEnum;
 import com.github.gw.gateway.common.GatewayConstants;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -13,7 +14,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 @ConfigurationProperties(prefix = GatewayConstants.SYSTEM_PREFIX)
 public class GatewayProperties {
-    private Integer limitBodySize = GatewayConstants.DEFAULT_LIMIT;
     private GatewayPathProperties path = new GatewayPathProperties();
     private GatewayFileProperties file = new GatewayFileProperties();
+    private RecordLogEnum logType = RecordLogEnum.LocalFile;
 }

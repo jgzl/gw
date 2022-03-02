@@ -1,14 +1,17 @@
 package com.github.gw.gateway.admin.gateway.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.gw.common.core.constant.CacheConstants;
 import com.github.gw.common.core.constant.CommonConstants;
 import com.github.gw.gateway.admin.gateway.convert.AccessConvert;
 import com.github.gw.gateway.admin.gateway.domain.GatewayAccessConf;
 import com.github.gw.gateway.admin.gateway.mapper.GatewayAccessConfMapper;
 import com.github.gw.gateway.admin.gateway.service.GatewayAccessConfService;
 import com.github.gw.gateway.admin.gateway.vo.GatewayAccessConfVo;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,10 +24,12 @@ import java.time.LocalDateTime;
  * @date 2018年11月06日10:27:55
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service("gatewayAccessConfService")
 public class GatewayAccessConfServiceImpl extends ServiceImpl<GatewayAccessConfMapper, GatewayAccessConf>
         implements GatewayAccessConfService {
+
+    private final RedisTemplate<String, Object> redisTemplate;
 
     /**
      * 新增或者更新
@@ -36,7 +41,17 @@ public class GatewayAccessConfServiceImpl extends ServiceImpl<GatewayAccessConfM
     @Transactional(rollbackFor = Exception.class)
     public boolean saveOrUpdate(GatewayAccessConf item) {
         item.setDelFlag(CommonConstants.STATUS_NORMAL);
-        return super.saveOrUpdate(item);
+        try {
+            boolean result = super.saveOrUpdate(item);
+            GatewayAccessConfVo vo = AccessConvert.INSTANCE.convertDo2Vo(item);
+            redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(GatewayAccessConfVo.class));
+            redisTemplate.opsForHash().put(CacheConstants.ACCESS_CONF_KEY, vo.getApiKey(), vo);
+            redisTemplate.convertAndSend(CacheConstants.ACCESS_CONF_JVM_RELOAD_TOPIC, "缓存更新");
+            return result;
+        } catch (Exception e) {
+            log.error("更新数据发生异常", e);
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -48,13 +63,30 @@ public class GatewayAccessConfServiceImpl extends ServiceImpl<GatewayAccessConfM
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteItem(String id) {
-        super.removeById(id);
+        GatewayAccessConf item = this.getById(id);
+        try {
+            super.removeById(id);
+            redisTemplate.opsForHash().delete(CacheConstants.ACCESS_CONF_KEY, item.getApiKey());
+            redisTemplate.convertAndSend(CacheConstants.ACCESS_CONF_JVM_RELOAD_TOPIC, "缓存更新");
+        } catch (Exception e) {
+            log.error("更新数据发生异常", e);
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public Boolean updateStatus(GatewayAccessConfVo vo) {
+        vo.setUpdateTime(LocalDateTime.now());
         GatewayAccessConf domain = AccessConvert.INSTANCE.convertVo2Do(vo);
-        domain.setUpdateTime(LocalDateTime.now());
-        return super.updateById(domain);
+        try {
+            boolean result = super.updateById(domain);
+            redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(GatewayAccessConfVo.class));
+            redisTemplate.opsForHash().put(CacheConstants.ACCESS_CONF_KEY, vo.getApiKey(), vo);
+            redisTemplate.convertAndSend(CacheConstants.ACCESS_CONF_JVM_RELOAD_TOPIC, "缓存更新");
+            return result;
+        } catch (Exception e) {
+            log.error("更新数据发生异常", e);
+            throw new RuntimeException(e);
+        }
     }
 }

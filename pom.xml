@@ -36,7 +36,7 @@
         <lombok.version>1.18.20</lombok.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <fluent-mybatis.version>1.9.2</fluent-mybatis.version>
-        <spring-boot.version>2.6.2</spring-boot.version>
+        <spring-boot.version>2.6.3</spring-boot.version>
     </properties>
 
     <dependencies>

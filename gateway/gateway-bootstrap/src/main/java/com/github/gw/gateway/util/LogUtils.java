@@ -3,9 +3,8 @@ package com.github.gw.gateway.util;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.github.gw.common.gateway.domain.GatewayLog;
-import com.github.gw.gateway.common.ActionEnum;
 import com.github.gw.gateway.common.WebEnum;
-import com.github.gw.gateway.log.listener.GatewayRequestLogApplicationEvent;
+import com.github.gw.gateway.listener.GatewayRequestLogApplicationEvent;
 import io.netty.buffer.UnpooledByteBufAllocator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -46,24 +45,24 @@ public class LogUtils {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public static <T extends DataBuffer> T logging(GatewayLog gatewayLog, T buffer, ActionEnum actionEnum, WebEnum webEnum) {
-        GatewayRequestLogApplicationEvent event = new GatewayRequestLogApplicationEvent(gatewayLog.getId(), gatewayLog, actionEnum);
+    public static <T extends DataBuffer> T logging(GatewayLog gatewayLog, T buffer, WebEnum webEnum) {
+        GatewayRequestLogApplicationEvent event = new GatewayRequestLogApplicationEvent(gatewayLog.getId(), gatewayLog);
         InputStream dataBuffer = buffer.asInputStream();
         byte[] bytes = IoUtil.readBytes(dataBuffer);
         NettyDataBufferFactory nettyDataBufferFactory = new NettyDataBufferFactory(new UnpooledByteBufAllocator(false));
         String body = new String(bytes);
         switch (webEnum) {
             case REQUEST:
-                event.getGatewayLog().setRequestBody(body);
+                gatewayLog.setRequestBody(body);
                 break;
             case RESPONSE:
-                event.getGatewayLog().setResponseBody(body);
+                gatewayLog.setResponseBody(body);
+                SpringUtil.publishEvent(event);
                 break;
             default:
                 log.error("非法参数类型,不记录数据体");
         }
 
-        SpringUtil.publishEvent(event);
         DataBufferUtils.release(buffer);
         return (T) nettyDataBufferFactory.wrap(bytes);
     }
@@ -74,8 +73,8 @@ public class LogUtils {
      * @param gatewayLog
      * @param actionEnum
      */
-    public static void logging(GatewayLog gatewayLog, ActionEnum actionEnum) {
-        GatewayRequestLogApplicationEvent event = new GatewayRequestLogApplicationEvent(gatewayLog.getId(), gatewayLog, actionEnum);
+    public static void logging(GatewayLog gatewayLog) {
+        GatewayRequestLogApplicationEvent event = new GatewayRequestLogApplicationEvent(gatewayLog.getId(), gatewayLog);
         SpringUtil.publishEvent(event);
     }
 }

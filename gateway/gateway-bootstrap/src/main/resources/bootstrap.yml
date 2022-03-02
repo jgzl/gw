@@ -5,3 +5,5 @@ spring:
     active: @profiles.active@
   application:
     name: @artifactId@
+gateway:
+  logType: LocalFile

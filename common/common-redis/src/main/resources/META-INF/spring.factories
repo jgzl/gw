@@ -1,5 +1,6 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   com.github.gw.common.data.cache.RedisCacheAutoConfiguration,\
   com.github.gw.common.data.cache.RedisCacheManagerConfiguration,\
+  com.github.gw.common.data.cache.RedisListenerConfiguration,\
   com.github.gw.common.data.template.RedisTemplateConfiguration,\
   com.github.gw.common.data.template.ReactiveRedisTemplateConfiguration

@@ -33,6 +33,16 @@ public class CacheConstants {
     public final static String DEFAULT_CODE_KEY = SYS_PREFIX + "gateway:validateCode:";
 
     /**
+     * 网关访问存放
+     */
+    public final static String ACCESS_CONF_KEY = SYS_PREFIX + "gateway_access_conf_key";
+
+    /**
+     * 网关访问内存reload 时间
+     */
+    public final static String ACCESS_CONF_JVM_RELOAD_TOPIC = SYS_PREFIX + "access_conf_jvm_route_reload_topic";
+
+    /**
      * 路由存放
      */
     public final static String ROUTE_KEY = SYS_PREFIX + "gateway_route_key";

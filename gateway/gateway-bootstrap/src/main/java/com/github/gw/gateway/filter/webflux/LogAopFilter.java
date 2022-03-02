@@ -37,6 +37,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class LogAopFilter implements WebFilter {
 
+    public static final String FILTER_NAME = "logAopFilter";
+
     private static final String GATEWAY_START_LOG_TIME = "GATEWAY_START_LOG_TIME";
 
     private static final AntPathMatcher matcher = new AntPathMatcher();
