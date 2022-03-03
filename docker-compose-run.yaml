@@ -4,6 +4,8 @@ services:
     restart: always
     container_name: gateway-bootstrap
     image: dlhf/gateway-bootstrap:${image_version}
+    volumes:
+      - /app/logs:/app/logs
     ports:
       - 7000:7000
 
@@ -18,6 +20,8 @@ services:
     restart: always
     container_name: gateway-admin-ui
     image: dlhf/gateway-admin-ui:${image_version}
+    volumes:
+      - /var/log/nginx:/var/log/nginx
     ports:
       - 80:80
     depends_on:
