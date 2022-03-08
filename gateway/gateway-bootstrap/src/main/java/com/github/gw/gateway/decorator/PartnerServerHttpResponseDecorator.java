@@ -26,15 +26,12 @@ import static reactor.core.scheduler.Schedulers.single;
 public class PartnerServerHttpResponseDecorator extends ServerHttpResponseDecorator {
 
     private final GatewayLog gatewayLog;
+    private final ServerHttpResponse response;
 
     public PartnerServerHttpResponseDecorator(ServerHttpResponse response, GatewayLog gatewayLog) {
         super(response);
         this.gatewayLog = gatewayLog;
-        long costTime = DateUtil.between(DateUtil.date(gatewayLog.getCreateTime()), DateUtil.date(LocalDateTime.now()), DateUnit.MS);
-        LocalDateTime updateTime = LocalDateTime.now();
-        gatewayLog.setExecuteTime(costTime);
-        gatewayLog.setUpdateTime(updateTime);
-        gatewayLog.setHttpStatus(response.getStatusCode() != null ? response.getStatusCode().value() + "" : null);
+        this.response = response;
     }
 
     @Override
@@ -45,7 +42,11 @@ public class PartnerServerHttpResponseDecorator extends ServerHttpResponseDecora
     @SuppressWarnings("unchecked")
     @Override
     public Mono<Void> writeWith(Publisher<? extends DataBuffer> body) {
-
+        LocalDateTime updateTime = LocalDateTime.now();
+        long costTime = DateUtil.between(DateUtil.date(gatewayLog.getCreateTime()), DateUtil.date(updateTime), DateUnit.MS);
+        gatewayLog.setExecuteTime(costTime);
+        gatewayLog.setUpdateTime(updateTime);
+        gatewayLog.setHttpStatus(response.getStatusCode() != null ? response.getStatusCode().value() + "" : null);
         final MediaType contentType = super.getHeaders().getContentType();
         if (LogUtils.legalLogMediaTypes.contains(contentType)) {
             if (body instanceof Mono) {

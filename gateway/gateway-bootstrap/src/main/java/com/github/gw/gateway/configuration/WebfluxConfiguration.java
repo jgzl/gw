@@ -3,7 +3,7 @@ package com.github.gw.gateway.configuration;
 import com.github.gw.gateway.configuration.properties.GatewayProperties;
 import com.github.gw.gateway.filter.webflux.AccessFilter;
 import com.github.gw.gateway.filter.webflux.FileSizeFilter;
-import com.github.gw.gateway.filter.webflux.LogAopFilter;
+import com.github.gw.gateway.filter.webflux.RecordLogFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -24,16 +24,16 @@ public class WebfluxConfiguration implements WebFluxConfigurer {
 
     private final GatewayProperties gatewayProperties;
 
-    @Bean
+    @Bean(FileSizeFilter.FILTER_NAME)
     @Order
     public FileSizeFilter fileSizeFilter() {
         return new FileSizeFilter(gatewayProperties.getFile().getFileMaxSize());
     }
 
-    @Bean(LogAopFilter.FILTER_NAME)
+    @Bean(RecordLogFilter.FILTER_NAME)
     @Order
-    public LogAopFilter logAopFilter() {
-        return new LogAopFilter(gatewayProperties);
+    public RecordLogFilter recordLogFilter() {
+        return new RecordLogFilter(gatewayProperties);
     }
 
     @Bean(AccessFilter.FILTER_NAME)

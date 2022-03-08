@@ -32,6 +32,8 @@ import java.util.List;
 @Slf4j
 public class FileSizeFilter implements WebFilter {
 
+    public static final String FILTER_NAME = "fileSizeFilter";
+
     private static final int BYTES_PER_MB = 1024 * 1024;
 
     private final int fileMaxSize;
