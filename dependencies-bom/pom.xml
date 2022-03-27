@@ -148,6 +148,21 @@
                 <artifactId>gateway-admin-api</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>com.github.jgzl.gw</groupId>
+                <artifactId>spi-log-api</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.jgzl.gw</groupId>
+                <artifactId>spi-log-elasticsearch</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.jgzl.gw</groupId>
+                <artifactId>spi-log-localfile</artifactId>
+                <version>${revision}</version>
+            </dependency>
 
             <!--  实体类转换  -->
             <dependency>

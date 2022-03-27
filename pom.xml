@@ -17,6 +17,7 @@
         <module>dependencies-bom</module>
         <module>gateway</module>
         <module>monitor</module>
+        <module>spi</module>
     </modules>
 
     <properties>

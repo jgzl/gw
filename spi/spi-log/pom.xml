@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.github.jgzl.gw</groupId>
+        <artifactId>spi</artifactId>
+        <version>${revision}</version>
+    </parent>
+    <artifactId>spi-log</artifactId>
+    <packaging>pom</packaging>
+    <name>网关微服务平台::SPI::SPI-日志模块</name>
+    <description>网关微服务平台::SPI::SPI-日志模块</description>
+
+    <modules>
+        <module>spi-log-api</module>
+        <module>spi-log-localfile</module>
+        <module>spi-log-elasticsearch</module>
+    </modules>
+</project>

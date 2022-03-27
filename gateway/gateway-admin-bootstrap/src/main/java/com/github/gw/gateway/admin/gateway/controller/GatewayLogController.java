@@ -9,10 +9,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.gw.common.core.domain.R;
 import com.github.gw.common.gateway.domain.GatewayLog;
 import com.github.gw.common.gateway.vo.GatewayLogVo;
-import com.github.gw.gateway.admin.gateway.repository.GatewayLogElasticsearchRepository;
-import com.github.gw.gateway.admin.gateway.service.IGatewayLogService;
-import lombok.AllArgsConstructor;
+import com.github.gw.gateway.spi.log.GatewayLogService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -25,14 +24,12 @@ import java.util.stream.Collectors;
  * @author li7hai26@gmail.com
  */
 @Slf4j
-@AllArgsConstructor
 @RestController
 @RequestMapping("/gateway/logs")
 public class GatewayLogController {
 
-    private final GatewayLogElasticsearchRepository repository;
-
-    private final IGatewayLogService service;
+    @Autowired
+    private GatewayLogService service;
 
     /**
      * 获取所有网关日志
@@ -41,7 +38,7 @@ public class GatewayLogController {
      */
     @GetMapping
     public R<Iterable<GatewayLog>> findAll() {
-        Iterable<GatewayLog> result = repository.findAll();
+        Iterable<GatewayLog> result = service.findAll();
         return R.ok(result);
     }
 
@@ -57,7 +54,7 @@ public class GatewayLogController {
             return R.ok();
         }
         List<String> idList = Arrays.stream(ids.split(",")).collect(Collectors.toList());
-        Iterable<GatewayLog> result = repository.findAllById(idList);
+        Iterable<GatewayLog> result = service.findAllById(idList);
         return R.ok(result);
     }
 
@@ -75,7 +72,7 @@ public class GatewayLogController {
         for (GatewayLog gatewayLog : list) {
             gatewayLog.setId(IdUtil.fastUUID());
         }
-        Iterable<GatewayLog> result = repository.saveAll(list);
+        Iterable<GatewayLog> result = service.saveAll(list);
         return R.ok(result);
     }
 
@@ -86,7 +83,7 @@ public class GatewayLogController {
      */
     @DeleteMapping
     public R<Void> deleteAll() {
-        repository.deleteAll();
+        service.deleteAll();
         return R.ok();
     }
 
@@ -102,7 +99,7 @@ public class GatewayLogController {
             return R.ok();
         }
         List<String> idList = Arrays.stream(ids.split(",")).collect(Collectors.toList());
-        repository.deleteAllById(idList);
+        service.deleteAllById(idList);
         return R.ok();
     }
 

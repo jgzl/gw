@@ -20,6 +20,10 @@
             <groupId>com.github.jgzl.gw</groupId>
             <artifactId>common-gateway</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.github.jgzl.gw</groupId>
+            <artifactId>spi-log-localfile</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.alibaba.nacos</groupId>

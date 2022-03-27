@@ -1,4 +1,4 @@
-package com.github.gw.gateway.admin.gateway.repository;
+package com.github.gw.gateway.log;
 
 import com.github.gw.common.gateway.domain.GatewayLog;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;

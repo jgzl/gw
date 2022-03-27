@@ -1,4 +1,4 @@
-package com.github.gw.gateway.admin.gateway.service.impl;
+package com.github.gw.gateway.log;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
@@ -7,10 +7,11 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.gw.common.gateway.domain.GatewayLog;
 import com.github.gw.common.gateway.vo.GatewayLogVo;
-import com.github.gw.gateway.admin.gateway.service.IGatewayLogService;
-import lombok.RequiredArgsConstructor;
+import com.github.gw.gateway.spi.log.GatewayLogService;
+import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
@@ -27,11 +28,14 @@ import java.util.stream.Collectors;
  * @author li7hai26@gmail.com
  * @date 2021/12/22
  */
-@Service
-@RequiredArgsConstructor
-public class GatewayLogService implements IGatewayLogService {
+@Slf4j
+@Service("elasticsearchGatewayLogService")
+public class ElasticsearchGatewayLogService implements GatewayLogService {
 
-    private final ElasticsearchRestTemplate elasticsearchRestTemplate;
+    @Autowired(required = false)
+    private GatewayLogElasticsearchRepository repository;
+    @Autowired(required = false)
+    private ElasticsearchRestTemplate elasticsearchRestTemplate;
 
     @Override
     public Page<GatewayLogVo> getByGatewayRequestLog(Page<GatewayLogVo> page,GatewayLogVo gatewayRequestLog) {
@@ -111,5 +115,30 @@ public class GatewayLogService implements IGatewayLogService {
         page.setRecords(result);
         page.setTotal(totalHits);
         return page;
+    }
+
+    @Override
+    public Iterable<GatewayLog> findAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    public Iterable<GatewayLog> findAllById(List<String> idList) {
+        return repository.findAllById(idList);
+    }
+
+    @Override
+    public Iterable<GatewayLog> saveAll(List<GatewayLog> list) {
+        return repository.saveAll(list);
+    }
+
+    @Override
+    public void deleteAll() {
+        repository.deleteAll();
+    }
+
+    @Override
+    public void deleteAllById(List<String> idList) {
+        repository.deleteAllById(idList);
     }
 }

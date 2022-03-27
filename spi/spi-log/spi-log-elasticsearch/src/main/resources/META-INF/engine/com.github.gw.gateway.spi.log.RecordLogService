@@ -1,2 +1,1 @@
-LocalFile=com.github.gw.gateway.spi.log.LocalFileRecordLogService
 Elasticsearch=com.github.gw.gateway.spi.log.ElasticsearchRecordLogService

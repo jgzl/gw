@@ -1,8 +1,9 @@
-package com.github.gw.gateway.spi.log;
+package com.github.gw.gateway.log;
 
 import cn.hutool.extra.spring.SpringUtil;
 import com.github.gw.common.core.spi.Join;
 import com.github.gw.common.gateway.domain.GatewayLog;
+import com.github.gw.gateway.spi.log.RecordLogService;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
