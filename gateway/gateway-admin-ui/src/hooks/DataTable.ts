@@ -31,7 +31,7 @@ export default function (): Record<string, any> {
   }
   const emitter = useEmit()
   function useHeight() {
-    return new Promise((res) => {
+     return new Promise((res) => {
       nextTick(() => {
         let height = 0
         const mainEl = document.querySelector('.main-base-style')
@@ -65,7 +65,7 @@ export default function (): Record<string, any> {
         })
         res(height)
       })
-    })
+     })
   }
   function offTableCollapseTransition() {
     emitter?.off('table-collapse-transition')

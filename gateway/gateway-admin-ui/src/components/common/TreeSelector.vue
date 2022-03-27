@@ -3,13 +3,13 @@
     v-model:visible="visible"
     placement="bottom"
     :width="popWidth"
-    popper-class="poper-wrapper"
-    trigger="focus"
   >
     <template #reference>
       <el-input
         ref="inputRef"
         size="small"
+        @focus="onFocus"
+        @blur="onBlur"
         :placeholder="placeholder"
         v-model="selectValue"
         readonly
@@ -22,13 +22,15 @@
         </template>
       </el-input>
     </template>
-    <el-tree
-      :data="innerData"
-      default-expand-all
-      :expand-on-click-node="false"
-      @node-click="onNodeClick"
-    >
-    </el-tree>
+    <div class="poper-wrapper">
+      <el-tree
+        :data="innerData"
+        default-expand-all
+        :expand-on-click-node="false"
+        @node-click="onNodeClick"
+      >
+      </el-tree>
+    </div>
   </el-popover>
 </template>
 
@@ -109,6 +111,12 @@ watch(
 function onNodeClick(key: any, item: any) {
   visible.value = false;
   emitter("update:value", key.value);
+}
+function onFocus() {
+  visible.value = true;
+}
+function onBlur() {
+  visible.value = false;
 }
 onMounted(() => {
   innerData.value = transformData(props.data);

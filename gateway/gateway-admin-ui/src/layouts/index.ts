@@ -11,10 +11,10 @@ function getComponentName(key: string) {
   }
   const paths = key.split("/");
   const name = paths
-      .filter((it) => !!it && it !== ".")
-      .reverse()
-      .find((it) => it !== "index.vue" && it !== "index.ts" && it !== "index.js")
-      ?.replace(".vue", "");
+    .filter((it) => !!it && it !== ".")
+    .reverse()
+    .find((it) => it !== "index.vue" && it !== "index.ts" && it !== "index.js")
+    ?.replace(".vue", "");
   return name || "";
 }
 
@@ -23,8 +23,8 @@ export function registerComponents(app: App) {
   components.keys().forEach((it) => {
     const component = components(it);
     app.component(
-        component.default.name || getComponentName(it),
-        component.default
+      component.default.name || getComponentName(it),
+      component.default
     );
   });
 }
@@ -44,11 +44,11 @@ function install(Vue: App, options: any) {
   delete options.registerElement;
   store.start(options);
   Vue.config.globalProperties.$isMobile = navigator.userAgent.match(
-      /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+    /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
   );
   Vue.config.globalProperties.$isAndroid =
-      navigator.userAgent.indexOf("Android") > -1 ||
-      navigator.userAgent.indexOf("Adr") > -1;
+    navigator.userAgent.indexOf("Android") > -1 ||
+    navigator.userAgent.indexOf("Adr") > -1;
   Vue.provide(key, store);
   Vue.provide(emitKey, new TinyEmitter());
 }

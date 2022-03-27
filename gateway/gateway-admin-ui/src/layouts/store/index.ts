@@ -58,7 +58,7 @@ export default {
   getSplitTabs() {
     return this.state.permissionRoutes.filter((it) => {
       return (
-          it.path && !(it as any).hidden && it.children && it.children.length > 0
+        it.path && !(it as any).hidden && it.children && it.children.length > 0
       );
     });
   },
@@ -68,13 +68,13 @@ export default {
   },
   isEmptyPermissionRoute() {
     return (
-        !this.state.permissionRoutes || this.state.permissionRoutes.length === 0
+      !this.state.permissionRoutes || this.state.permissionRoutes.length === 0
     );
   },
   saveSetting(setting: any) {
     localStorage.setItem(
-        "sys_setting",
-        JSON.stringify(Object.assign(defaultSetting, { ...setting }))
+      "sys_setting",
+      JSON.stringify(Object.assign(defaultSetting, { ...setting }))
     );
   },
   reset() {
@@ -125,9 +125,9 @@ export default {
   addVisitedView(route: any) {
     return new Promise<any>((resolve) => {
       if (
-          !this.state.visitedView.find(
-              (it: any) => it.fullPath === route.fullPath
-          )
+        !this.state.visitedView.find(
+          (it: any) => it.fullPath === route.fullPath
+        )
       ) {
         this.state.visitedView.push(route);
         this.persistentVisitedView();
@@ -210,10 +210,10 @@ export default {
     const persistentVisitedRoutes = JSON.parse(originRouteString || "[]");
     persistentVisitedRoutes.forEach((originRoute: any) => {
       if (
-          !this.state.visitedView.find(
-              (it: any) =>
-                  it.fullPath === originRoute.fullPath && it.name === originRoute.name
-          )
+        !this.state.visitedView.find(
+          (it: any) =>
+            it.fullPath === originRoute.fullPath && it.name === originRoute.name
+        )
       ) {
         this.state.visitedView.push(originRoute);
       }

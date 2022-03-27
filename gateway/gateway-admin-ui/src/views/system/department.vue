@@ -3,31 +3,31 @@
     <TableBody>
       <template #tableConfig>
         <TableConfig
-                v-model:border="tableConfig.border"
-                v-model:stripe="tableConfig.stripe"
-                @refresh="doRefresh"
+          v-model:border="tableConfig.border"
+          v-model:stripe="tableConfig.stripe"
+          @refresh="doRefresh"
         >
           <template #actions>
             <el-button
-                    type="primary"
-                    size="mini"
-                    icon="PlusIcon"
-                    @click="onAddItem"
-            >添加
+              type="primary"
+              size="small"
+              icon="PlusIcon"
+              @click="onAddItem"
+              >添加
             </el-button>
           </template>
         </TableConfig>
       </template>
       <template #default>
         <el-table
-                v-loading="tableLoading"
-                :data="dataList"
-                :header-cell-style="tableConfig.headerCellStyle"
-                :size="tableConfig.size"
-                :stripe="tableConfig.stripe"
-                :border="tableConfig.border"
-                row-key="id"
-                :tree-props="{ children: 'children' }"
+          v-loading="tableLoading"
+          :data="dataList"
+          :header-cell-style="tableConfig.headerCellStyle"
+          :size="tableConfig.size"
+          :stripe="tableConfig.stripe"
+          :border="tableConfig.border"
+          row-key="id"
+          :tree-props="{ children: 'children' }"
         >
           <el-table-column align="center" label="序号" fixed="left" width="80">
             <template v-slot="scope">
@@ -35,26 +35,26 @@
             </template>
           </el-table-column>
           <el-table-column
-                  v-for="item of tableColumns"
-                  :key="item.props"
-                  :label="item.label"
-                  :prop="item.prop"
-                  align="center"
+            v-for="item of tableColumns"
+            :key="item.prop"
+            :label="item.label"
+            :prop="item.prop"
+            align="center"
           >
             <template v-if="item.prop === 'actions'" #default="scope">
               <el-button
-                      plain
-                      type="primary"
-                      size="mini"
-                      @click="onUpdateItem(scope.row)"
-              >编辑</el-button
+                plain
+                type="primary"
+                size="small"
+                @click="onUpdateItem(scope.row)"
+                >编辑</el-button
               >
               <el-button
-                      plain
-                      type="danger"
-                      size="mini"
-                      @click="onDeleteItem(scope.row)"
-              >删除</el-button
+                plain
+                type="danger"
+                size="small"
+                @click="onDeleteItem(scope.row)"
+                >删除</el-button
               >
             </template>
           </el-table-column>
@@ -64,17 +64,17 @@
     <Dialog ref="dialog" :title="dialogTitle">
       <template #content>
         <BaseForm
-                class="padding-left padding-right"
-                ref="baseForm"
-                :form-items="formItems"
+          class="padding-left padding-right"
+          ref="baseForm"
+          :form-items="formItems"
         >
           <template #prefix>
             <el-form-item :label="parentFormItem.label">
               <TreeSelector
-                      v-model:value="parentFormItem.value"
-                      placeholder="请选择上级部门"
-                      :data="dataList"
-                      :dataFields="{
+                v-model:value="parentFormItem.value"
+                placeholder="请选择上级部门"
+                :data="dataList"
+                :dataFields="{
                   label: 'name',
                   value: 'id',
                 }"

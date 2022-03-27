@@ -3,10 +3,10 @@
     <el-dropdown>
       <div class="action-wrapper">
         <div class="avatar">
-          <img :src="userStore.avatar" />
+          <img :src="useStore.avatar" />
         </div>
         <span class="nick-name el-dropdown-link">
-          <span>{{ userStore.nickName }}</span>
+          <span>{{ useStore.nickName }}</span>
           <el-icon>
             <CaretBottomIcon />
           </el-icon>
@@ -35,7 +35,7 @@ import layoutStore from "../store";
 export default defineComponent({
   name: "VAWAvatar",
   setup() {
-    const userStore = useUserStore();
+    const useStore = useUserStore();
     function onPersonalCenter() {
       (layoutStore as any).onPersonalCenter &&
         (layoutStore as any).onPersonalCenter();
@@ -49,13 +49,13 @@ export default defineComponent({
         cancelButtonText: "取消",
         showCancelButton: true,
       }).then(() => {
-        userStore.logout().then(() => {
+        useStore.logout().then(() => {
           (layoutStore as any).onLogout && (layoutStore as any).onLogout();
         });
       });
     }
     return {
-      userStore,
+      useStore,
       onPersonalCenter,
       onLogout,
       UserIcon,
@@ -67,6 +67,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import "../styles/variables.scss";
+:deep(.el-dropdown) {
+  color: currentColor !important;
+}
 .vaw-avatar-container {
   .action-wrapper {
     display: flex;

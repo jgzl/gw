@@ -2,6 +2,7 @@
   <el-card
     :body-style="{ padding: 0, width: '100%' }"
     class="table-footer-container"
+    id="tableFooterContainer"
     shadow="never"
   >
     <div class="flex align-center" :class="[placement]">
@@ -22,7 +23,7 @@
         v-if="showRefresh"
         style="margin-left: 15px; width: 30px; height: 30px"
         circle
-        size="mini"
+        size="small"
         :icon="RefreshIcon"
         type="primary"
         @click="onRefresh"

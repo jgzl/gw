@@ -4,7 +4,7 @@
       <el-link :underline="false">请填写会议基本信息</el-link>
     </el-card>
     <el-card
-      :body-style="{padding: '10px'}"
+      :body-style="{ padding: '10px' }"
       shadow="nerve"
       class="margin-top-xs flex-sub"
     >

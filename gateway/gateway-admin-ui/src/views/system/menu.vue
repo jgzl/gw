@@ -3,16 +3,16 @@
     <TableBody>
       <template #tableConfig>
         <TableConfig
-                v-model:border="tableConfig.border"
-                v-model:stripe="tableConfig.stripe"
-                @refresh="doRefresh"
+          v-model:border="tableConfig.border"
+          v-model:stripe="tableConfig.stripe"
+          @refresh="doRefresh"
         >
           <template #actions>
             <el-button
-                    type="primary"
-                    size="mini"
-                    icon="PlusIcon"
-                    @click="onAddItem"
+              type="primary"
+              size="small"
+              icon="PlusIcon"
+              @click="onAddItem"
             >添加
             </el-button>
           </template>
@@ -20,83 +20,117 @@
       </template>
       <template #default>
         <el-table
-                v-loading="tableLoading"
-                :data="dataList"
-                :header-cell-style="tableConfig.headerCellStyle"
-                :size="tableConfig.size"
-                :stripe="tableConfig.stripe"
-                :border="tableConfig.border"
-                row-key="menuUrl"
-                :tree-props="{ children: 'children' }"
+          v-loading="tableLoading"
+          :data="dataList"
+          :header-cell-style="tableConfig.headerCellStyle"
+          :size="tableConfig.size"
+          :stripe="tableConfig.stripe"
+          :border="tableConfig.border"
+          row-key="menuUrl"
+          :tree-props="{ children: 'children' }"
         >
-          <el-table-column align="center" label="序号" fixed="left" width="150">
+          <el-table-column
+            align="center"
+            label="序号"
+            fixed="left"
+            width="150"
+          >
             <template v-slot="scope">
               {{ scope.$index + 1 }}
             </template>
           </el-table-column>
-          <el-table-column align="center" label="菜单/按钮名称" prop="menuName" />
-          <el-table-column align="center" label="菜单地址" prop="menuUrl" />
-          <el-table-column align="center" label="权限" prop="permission" />
-          <el-table-column align="center" label="图标" prop="menuUrl">
+          <el-table-column
+            align="center"
+            label="菜单名称"
+            prop="menuName"
+          />
+          <el-table-column
+            align="center"
+            label="菜单地址"
+            prop="menuUrl"
+          />
+          <el-table-column
+            align="center"
+            label="权限"
+            prop="permission"
+          />
+          <el-table-column
+            align="center"
+            label="图标"
+            prop="menuUrl"
+          >
             <template #default="scope">
               <el-icon
-                      v-if="scope.row.icon"
-                      size="20"
-                      style="font-size: 16px"
-                      color="var(--el-color-primary)"
+                v-if="scope.row.icon"
+                size="20"
+                style="font-size: 16px"
+                color="var(--el-color-primary)"
               >
                 <component :is="scope.row.icon" />
               </el-icon>
               <div v-else>--</div>
             </template>
           </el-table-column>
-          <el-table-column align="center" label="是否缓存">
+          <el-table-column
+            align="center"
+            label="是否缓存"
+          >
             <template #default="scope">
               <el-tag
-                      :type="scope.row.keepAlive ? 'success' : 'danger'"
-                      size="mini"
-              >{{ scope.row.keepAlive ? "是" : "否" }}</el-tag
-              >
+                :type="scope.row.keepAlive ? 'primary' : 'danger'"
+                size="small"
+              >{{ scope.row.keepAlive ? "是" : "否" }}</el-tag>
             </template>
           </el-table-column>
-          <el-table-column align="center" label="是否固定">
+          <el-table-column
+            align="center"
+            label="是否固定"
+          >
             <template #default="scope">
-              <el-tag :type="scope.row.affix ? 'success' : 'danger'" size="mini"
+              <el-tag
+                :type="scope.row.affix ? 'primary' : 'danger'"
+                size="small"
               >{{ scope.row.affix ? "是" : "否" }}
               </el-tag>
             </template>
           </el-table-column>
-          <el-table-column align="center" label="badge提示">
+          <el-table-column
+            align="center"
+            label="badge提示"
+          >
             <template #default="scope">
               <div class="menu-badge__wrapper">
                 <el-badge
-                        :value="
+                  :value="
                     parseInt(scope.row.tip)
                       ? parseInt(scope.row.tip)
                       : scope.row.tip
                   "
-                        :is-dot="scope.row.tip === 'dot'"
+                  :is-dot="scope.row.tip === 'dot'"
                 >
                 </el-badge>
               </div>
             </template>
           </el-table-column>
-          <el-table-column align="center" label="操作" fixed="right">
+          <el-table-column
+            align="center"
+            :width="200"
+            label="操作"
+            fixed="right"
+          >
             <template v-slot="scope">
               <el-button
-                      plain
-                      type="primary"
-                      size="mini"
-                      @click="onUpdateItem(scope.row)"
-              >编辑</el-button
-              >
+                plain
+                type="primary"
+                size="small"
+                @click="onUpdateItem(scope.row)"
+              >编辑</el-button>
               <el-button
-                      plain
-                      type="danger"
-                      size="mini"
-                      @click="onDeleteItem(scope.row)"
-              >删除</el-button
-              >
+                plain
+                type="danger"
+                size="small"
+                @click="onDeleteItem(scope.row)"
+              >删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -105,17 +139,17 @@
     <Dialog ref="dialogRef">
       <template #content>
         <el-form
-                class="base-form-container"
-                :model="menuModel"
-                label-width="80px"
-                label-position="right"
+          class="base-form-container"
+          :model="menuModel"
+          label-width="80px"
+          label-position="right"
         >
           <el-form-item label="上级菜单">
             <TreeSelector
-                    v-model:value="menuModel.parentId"
-                    placeholder="请选择上级菜单"
-                    :data="dataList"
-                    :dataFields="{
+              v-model:value="menuModel.parentId"
+              placeholder="请选择上级菜单"
+              :data="dataList"
+              :dataFields="{
                 label: 'menuName',
                 value: 'menuId',
                 children: 'children',
@@ -128,15 +162,22 @@
               <el-radio-button label="1">按钮</el-radio-button>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="菜单名称" prop="name" v-show="menuModel.type === '0'">
+          <el-form-item
+            label="菜单名称"
+            prop="name"
+          >
             <el-input
-                    v-model="menuModel.name"
-                    v-show="menuModel.type === '0'"
-                    size="small"
-                    placeholder="请输入菜单名称"
+            	v-model="menuModel.name"
+                v-show="menuModel.type === '0'"
+                size="small"
+                placeholder="请输入菜单名称"
             />
           </el-form-item>
-          <el-form-item label="菜单地址" prop="path" v-show="menuModel.type === '0'">
+          <el-form-item 
+	  	label="菜单地址" 
+		prop="path" 
+		v-show="menuModel.type === '0'"
+	  >
             <el-input
                     v-model="menuModel.path"
                     size="small"
@@ -161,27 +202,30 @@
           </el-form-item>
           <el-form-item label="外链地址">
             <el-input
-                    v-model="menuModel.outLink"
-                    size="small"
-                    placeholder="请输入外链地址"
+              v-model="menuModel.outLink"
+              size="small"
+              placeholder="请输入外链地址"
             >
             </el-input>
           </el-form-item>
           <el-form-item label="badge提示">
-            <el-radio-group v-model="menuModel.badge" size="mini">
+            <el-radio-group
+              v-model="menuModel.badge"
+              size="small"
+            >
               <el-radio-button label="">无</el-radio-button>
               <el-radio-button label="dot">圆点</el-radio-button>
               <el-radio-button label="new">new</el-radio-button>
               <el-radio-button label="number">数字</el-radio-button>
             </el-radio-group>
             <el-input-number
-                    v-model="menuModel.badgeNum"
-                    v-show="menuModel.badge === 'number'"
-                    size="mini"
-                    type=""
-                    class="margin-left-sm"
-                    :max="99"
-                    :min="1"
+              v-model="menuModel.badgeNum"
+              v-show="menuModel.badge === 'number'"
+              size="small"
+              type=""
+              class="margin-left-sm"
+              :max="99"
+              :min="1"
             />
           </el-form-item>
           <el-form-item label="菜单图标">
@@ -209,6 +253,7 @@
   import { ElMessage, ElMessageBox } from "element-plus";
   import { useGet, usePost, usePut, useDelete, useLikeSearch, useDataTable } from "@/hooks";
   import {systemMenuTreeByUser, systemMenu, systemRole, systemMenuTree} from "@/api/url";
+  import { Plus } from "@element-plus/icons";
 
   const menuModel = reactive<MenuModel>({
     menuId: uuid(),
