@@ -27,7 +27,7 @@ public class DynamicAccessConfAutoConfiguration {
 
     public DynamicAccessConfAutoConfiguration(RedisMessageListenerContainer container) {
         container.addMessageListener((message, bytes) -> {
-            log.warn("接收到重新加载网关访问缓存事件");
+            log.warn("接收到重新加载网关访问事件");
             AccessConfCacheHolder.removeList();
             RedisTemplate redisTemplate = SpringUtil.getBean(RedisTemplate.class);
             redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(GatewayAccessConfVo.class));

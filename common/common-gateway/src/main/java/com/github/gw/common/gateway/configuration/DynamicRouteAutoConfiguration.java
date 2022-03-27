@@ -32,7 +32,7 @@ public class DynamicRouteAutoConfiguration {
 
     public DynamicRouteAutoConfiguration(RedisMessageListenerContainer container) {
         container.addMessageListener((message, bytes) -> {
-            log.warn("接收到重新JVM 重新加载路由事件");
+            log.warn("接收到重新加载网关路由事件");
             RouteCacheHolder.removeRouteList();
             // 发送刷新路由事件
             SpringUtil.publishEvent(new RefreshRoutesEvent(this));
