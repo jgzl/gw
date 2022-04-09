@@ -174,7 +174,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         SysUserVo sysUserVo = baseMapper.getUserVoByUsername(userDto.getUserName());
         if (!ENCODER.matches(userDto.getPassword(), sysUserVo.getPassword())) {
             log.info("原密码错误，修改个人信息失败:{}", userDto.getUserName());
-            return R.fail("原密码错误，修改个人信息失败");
+            return R.error("原密码错误，修改个人信息失败");
         }
 
         SysUser sysUser = new SysUser();
@@ -184,7 +184,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         sysUser.setMobile(userDto.getMobile());
         sysUser.setUserId(sysUserVo.getUserId());
         sysUser.setAvatar(userDto.getAvatar());
-        return R.ok(this.updateById(sysUser));
+        return R.success(this.updateById(sysUser));
     }
 
     @Override

@@ -23,7 +23,7 @@ public class IndexController {
      */
     @GetMapping("/")
     public R<String> index() {
-        return R.ok("success");
+        return R.success("success");
     }
 
 }

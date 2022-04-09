@@ -97,7 +97,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = MissingServletRequestParameterException.class)
     public R<?> missingServletRequestParameterExceptionHandler(MissingServletRequestParameterException ex) {
         log.warn("[missingServletRequestParameterExceptionHandler]", ex);
-        return R.fail(BAD_REQUEST.getCode(), String.format("请求参数缺失:%s", ex.getParameterName()));
+        return R.error(BAD_REQUEST.getCode(), String.format("请求参数缺失:%s", ex.getParameterName()));
     }
 
     /**
@@ -108,7 +108,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public R<?> methodArgumentTypeMismatchExceptionHandler(MethodArgumentTypeMismatchException ex) {
         log.warn("[missingServletRequestParameterExceptionHandler]", ex);
-        return R.fail(BAD_REQUEST.getCode(), String.format("请求参数类型错误:%s", ex.getMessage()));
+        return R.error(BAD_REQUEST.getCode(), String.format("请求参数类型错误:%s", ex.getMessage()));
     }
 
     /**
@@ -119,7 +119,7 @@ public class GlobalExceptionHandler {
         log.warn("[methodArgumentNotValidExceptionExceptionHandler]", ex);
         FieldError fieldError = ex.getBindingResult().getFieldError();
         assert fieldError != null; // 断言，避免告警
-        return R.fail(BAD_REQUEST.getCode(), String.format("请求参数不正确:%s", fieldError.getDefaultMessage()));
+        return R.error(BAD_REQUEST.getCode(), String.format("请求参数不正确:%s", fieldError.getDefaultMessage()));
     }
 
     /**
@@ -130,7 +130,7 @@ public class GlobalExceptionHandler {
         log.warn("[handleBindException]", ex);
         FieldError fieldError = ex.getFieldError();
         assert fieldError != null; // 断言，避免告警
-        return R.fail(BAD_REQUEST.getCode(), String.format("请求参数不正确:%s", fieldError.getDefaultMessage()));
+        return R.error(BAD_REQUEST.getCode(), String.format("请求参数不正确:%s", fieldError.getDefaultMessage()));
     }
 
     /**
@@ -140,7 +140,7 @@ public class GlobalExceptionHandler {
     public R<?> constraintViolationExceptionHandler(ConstraintViolationException ex) {
         log.warn("[constraintViolationExceptionHandler]", ex);
         ConstraintViolation<?> constraintViolation = ex.getConstraintViolations().iterator().next();
-        return R.fail(BAD_REQUEST.getCode(), String.format("请求参数不正确:%s", constraintViolation.getMessage()));
+        return R.error(BAD_REQUEST.getCode(), String.format("请求参数不正确:%s", constraintViolation.getMessage()));
     }
 
     /**
@@ -150,7 +150,7 @@ public class GlobalExceptionHandler {
     public R<?> validationException(ValidationException ex) {
         log.warn("[constraintViolationExceptionHandler]", ex);
         // 无法拼接明细的错误信息，因为 Dubbo Consumer 抛出 ValidationException 异常时，是直接的字符串信息，且人类不可读
-        return R.fail(BAD_REQUEST);
+        return R.error(BAD_REQUEST);
     }
 
     /**
@@ -163,7 +163,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoHandlerFoundException.class)
     public R<?> noHandlerFoundExceptionHandler(NoHandlerFoundException ex) {
         log.warn("[noHandlerFoundExceptionHandler]", ex);
-        return R.fail(NOT_FOUND.getCode(), String.format("请求地址不存在:%s", ex.getRequestURL()));
+        return R.error(NOT_FOUND.getCode(), String.format("请求地址不存在:%s", ex.getRequestURL()));
     }
 
     /**
@@ -174,7 +174,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public R<?> httpRequestMethodNotSupportedExceptionHandler(HttpRequestMethodNotSupportedException ex) {
         log.warn("[httpRequestMethodNotSupportedExceptionHandler]", ex);
-        return R.fail(METHOD_NOT_ALLOWED.getCode(), String.format("请求方法不正确:%s", ex.getMessage()));
+        return R.error(METHOD_NOT_ALLOWED.getCode(), String.format("请求方法不正确:%s", ex.getMessage()));
     }
 
     /**
@@ -183,7 +183,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = RequestNotPermitted.class)
     public R<?> requestNotPermittedExceptionHandler(HttpServletRequest req, RequestNotPermitted ex) {
         log.warn("[requestNotPermittedExceptionHandler][url({}) 访问过于频繁]", req.getRequestURL(), ex);
-        return R.fail(TOO_MANY_REQUESTS);
+        return R.error(TOO_MANY_REQUESTS);
     }
 
     /**
@@ -197,7 +197,7 @@ public class GlobalExceptionHandler {
         Long userId = -1L;
         log.warn("[accessDeniedExceptionHandler][userId({}) 无法访问 url({})]",  userId,
                 req.getRequestURL(), ex);
-        return R.fail(FORBIDDEN);
+        return R.error(FORBIDDEN);
     }
 
     /**
@@ -208,7 +208,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = ServiceException.class)
     public R<?> serviceExceptionHandler(ServiceException ex) {
         log.info("[serviceExceptionHandler]", ex);
-        return R.fail(ex.getCode(), ex.getMessage());
+        return R.error(ex.getCode(), ex.getMessage());
     }
 
     /**
@@ -220,7 +220,7 @@ public class GlobalExceptionHandler {
         // 插入异常日志
         // this.createExceptionLog(req, ex);
         // 返回 ERROR R
-        return R.fail(INTERNAL_SERVER_ERROR.getCode(), INTERNAL_SERVER_ERROR.getMsg());
+        return R.error(INTERNAL_SERVER_ERROR.getCode(), INTERNAL_SERVER_ERROR.getMsg());
     }
 
     private void createExceptionLog(HttpServletRequest req, Throwable e) {

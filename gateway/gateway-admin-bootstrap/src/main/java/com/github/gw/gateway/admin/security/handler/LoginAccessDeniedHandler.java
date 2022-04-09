@@ -20,6 +20,6 @@ public class LoginAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
         log.error("登录授权发生异常:", e);
-        WebmvcUtil.out(response, R.fail("登录异常", e.getMessage()));
+        WebmvcUtil.out(response, R.error("登录异常", e.getMessage()));
     }
 }

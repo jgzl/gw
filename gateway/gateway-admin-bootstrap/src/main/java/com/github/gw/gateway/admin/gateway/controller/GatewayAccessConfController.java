@@ -32,7 +32,7 @@ public class GatewayAccessConfController {
      */
     @GetMapping("/page")
     public R<IPage<GatewayAccessConfVo>> pageListRoutes(Page page, GatewayAccessConfVo vo) {
-        return R.ok(service.page(page, new QueryWrapper<GatewayAccessConf>(vo)));
+        return R.success(service.page(page, new QueryWrapper<GatewayAccessConf>(vo)));
     }
 
     /**
@@ -42,7 +42,7 @@ public class GatewayAccessConfController {
      */
     @GetMapping
     public R<List<GatewayAccessConf>> listRoutes() {
-        return R.ok(service.list());
+        return R.success(service.list());
     }
 
     /**
@@ -54,7 +54,7 @@ public class GatewayAccessConfController {
     @PostMapping
     public R<Void> createItem(@RequestBody GatewayAccessConf vo) {
         service.saveOrUpdate(vo);
-        return R.ok();
+        return R.success();
     }
 
     /**
@@ -66,7 +66,7 @@ public class GatewayAccessConfController {
     @PutMapping
     public R<Void> updateItem(@RequestBody GatewayAccessConf vo) {
         service.saveOrUpdate(vo);
-        return R.ok();
+        return R.success();
     }
 
     /**
@@ -78,7 +78,7 @@ public class GatewayAccessConfController {
     @DeleteMapping("/{id}")
     public R<Void> deleteItem(@PathVariable String id) {
         service.deleteItem(id);
-        return R.ok();
+        return R.success();
     }
 
     /**
@@ -89,6 +89,6 @@ public class GatewayAccessConfController {
      */
     @PutMapping("/status")
     public R<Boolean> updateUserForLockFlag(@Valid @RequestBody GatewayAccessConfVo vo) {
-        return R.ok(service.updateStatus(vo));
+        return R.success(service.updateStatus(vo));
     }
 }

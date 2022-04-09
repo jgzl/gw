@@ -20,6 +20,6 @@ public class LoginAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
         log.error("登录认证发生异常:", e);
-        WebmvcUtil.out(response, R.fail("登录异常", e.getMessage()));
+        WebmvcUtil.out(response, R.error("登录异常", e.getMessage()));
     }
 }

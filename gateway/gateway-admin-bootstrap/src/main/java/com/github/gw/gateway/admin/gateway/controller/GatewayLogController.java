@@ -39,7 +39,7 @@ public class GatewayLogController {
     @GetMapping
     public R<Iterable<GatewayLog>> findAll() {
         Iterable<GatewayLog> result = service.findAll();
-        return R.ok(result);
+        return R.success(result);
     }
 
     /**
@@ -51,11 +51,11 @@ public class GatewayLogController {
     @GetMapping("/{ids}")
     public R<Iterable<GatewayLog>> findAllById(@PathVariable String ids) {
         if (StrUtil.isBlank(ids)) {
-            return R.ok();
+            return R.success();
         }
         List<String> idList = Arrays.stream(ids.split(",")).collect(Collectors.toList());
         Iterable<GatewayLog> result = service.findAllById(idList);
-        return R.ok(result);
+        return R.success(result);
     }
 
     /**
@@ -73,7 +73,7 @@ public class GatewayLogController {
             gatewayLog.setId(IdUtil.fastUUID());
         }
         Iterable<GatewayLog> result = service.saveAll(list);
-        return R.ok(result);
+        return R.success(result);
     }
 
     /**
@@ -84,7 +84,7 @@ public class GatewayLogController {
     @DeleteMapping
     public R<Void> deleteAll() {
         service.deleteAll();
-        return R.ok();
+        return R.success();
     }
 
     /**
@@ -96,11 +96,11 @@ public class GatewayLogController {
     @DeleteMapping("/{ids}")
     public R<Void> deleteAllByIds(@PathVariable String ids) {
         if (StrUtil.isBlank(ids)) {
-            return R.ok();
+            return R.success();
         }
         List<String> idList = Arrays.stream(ids.split(",")).collect(Collectors.toList());
         service.deleteAllById(idList);
-        return R.ok();
+        return R.success();
     }
 
     /**
@@ -112,6 +112,6 @@ public class GatewayLogController {
     @GetMapping("/search")
     public R<IPage<GatewayLogVo>> search(Page<GatewayLogVo> page, GatewayLogVo gatewayRequestLog) {
         Page<GatewayLogVo> result = service.getByGatewayRequestLog(page,gatewayRequestLog);
-        return R.ok(result);
+        return R.success(result);
     }
 }

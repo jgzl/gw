@@ -26,6 +26,6 @@ public class IndexController {
     @GetMapping("/")
     @ResponseBody
     public Mono<R<String>> index() {
-        return Mono.just(R.ok("success"));
+        return Mono.just(R.success("success"));
     }
 }

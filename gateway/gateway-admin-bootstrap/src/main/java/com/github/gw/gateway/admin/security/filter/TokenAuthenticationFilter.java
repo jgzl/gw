@@ -55,13 +55,13 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
         try {
             authentication = getAuthentication(request);
         } catch (Exception e) {
-            WebmvcUtil.out(response, R.fail(e, e.getMessage()));
+            WebmvcUtil.out(response, R.error(e, e.getMessage()));
             return;
         }
         if (authentication != null) {
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } else {
-            WebmvcUtil.out(response, R.fail("鉴权失败"));
+            WebmvcUtil.out(response, R.error("鉴权失败"));
             return;
         }
         chain.doFilter(request, response);

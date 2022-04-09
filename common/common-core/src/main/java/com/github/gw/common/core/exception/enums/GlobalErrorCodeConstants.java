@@ -15,7 +15,7 @@ import com.github.gw.common.core.exception.ErrorCode;
 public interface GlobalErrorCodeConstants {
 
     ErrorCode SUCCESS = new ErrorCode(200, "成功");
-    ErrorCode FAIL = new ErrorCode(500, "成功");
+    ErrorCode ERROR = new ErrorCode(500, "异常");
 
     // ========== 客户端错误段 ==========
 

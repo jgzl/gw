@@ -24,6 +24,6 @@ public class WebFluxHeartBeatController {
      */
     @GetMapping
     public Mono<R<String>> heartbeat() {
-        return Mono.just(R.ok("heartbeat success"));
+        return Mono.just(R.success("heartbeat success"));
     }
 }

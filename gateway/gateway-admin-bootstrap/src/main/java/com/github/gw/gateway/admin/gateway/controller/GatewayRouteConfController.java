@@ -30,7 +30,7 @@ public class GatewayRouteConfController {
      */
     @GetMapping("/page")
     public R<IPage<GatewayRouteConf>> pageListRoutes(Page page, GatewayRouteConfVo vo) {
-        return R.ok(service.page(page, new QueryWrapper<GatewayRouteConf>(vo)));
+        return R.success(service.page(page, new QueryWrapper<GatewayRouteConf>(vo)));
     }
 
     /**
@@ -40,7 +40,7 @@ public class GatewayRouteConfController {
      */
     @GetMapping
     public R<List<GatewayRouteConf>> listRoutes() {
-        return R.ok(service.list());
+        return R.success(service.list());
     }
 
     /**
@@ -52,7 +52,7 @@ public class GatewayRouteConfController {
     @PostMapping
     public R<Void> createRoutes(@RequestBody GatewayRouteConf vo) {
         service.saveOrUpdate(vo);
-        return R.ok();
+        return R.success();
     }
 
     /**
@@ -64,7 +64,7 @@ public class GatewayRouteConfController {
     @PutMapping
     public R<Void> updateRoutes(@RequestBody GatewayRouteConf vo) {
         service.saveOrUpdate(vo);
-        return R.ok();
+        return R.success();
     }
 
     /**
@@ -76,7 +76,7 @@ public class GatewayRouteConfController {
     @DeleteMapping("/{routeId}")
     public R<Void> deleteRoutes(@PathVariable String routeId) {
         service.deleteRoute(routeId);
-        return R.ok();
+        return R.success();
     }
 
 }

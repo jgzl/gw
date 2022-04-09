@@ -38,7 +38,7 @@ public class SysRoleController {
      */
     @GetMapping("/{id}")
     public R<SysRole> getById(@PathVariable Integer id) {
-        return R.ok(sysRoleService.getById(id));
+        return R.success(sysRoleService.getById(id));
     }
 
     /**
@@ -51,7 +51,7 @@ public class SysRoleController {
     //@PreAuthorize("@pms.hasPermission('sys_role_add')")
     @CacheEvict(value = CacheConstants.ROLE_DETAILS, allEntries = true)
     public R<Boolean> save(@Valid @RequestBody SysRole sysRole) {
-        return R.ok(sysRoleService.save(sysRole));
+        return R.success(sysRoleService.save(sysRole));
     }
 
     /**
@@ -64,7 +64,7 @@ public class SysRoleController {
     //@PreAuthorize("@pms.hasPermission('sys_role_edit')")
     @CacheEvict(value = CacheConstants.ROLE_DETAILS, allEntries = true)
     public R<Boolean> update(@Valid @RequestBody SysRole sysRole) {
-        return R.ok(sysRoleService.updateById(sysRole));
+        return R.success(sysRoleService.updateById(sysRole));
     }
 
     /**
@@ -77,7 +77,7 @@ public class SysRoleController {
     //@PreAuthorize("@pms.hasPermission('sys_role_del')")
     @CacheEvict(value = CacheConstants.ROLE_DETAILS, allEntries = true)
     public R<Boolean> removeById(@PathVariable Long id) {
-        return R.ok(sysRoleService.removeRoleById(id));
+        return R.success(sysRoleService.removeRoleById(id));
     }
 
     /**
@@ -87,7 +87,7 @@ public class SysRoleController {
      */
     @GetMapping("/list")
     public R<List<SysRole>> listRoles() {
-        return R.ok(sysRoleService.list(Wrappers.emptyWrapper()));
+        return R.success(sysRoleService.list(Wrappers.emptyWrapper()));
     }
 
     /**
@@ -100,7 +100,7 @@ public class SysRoleController {
     @GetMapping("/page")
     public R<IPage<SysRole>> getRolePage(Page page, SysRole role) {
         Page result = sysRoleService.page(page, Wrappers.query(role));
-        return R.ok(result);
+        return R.success(result);
     }
 
     /**
@@ -112,7 +112,7 @@ public class SysRoleController {
     @PutMapping("/menu")
     //@PreAuthorize("@pms.hasPermission('sys_role_perm')")
     public R<Boolean> saveRoleMenus(@RequestBody RoleVo roleVo) {
-        return R.ok(sysRoleService.updateRoleMenus(roleVo));
+        return R.success(sysRoleService.updateRoleMenus(roleVo));
     }
 
     /**
@@ -123,7 +123,7 @@ public class SysRoleController {
      */
     @PostMapping("/getRoleList")
     public R<List<SysRole>> getRoleList(@RequestBody List<Long> roleIdList) {
-        return R.ok(sysRoleService.findRolesByRoleIds(roleIdList, CollUtil.join(roleIdList, StrUtil.UNDERLINE)));
+        return R.success(sysRoleService.findRolesByRoleIds(roleIdList, CollUtil.join(roleIdList, StrUtil.UNDERLINE)));
     }
 
 }

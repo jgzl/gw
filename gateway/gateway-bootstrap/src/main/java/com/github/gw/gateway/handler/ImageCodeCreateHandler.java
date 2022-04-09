@@ -39,7 +39,7 @@ public class ImageCodeCreateHandler implements HandlerFunction<ServerResponse> {
         ResponseModel responseModel = captchaService.get(vo);
 
         return ServerResponse.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromValue(objectMapper.writeValueAsString(R.ok(responseModel))));
+                .body(BodyInserters.fromValue(objectMapper.writeValueAsString(R.success(responseModel))));
     }
 
 }

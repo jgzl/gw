@@ -39,7 +39,7 @@ public class SysUserController {
      */
     @GetMapping("/info/{userName}")
     public R<UserInfo> infoByUserName(@NotEmpty @PathVariable String userName) {
-        return R.ok(userService.findUserInfo(userName));
+        return R.success(userService.findUserInfo(userName));
     }
 
     /**
@@ -49,7 +49,7 @@ public class SysUserController {
      */
     @GetMapping(value = {"/info"})
     public R<UserInfo> info() {
-        return R.ok(userService.findUserInfo(SecurityUtils.getUser().getUsername()));
+        return R.success(userService.findUserInfo(SecurityUtils.getUser().getUsername()));
     }
 
     /**
@@ -60,7 +60,7 @@ public class SysUserController {
      */
     @GetMapping("/{id}")
     public R<SysUserVo> user(@PathVariable Integer id) {
-        return R.ok(userService.selectUserVoById(id));
+        return R.success(userService.selectUserVoById(id));
     }
 
     /**
@@ -73,7 +73,7 @@ public class SysUserController {
     public R<SysUser> user(@PathVariable String userName) {
         SysUser condition = new SysUser();
         condition.setUserName(userName);
-        return R.ok(userService.getOne(new QueryWrapper<>(condition)));
+        return R.success(userService.getOne(new QueryWrapper<>(condition)));
     }
 
     /**
@@ -83,10 +83,9 @@ public class SysUserController {
      * @return R
      */
     @DeleteMapping("/{id}")
-    //@PreAuthorize("@pms.hasPermission('sys_user_del')")
     public R<Boolean> userDel(@PathVariable Long id) {
         SysUser sysUser = userService.getById(id);
-        return R.ok(userService.deleteUserById(sysUser));
+        return R.success(userService.deleteUserById(sysUser));
     }
 
     /**
@@ -98,7 +97,7 @@ public class SysUserController {
     @PostMapping
     //@PreAuthorize("@pms.hasPermission('sys_user_add')")
     public R<Boolean> user(@RequestBody SysUserDto userDto) {
-        return R.ok(userService.saveUser(userDto));
+        return R.success(userService.saveUser(userDto));
     }
 
     /**
@@ -110,7 +109,7 @@ public class SysUserController {
     @PutMapping
     //@PreAuthorize("@pms.hasPermission('sys_user_edit')")
     public R<Boolean> updateUser(@Valid @RequestBody SysUserDto userDto) {
-        return R.ok(userService.updateUser(userDto));
+        return R.success(userService.updateUser(userDto));
     }
 
     /**
@@ -122,7 +121,7 @@ public class SysUserController {
     @PutMapping("/lockFlag")
     //@PreAuthorize("@pms.hasPermission('sys_user_edit')")
     public R<Boolean> updateUserForLockFlag(@Valid @RequestBody SysUserDto userDto) {
-        return R.ok(userService.updateUserForLockFlag(userDto));
+        return R.success(userService.updateUserForLockFlag(userDto));
     }
 
     /**
@@ -134,7 +133,7 @@ public class SysUserController {
      */
     @GetMapping("/page")
     public R<IPage<SysUserVo>> getUserPage(Page page, SysUserDto userDTO) {
-        return R.ok(userService.getUsersWithDeptPage(page, userDTO));
+        return R.success(userService.getUsersWithDeptPage(page, userDTO));
     }
 
     /**
@@ -145,7 +144,7 @@ public class SysUserController {
      */
     @GetMapping("/list")
     public R<List<SysUserVo>> getUserList(SysUserDto userDTO) {
-        return R.ok(userService.getUsersWithDept(userDTO));
+        return R.success(userService.getUsersWithDept(userDTO));
     }
 
     /**
@@ -167,7 +166,7 @@ public class SysUserController {
      */
     @GetMapping("/ancestor/{userName}")
     public R<List<SysUser>> listAncestorUsers(@PathVariable String userName) {
-        return R.ok(userService.listAncestorUsers(userName));
+        return R.success(userService.listAncestorUsers(userName));
     }
 
 }

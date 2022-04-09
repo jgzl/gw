@@ -22,7 +22,7 @@ public class R<T> implements Serializable {
     /**
      * 失败
      */
-    public static final int FAIL = GlobalErrorCodeConstants.FAIL.getCode();
+    public static final int ERROR = GlobalErrorCodeConstants.ERROR.getCode();
 
     private int code;
 
@@ -30,35 +30,35 @@ public class R<T> implements Serializable {
 
     private T data;
 
-    public static <T> R<T> ok() {
+    public static <T> R<T> success() {
         return restResult(null, SUCCESS, null);
     }
 
-    public static <T> R<T> ok(T data) {
+    public static <T> R<T> success(T data) {
         return restResult(data, SUCCESS, null);
     }
 
-    public static <T> R<T> ok(T data, String msg) {
+    public static <T> R<T> success(T data, String msg) {
         return restResult(data, SUCCESS, msg);
     }
 
-    public static <T> R<T> fail() {
-        return restResult(null, FAIL, null);
+    public static <T> R<T> error() {
+        return restResult(null, ERROR, null);
     }
 
-    public static <T> R<T> fail(String msg) {
-        return restResult(null, FAIL, msg);
+    public static <T> R<T> error(String msg) {
+        return restResult(null, ERROR, msg);
     }
 
-    public static <T> R<T> fail(T data) {
-        return restResult(data, FAIL, null);
+    public static <T> R<T> error(T data) {
+        return restResult(data, ERROR, null);
     }
 
-    public static <T> R<T> fail(T data, String msg) {
-        return restResult(data, FAIL, msg);
+    public static <T> R<T> error(T data, String msg) {
+        return restResult(data, ERROR, msg);
     }
 
-    public static <T> R<T> fail(int code, String msg) {
+    public static <T> R<T> error(int code, String msg) {
         return restResult(null, code, msg);
     }
 

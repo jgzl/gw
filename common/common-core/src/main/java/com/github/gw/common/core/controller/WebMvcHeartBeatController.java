@@ -23,6 +23,6 @@ public class WebMvcHeartBeatController {
      */
     @GetMapping
     public R<String> heartbeat() {
-        return R.ok("heartbeat success");
+        return R.success("heartbeat success");
     }
 }

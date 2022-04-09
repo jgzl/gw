@@ -50,6 +50,6 @@ public class LoginAuthenticationSuccessHandler implements AuthenticationSuccessH
                 }
             });
         }
-        WebmvcUtil.out(response, R.ok(result));
+        WebmvcUtil.out(response, R.success(result));
     }
 }

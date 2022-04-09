@@ -42,7 +42,7 @@ public class ImageCodeCheckHandler implements HandlerFunction<ServerResponse> {
         ResponseModel responseModel = captchaService.check(vo);
 
         return ServerResponse.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromValue(objectMapper.writeValueAsString(R.ok(responseModel))));
+                .body(BodyInserters.fromValue(objectMapper.writeValueAsString(R.success(responseModel))));
     }
 
 }

@@ -137,7 +137,7 @@ public class WebfluxUtil {
      * @return Mono<Void>
      */
     public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, Object value) {
-        return webFluxResponseWriter(response, HttpStatus.OK, value, R.FAIL);
+        return webFluxResponseWriter(response, HttpStatus.OK, value, R.ERROR);
     }
 
     /**
@@ -178,7 +178,7 @@ public class WebfluxUtil {
     public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, String contentType, HttpStatus status, Object value, int code) {
         response.setStatusCode(status);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, contentType);
-        R<?> result = R.fail(code, value.toString());
+        R<?> result = R.error(code, value.toString());
         DataBuffer dataBuffer = response.bufferFactory().wrap(JSONObject.toJSONString(result).getBytes());
         return response.writeWith(Mono.just(dataBuffer));
     }

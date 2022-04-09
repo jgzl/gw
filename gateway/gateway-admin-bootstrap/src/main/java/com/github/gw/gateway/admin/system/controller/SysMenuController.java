@@ -44,7 +44,7 @@ public class SysMenuController {
         SecurityUtils.getRoles().stream()
                 .map(sysRoleService::findRoleByRoleCode)
                 .forEach(sysRole -> all.addAll(sysMenuService.findMenuByRoleId(sysRole.getRoleId())));
-        return R.ok(sysMenuService.filterMenu(all, type, parentId));
+        return R.success(sysMenuService.filterMenu(all, type, parentId));
     }
 
     /**
@@ -59,7 +59,7 @@ public class SysMenuController {
     public R<List<Tree<Long>>> getTreeWithRole(String type, Long parentId, @RequestParam Long roleId) {
         // 获取符合条件的菜单
         Set<SysMenu> all = new HashSet<>(sysMenuService.findMenuByRoleId(roleId));
-        return R.ok(sysMenuService.filterMenu(all, type, parentId));
+        return R.success(sysMenuService.filterMenu(all, type, parentId));
     }
 
     /**
@@ -71,7 +71,7 @@ public class SysMenuController {
      */
     @GetMapping(value = "/tree")
     public R<List<Tree<Long>>> getTree(boolean lazy, Long parentId) {
-        return R.ok(sysMenuService.treeMenu(lazy, parentId));
+        return R.success(sysMenuService.treeMenu(lazy, parentId));
     }
 
     /**
@@ -82,7 +82,7 @@ public class SysMenuController {
      */
     @GetMapping("/list/{roleId}")
     public R<List<Long>> getRoleTree(@PathVariable Long roleId) {
-        return R.ok(
+        return R.success(
                 sysMenuService.findMenuByRoleId(roleId).stream().map(SysMenu::getMenuId).collect(Collectors.toList()));
     }
 
@@ -94,7 +94,7 @@ public class SysMenuController {
      */
     @GetMapping("/{id}")
     public R<SysMenu> getById(@PathVariable Long id) {
-        return R.ok(sysMenuService.getById(id));
+        return R.success(sysMenuService.getById(id));
     }
 
     /**
@@ -107,7 +107,7 @@ public class SysMenuController {
     //@PreAuthorize("@pms.hasPermission('sys_menu_add')")
     public R<SysMenu> save(@Valid @RequestBody SysMenu sysMenu) {
         sysMenuService.save(sysMenu);
-        return R.ok(sysMenu);
+        return R.success(sysMenu);
     }
 
     /**
@@ -131,7 +131,7 @@ public class SysMenuController {
     @PutMapping
     //@PreAuthorize("@pms.hasPermission('sys_menu_edit')")
     public R<Boolean> update(@Valid @RequestBody SysMenu sysMenu) {
-        return R.ok(sysMenuService.updateMenuById(sysMenu));
+        return R.success(sysMenuService.updateMenuById(sysMenu));
     }
 
 }

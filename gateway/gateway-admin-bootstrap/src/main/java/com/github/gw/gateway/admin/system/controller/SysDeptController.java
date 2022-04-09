@@ -37,7 +37,7 @@ public class SysDeptController {
      */
     @GetMapping("/{id}")
     public R<SysDept> getById(@PathVariable Integer id) {
-        return R.ok(sysDeptService.getById(id));
+        return R.success(sysDeptService.getById(id));
     }
 
     /**
@@ -47,7 +47,7 @@ public class SysDeptController {
      */
     @GetMapping(value = "/tree")
     public R<List<Tree<Long>>> getTree() {
-        return R.ok(sysDeptService.selectTree());
+        return R.success(sysDeptService.selectTree());
     }
 
     /**
@@ -59,7 +59,7 @@ public class SysDeptController {
     @PostMapping
     //@PreAuthorize("@pms.hasPermission('sys_dept_add')")
     public R<Boolean> save(@Valid @RequestBody SysDept sysDept) {
-        return R.ok(sysDeptService.saveDept(sysDept));
+        return R.success(sysDeptService.saveDept(sysDept));
     }
 
     /**
@@ -71,7 +71,7 @@ public class SysDeptController {
     @DeleteMapping("/{id}")
     //@PreAuthorize("@pms.hasPermission('sys_dept_del')")
     public R<Boolean> removeById(@PathVariable Integer id) {
-        return R.ok(sysDeptService.removeDeptById(id));
+        return R.success(sysDeptService.removeDeptById(id));
     }
 
     /**
@@ -84,7 +84,7 @@ public class SysDeptController {
     //@PreAuthorize("@pms.hasPermission('sys_dept_edit')")
     public R<Boolean> update(@Valid @RequestBody SysDept sysDept) {
         sysDept.setUpdateTime(LocalDateTime.now());
-        return R.ok(sysDeptService.updateDeptById(sysDept));
+        return R.success(sysDeptService.updateDeptById(sysDept));
     }
 
     /**
@@ -95,7 +95,7 @@ public class SysDeptController {
      */
     @GetMapping(value = "/getDescendantList/{deptId}")
     public R<List<SysDeptRelation>> getDescendantList(@PathVariable Integer deptId) {
-        return R.ok(
+        return R.success(
                 relationService.list(Wrappers.<SysDeptRelation>lambdaQuery().eq(SysDeptRelation::getAncestor, deptId)));
     }
 
