@@ -1,7 +1,7 @@
 package com.github.gw.gateway.admin.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.gw.gateway.admin.system.domain.SysUserRole;
+import com.github.gw.common.model.system.domain.SysUserRole;
 import com.github.gw.gateway.admin.system.mapper.SysUserRoleMapper;
 import com.github.gw.gateway.admin.system.service.SysUserRoleService;
 import org.springframework.stereotype.Service;

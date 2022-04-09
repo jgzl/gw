@@ -5,11 +5,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.gw.common.core.domain.R;
 import com.github.gw.gateway.admin.security.utils.SecurityUtils;
-import com.github.gw.gateway.admin.system.domain.SysUser;
+import com.github.gw.common.model.system.domain.SysUser;
 import com.github.gw.gateway.admin.system.service.SysUserService;
-import com.github.gw.gateway.admin.system.vo.SysUserDto;
-import com.github.gw.gateway.admin.system.vo.SysUserVo;
-import com.github.gw.gateway.admin.system.vo.UserInfo;
+import com.github.gw.common.model.system.vo.SysUserDto;
+import com.github.gw.common.model.system.vo.SysUserVo;
+import com.github.gw.common.model.system.vo.UserInfo;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

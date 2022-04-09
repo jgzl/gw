@@ -2,10 +2,10 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.192.201:8848
+        server-addr: nacos.dev.cn:8848
         namespace: gw-pp
       config:
-        server-addr: 192.168.192.201:8848
+        server-addr: nacos.dev.cn:8848
         namespace: gw-pp
         file-extension: yml
         shared-configs:

@@ -3,7 +3,7 @@
 <mapper namespace="com.github.gw.gateway.admin.system.mapper.SysDeptRelationMapper">
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.github.gw.gateway.admin.system.domain.SysDeptRelation">
+	<resultMap id="BaseResultMap" type="com.github.gw.common.model.system.domain.SysDeptRelation">
 		<id column="ancestor" property="ancestor"/>
 		<result column="descendant" property="descendant"/>
 	</resultMap>

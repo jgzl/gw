@@ -6,7 +6,7 @@ import com.github.gw.common.core.domain.R;
 import com.github.gw.common.core.utils.JwtTokenUtil;
 import com.github.gw.common.core.utils.WebmvcUtil;
 import com.github.gw.gateway.admin.security.vo.ExtendUser;
-import com.github.gw.gateway.admin.system.vo.LoginUserVo;
+import com.github.gw.common.model.system.vo.LoginUserVo;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.springframework.security.core.Authentication;

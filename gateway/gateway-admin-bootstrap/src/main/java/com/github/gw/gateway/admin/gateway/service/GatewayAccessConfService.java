@@ -1,8 +1,8 @@
 package com.github.gw.gateway.admin.gateway.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.github.gw.gateway.admin.gateway.domain.GatewayAccessConf;
-import com.github.gw.gateway.admin.gateway.vo.GatewayAccessConfVo;
+import com.github.gw.common.model.gateway.domain.GatewayAccessConf;
+import com.github.gw.common.model.gateway.vo.GatewayAccessConfVo;
 
 /**
  * 路由

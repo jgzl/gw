@@ -1,6 +1,5 @@
 package com.github.gw.common.data.template;
 
-import com.github.gw.common.data.RedisSerializerInstance;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.cache.annotation.EnableCaching;
@@ -11,7 +10,6 @@ import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
 import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
  * RedisTemplate 配置
@@ -36,11 +34,10 @@ public class ReactiveRedisTemplateConfiguration {
     @Bean
     @Primary
     public ReactiveRedisTemplate<String, Object> reactiveRedisTemplate(ReactiveRedisConnectionFactory reactiveRedisConnectionFactory) {
-        RedisSerializer<Object> serializer = RedisSerializerInstance.getInstance().defaultSerializer();
         RedisSerializationContext<String, Object> serializationContext = RedisSerializationContext
                 .<String, Object>newSerializationContext()
-                .key(StringRedisSerializer.UTF_8).value(serializer)
-                .hashKey(StringRedisSerializer.UTF_8).hashValue(serializer)
+                .key(RedisSerializer.string()).value(RedisSerializer.json())
+                .hashKey(RedisSerializer.string()).hashValue(RedisSerializer.json())
                 .build();
         return new ReactiveRedisTemplate<>(reactiveRedisConnectionFactory, serializationContext);
     }

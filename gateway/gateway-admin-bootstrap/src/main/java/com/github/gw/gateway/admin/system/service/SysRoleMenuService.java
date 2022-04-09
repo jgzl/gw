@@ -1,7 +1,7 @@
 package com.github.gw.gateway.admin.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.github.gw.gateway.admin.system.domain.SysRoleMenu;
+import com.github.gw.common.model.system.domain.SysRoleMenu;
 
 /**
  * <p>

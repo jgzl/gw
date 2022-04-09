@@ -1,6 +1,6 @@
 package com.github.gw.gateway.configuration.properties;
 
-import com.github.gw.common.core.enums.RecordLogEnum;
+import com.github.gw.common.core.constant.enums.RecordLogEnum;
 import com.github.gw.gateway.common.GatewayConstants;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.ListUtil;
 import com.github.gw.common.core.constant.CacheConstants;
 import com.github.gw.common.gateway.support.AccessConfCacheHolder;
-import com.github.gw.gateway.admin.gateway.vo.GatewayAccessConfVo;
+import com.github.gw.common.model.gateway.vo.GatewayAccessConfVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;

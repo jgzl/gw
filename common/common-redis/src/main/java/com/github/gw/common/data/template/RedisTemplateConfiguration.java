@@ -1,6 +1,5 @@
 package com.github.gw.common.data.template;
 
-import com.github.gw.common.data.RedisSerializerInstance;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.cache.annotation.EnableCaching;
@@ -10,7 +9,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
  * RedisTemplate 配置
@@ -28,15 +26,16 @@ public class RedisTemplateConfiguration {
     @Bean
     @Primary
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-        RedisSerializer<Object> serializer = RedisSerializerInstance.getInstance().defaultSerializer();
-        redisTemplate.setKeySerializer(StringRedisSerializer.UTF_8);
-        redisTemplate.setHashKeySerializer(StringRedisSerializer.UTF_8);
-        redisTemplate.setValueSerializer(serializer);
-        redisTemplate.setHashValueSerializer(serializer);
-        redisTemplate.setConnectionFactory(redisConnectionFactory);
-        redisTemplate.afterPropertiesSet();
-        return redisTemplate;
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
+        // 使用 String 序列化方式，序列化 KEY 。
+        template.setKeySerializer(RedisSerializer.string());
+        template.setHashKeySerializer(RedisSerializer.string());
+        // 使用 JSON 序列化方式（库是 Jackson ），序列化 VALUE 。
+        template.setValueSerializer(RedisSerializer.json());
+        template.setHashValueSerializer(RedisSerializer.json());
+        template.setConnectionFactory(redisConnectionFactory);
+        template.afterPropertiesSet();
+        return template;
     }
 
 }

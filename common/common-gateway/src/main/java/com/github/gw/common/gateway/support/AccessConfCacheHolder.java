@@ -2,7 +2,7 @@ package com.github.gw.common.gateway.support;
 
 import cn.hutool.cache.Cache;
 import cn.hutool.cache.CacheUtil;
-import com.github.gw.gateway.admin.gateway.vo.GatewayAccessConfVo;
+import com.github.gw.common.model.gateway.vo.GatewayAccessConfVo;
 import lombok.experimental.UtilityClass;
 
 import java.util.ArrayList;

@@ -5,7 +5,6 @@ import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.ContentType;
 import cn.hutool.http.HttpStatus;
-import com.github.gw.common.core.constant.Constants;
 import com.github.gw.common.core.domain.R;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -28,6 +27,8 @@ import java.util.Map;
  */
 @Slf4j
 public class WebmvcUtil {
+
+    private static final String UTF8 = "UTF-8";
 
     /**
      * 从请求头或者请求路径中获取参数(优先获取请求头中的参数,请求头权重更大)
@@ -114,7 +115,7 @@ public class WebmvcUtil {
         try {
             response.setStatus(HttpStatus.HTTP_OK);
             response.setContentType(ContentType.JSON.getValue());
-            response.setCharacterEncoding(Constants.UTF8);
+            response.setCharacterEncoding(UTF8);
             response.getWriter().print(string);
         } catch (IOException e) {
             e.printStackTrace();
@@ -130,7 +131,7 @@ public class WebmvcUtil {
      */
     public static String urlDecode(String str) {
         try {
-            return URLDecoder.decode(str, Constants.UTF8);
+            return URLDecoder.decode(str, UTF8);
         } catch (UnsupportedEncodingException e) {
             return StringUtils.EMPTY;
         }
@@ -143,7 +144,7 @@ public class WebmvcUtil {
         PrintWriter printWriter = null;
         try {
             printWriter = response.getWriter();
-            printWriter.append(JacksonUtil.writeValueAsString(result));
+            printWriter.append(JacksonUtils.writeValueAsString(result));
         } catch (IOException e) {
             log.error("生成文件流失败:", e);
         } finally {

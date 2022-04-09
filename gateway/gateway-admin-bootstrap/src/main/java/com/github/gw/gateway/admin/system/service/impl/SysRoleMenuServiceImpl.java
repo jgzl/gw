@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.gw.common.core.constant.CacheConstants;
-import com.github.gw.gateway.admin.system.domain.SysRoleMenu;
+import com.github.gw.common.model.system.domain.SysRoleMenu;
 import com.github.gw.gateway.admin.system.mapper.SysRoleMenuMapper;
 import com.github.gw.gateway.admin.system.service.SysRoleMenuService;
 import lombok.AllArgsConstructor;

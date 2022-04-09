@@ -3,7 +3,7 @@
 <mapper namespace="com.github.gw.gateway.admin.gateway.mapper.GatewayRouteConfMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.github.gw.gateway.admin.gateway.domain.GatewayRouteConf" id="gatewayRouteConfMap">
+    <resultMap type="com.github.gw.common.model.gateway.domain.GatewayRouteConf" id="gatewayRouteConfMap">
         <result property="routeId" column="route_id"/>
         <result property="predicates" column="predicates"/>
         <result property="filters" column="filters"/>

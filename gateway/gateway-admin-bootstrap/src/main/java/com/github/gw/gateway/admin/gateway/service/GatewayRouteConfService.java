@@ -1,7 +1,7 @@
 package com.github.gw.gateway.admin.gateway.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.github.gw.gateway.admin.gateway.domain.GatewayRouteConf;
+import com.github.gw.common.model.gateway.domain.GatewayRouteConf;
 
 /**
  * 路由

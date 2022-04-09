@@ -1,6 +1,6 @@
 package com.github.gw.gateway.listener;
 
-import com.github.gw.common.core.enums.RecordLogEnum;
+import com.github.gw.common.core.constant.enums.RecordLogEnum;
 import com.github.gw.common.core.spi.ExtensionLoader;
 import com.github.gw.common.gateway.domain.GatewayLog;
 import com.github.gw.gateway.configuration.properties.GatewayProperties;

@@ -3,9 +3,9 @@ package com.github.gw.gateway.admin.system.mapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.gw.common.data.mapper.ExtendBaseMapper;
-import com.github.gw.gateway.admin.system.domain.SysUser;
-import com.github.gw.gateway.admin.system.vo.SysUserDto;
-import com.github.gw.gateway.admin.system.vo.SysUserVo;
+import com.github.gw.common.model.system.domain.SysUser;
+import com.github.gw.common.model.system.vo.SysUserDto;
+import com.github.gw.common.model.system.vo.SysUserVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

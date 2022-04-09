@@ -167,17 +167,17 @@
             prop="name"
           >
             <el-input
-            	v-model="menuModel.name"
-                v-show="menuModel.type === '0'"
-                size="small"
-                placeholder="请输入菜单名称"
+            v-model="menuModel.name"
+            v-show="menuModel.type === '0'"
+            size="small"
+            placeholder="请输入菜单名称"
             />
           </el-form-item>
           <el-form-item 
-	  	label="菜单地址" 
-		prop="path" 
-		v-show="menuModel.type === '0'"
-	  >
+            label="菜单地址"
+            prop="path"
+            v-show="menuModel.type === '0'"
+          >
             <el-input
                     v-model="menuModel.path"
                     size="small"

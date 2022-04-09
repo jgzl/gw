@@ -1,7 +1,7 @@
 package com.github.gw.gateway.admin.system.mapper;
 
 import com.github.gw.common.data.mapper.ExtendBaseMapper;
-import com.github.gw.gateway.admin.system.domain.SysRoleMenu;
+import com.github.gw.common.model.system.domain.SysRoleMenu;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

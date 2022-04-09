@@ -1,6 +1,7 @@
 package com.github.gw.common.gateway.configuration;
 
 import com.google.common.collect.Lists;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
@@ -20,6 +21,7 @@ import java.util.List;
  * @author li7hai26@gmail.com
  * @date 2021/12/17
  */
+@ConditionalOnClass(name = "org.springframework.data.elasticsearch.config.ElasticsearchConfigurationSupport")
 @Configuration
 public class ElasticSearchConfiguration extends ElasticsearchConfigurationSupport {
 

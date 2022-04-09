@@ -1,6 +1,6 @@
 package com.github.gw.common.core.domain;
 
-import com.github.gw.common.core.constant.Constants;
+import com.github.gw.common.core.exception.enums.GlobalErrorCodeConstants;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,12 +17,12 @@ public class R<T> implements Serializable {
     /**
      * 成功
      */
-    public static final int SUCCESS = Constants.SUCCESS;
+    public static final int SUCCESS = GlobalErrorCodeConstants.SUCCESS.getCode();
 
     /**
      * 失败
      */
-    public static final int FAIL = Constants.FAIL;
+    public static final int FAIL = GlobalErrorCodeConstants.FAIL.getCode();
 
     private int code;
 

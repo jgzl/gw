@@ -7,10 +7,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.github.gw.common.core.constant.CacheConstants;
 import com.github.gw.common.core.constant.CommonConstants;
-import com.github.gw.common.core.utils.JacksonUtil;
+import com.github.gw.common.core.utils.JacksonUtils;
 import com.github.gw.common.gateway.support.DynamicRouteInitEvent;
 import com.github.gw.common.gateway.vo.RouteDefinitionVo;
-import com.github.gw.gateway.admin.gateway.domain.GatewayRouteConf;
+import com.github.gw.common.model.gateway.domain.GatewayRouteConf;
 import com.github.gw.gateway.admin.gateway.mapper.GatewayRouteConfMapper;
 import com.github.gw.gateway.admin.gateway.service.GatewayRouteConfService;
 import lombok.AllArgsConstructor;
@@ -62,18 +62,18 @@ public class GatewayRouteConfServiceImpl extends ServiceImpl<GatewayRouteConfMap
             routeVo.setRouteName(route.getRouteName());
             routeVo.setOrder(route.getOrder());
             if (StrUtil.isNotBlank(route.getPredicates())) {
-                routeVo.setPredicates(JacksonUtil.readValue(route.getPredicates(), new TypeReference<List<PredicateDefinition>>() {
+                routeVo.setPredicates(JacksonUtils.readValue(route.getPredicates(), new TypeReference<List<PredicateDefinition>>() {
                 }));
             }
             if (StrUtil.isNotBlank(route.getFilters())) {
-                routeVo.setFilters(JacksonUtil.readValue(route.getFilters(), new TypeReference<List<FilterDefinition>>() {
+                routeVo.setFilters(JacksonUtils.readValue(route.getFilters(), new TypeReference<List<FilterDefinition>>() {
                 }));
             }
             if (StrUtil.isNotBlank(route.getUri())) {
                 routeVo.setUri(URI.create(route.getUri()));
             }
             if (StrUtil.isNotBlank(route.getMetadata())) {
-                routeVo.setMetadata(JacksonUtil.readValue(route.getMetadata(), new TypeReference<Map<String, Object>>() {
+                routeVo.setMetadata(JacksonUtils.readValue(route.getMetadata(), new TypeReference<Map<String, Object>>() {
                 }));
             }
             // 插入生效路由

@@ -3,7 +3,7 @@
 <mapper namespace="com.github.gw.gateway.admin.system.mapper.SysRoleMapper">
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.github.gw.gateway.admin.system.domain.SysRole">
+	<resultMap id="BaseResultMap" type="com.github.gw.common.model.system.domain.SysRole">
 		<id column="role_id" property="roleId"/>
 		<result column="role_name" property="roleName"/>
 		<result column="role_code" property="roleCode"/>

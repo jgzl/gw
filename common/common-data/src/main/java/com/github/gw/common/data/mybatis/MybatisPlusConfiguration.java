@@ -1,7 +1,9 @@
 package com.github.gw.common.data.mybatis;
 
+import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.github.gw.common.data.handler.DefaultDBFieldHandler;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -28,6 +30,11 @@ public class MybatisPlusConfiguration {
         // 分页支持
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor());
         return interceptor;
+    }
+
+    @Bean
+    public MetaObjectHandler defaultMetaObjectHandler(){
+        return new DefaultDBFieldHandler(); // 自动填充参数类
     }
 
 }

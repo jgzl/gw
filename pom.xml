@@ -37,7 +37,7 @@
         <lombok.version>1.18.20</lombok.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <fluent-mybatis.version>1.9.2</fluent-mybatis.version>
-        <spring-boot.version>2.6.3</spring-boot.version>
+        <spring-boot.version>2.6.5</spring-boot.version>
     </properties>
 
     <dependencies>
@@ -116,11 +116,6 @@
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
                             <version>${mapstruct.version}</version>
-                        </path>
-                        <path>
-                            <groupId>com.github.atool</groupId>
-                            <artifactId>fluent-mybatis-processor</artifactId>
-                            <version>${fluent-mybatis.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>

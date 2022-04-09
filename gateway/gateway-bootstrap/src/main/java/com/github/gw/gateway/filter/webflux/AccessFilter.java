@@ -1,10 +1,10 @@
 package com.github.gw.gateway.filter.webflux;
 
 import cn.hutool.core.util.StrUtil;
-import com.github.gw.common.core.enums.StatusEnum;
+import com.github.gw.common.core.constant.enums.StatusEnum;
 import com.github.gw.common.core.utils.WebfluxUtil;
 import com.github.gw.common.gateway.support.AccessConfCacheHolder;
-import com.github.gw.gateway.admin.gateway.vo.GatewayAccessConfVo;
+import com.github.gw.common.model.gateway.vo.GatewayAccessConfVo;
 import com.github.gw.gateway.common.GatewayConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.reactive.ServerHttpRequest;

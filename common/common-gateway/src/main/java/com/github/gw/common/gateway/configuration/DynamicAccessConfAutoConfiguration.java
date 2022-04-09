@@ -5,7 +5,7 @@ import cn.hutool.core.collection.ListUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.github.gw.common.core.constant.CacheConstants;
 import com.github.gw.common.gateway.support.AccessConfCacheHolder;
-import com.github.gw.gateway.admin.gateway.vo.GatewayAccessConfVo;
+import com.github.gw.common.model.gateway.vo.GatewayAccessConfVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;

@@ -4,9 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.gw.common.core.domain.R;
-import com.github.gw.gateway.admin.gateway.domain.GatewayAccessConf;
+import com.github.gw.common.model.gateway.domain.GatewayAccessConf;
 import com.github.gw.gateway.admin.gateway.service.GatewayAccessConfService;
-import com.github.gw.gateway.admin.gateway.vo.GatewayAccessConfVo;
+import com.github.gw.common.model.gateway.vo.GatewayAccessConfVo;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

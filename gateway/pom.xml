@@ -9,7 +9,6 @@
     </parent>
     <modules>
         <module>gateway-bootstrap</module>
-        <module>gateway-admin-api</module>
         <module>gateway-admin-bootstrap</module>
     </modules>
     <modelVersion>4.0.0</modelVersion>

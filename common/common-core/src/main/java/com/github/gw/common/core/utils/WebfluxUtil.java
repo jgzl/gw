@@ -4,7 +4,6 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.github.gw.common.core.constant.Constants;
 import com.github.gw.common.core.domain.R;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -29,6 +28,8 @@ import java.util.Map;
  */
 @Slf4j
 public class WebfluxUtil {
+
+    private static final String UTF8 = "UTF-8";
 
     /**
      * 从请求头或者请求路径中获取参数(优先获取请求头中的参数,请求头权重更大)
@@ -122,7 +123,7 @@ public class WebfluxUtil {
      */
     public static String urlDecode(String str) {
         try {
-            return URLDecoder.decode(str, Constants.UTF8);
+            return URLDecoder.decode(str, UTF8);
         } catch (UnsupportedEncodingException e) {
             return StringUtils.EMPTY;
         }

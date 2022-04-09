@@ -12,6 +12,7 @@
         <module>common-data</module>
         <module>common-feign</module>
         <module>common-gateway</module>
+        <module>common-model</module>
         <module>common-redis</module>
         <module>common-security</module>
     </modules>
