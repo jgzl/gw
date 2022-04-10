@@ -2,7 +2,7 @@ package com.github.gw.gateway.admin.system.service;
 
 import cn.hutool.core.lang.tree.Tree;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.github.gw.common.core.domain.R;
+import com.github.gw.common.core.model.R;
 import com.github.gw.common.model.system.domain.SysMenu;
 
 import java.util.List;

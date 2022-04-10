@@ -6,8 +6,8 @@ import cn.hutool.extra.spring.SpringUtil;
 import cn.hutool.jwt.JWTPayload;
 import com.github.gw.common.core.constant.SecurityConstants;
 import com.github.gw.common.core.constant.TokenConstants;
-import com.github.gw.common.core.domain.R;
-import com.github.gw.common.core.exception.TokenException;
+import com.github.gw.common.core.model.R;
+import com.github.gw.common.core.exception.enums.ErrorCodeConstants;
 import com.github.gw.common.core.utils.JwtTokenUtil;
 import com.github.gw.common.core.utils.WebmvcUtil;
 import com.github.gw.gateway.admin.security.configuration.PermitAllUrlResolver;
@@ -26,6 +26,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+import static com.github.gw.common.core.exception.util.ServiceExceptionUtil.exception;
 
 /**
  * token认证授权模块
@@ -77,7 +79,7 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
         String token = getToken(request);
         if (StrUtil.isNotBlank(token)) {
             if (JwtTokenUtil.verify(token)) {
-                throw new TokenException("token已失效,请重新登陆");
+                throw exception(ErrorCodeConstants.AUTH_TOKEN_EXPIRED);
             } else {
                 // 从Token中解密获取用户名
                 JWTPayload jwtPayload = JwtTokenUtil.getPayLoad(token);

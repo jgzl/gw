@@ -20,6 +20,10 @@
         </dependency>
         <dependency>
             <groupId>com.github.jgzl.gw</groupId>
+            <artifactId>common-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.jgzl.gw</groupId>
             <artifactId>common-redis</artifactId>
         </dependency>
         <dependency>

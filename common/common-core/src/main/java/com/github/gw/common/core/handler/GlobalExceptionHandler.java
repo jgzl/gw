@@ -1,9 +1,7 @@
 package com.github.gw.common.core.handler;
 
-import com.github.gw.common.core.domain.R;
+import com.github.gw.common.core.model.R;
 import com.github.gw.common.core.exception.ServiceException;
-import com.github.gw.common.core.utils.JacksonUtils;
-import com.github.gw.common.model.system.dto.ApiErrorLogCreateReqDTO;
 import io.github.resilience4j.ratelimiter.RequestNotPermitted;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -217,53 +215,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public R<?> defaultExceptionHandler(HttpServletRequest req, Throwable ex) {
         log.error("[defaultExceptionHandler]", ex);
-        // 插入异常日志
-        // this.createExceptionLog(req, ex);
-        // 返回 ERROR R
         return R.error(INTERNAL_SERVER_ERROR.getCode(), INTERNAL_SERVER_ERROR.getMsg());
     }
-
-    private void createExceptionLog(HttpServletRequest req, Throwable e) {
-        // 插入错误日志
-        ApiErrorLogCreateReqDTO errorLog = new ApiErrorLogCreateReqDTO();
-        try {
-            // 初始化 errorLog
-//            initExceptionLog(errorLog, req, e);
-            // 执行插入 errorLog
-//            apiErrorLogFrameworkService.createApiErrorLogAsync(errorLog);
-        } catch (Throwable th) {
-            log.error("[createExceptionLog][url({}) log({}) 发生异常]", req.getRequestURI(),  JacksonUtils.toJsonString(errorLog), th);
-        }
-    }
-
-//    private void initExceptionLog(ApiErrorLogCreateReqDTO errorLog, HttpServletRequest request, Throwable e) {
-//        // 处理用户信息
-//        errorLog.setUserId(WebFrameworkUtils.getLoginUserId(request));
-//        errorLog.setUserType(WebFrameworkUtils.getLoginUserType(request));
-//        // 设置异常字段
-//        errorLog.setExceptionName(e.getClass().getName());
-//        errorLog.setExceptionMessage(ExceptionUtil.getMessage(e));
-//        errorLog.setExceptionRootCauseMessage(ExceptionUtil.getRootCauseMessage(e));
-//        errorLog.setExceptionStackTrace(ExceptionUtils.getStackTrace(e));
-//        StackTraceElement[] stackTraceElements = e.getStackTrace();
-//        Assert.notEmpty(stackTraceElements, "异常 stackTraceElements 不能为空");
-//        StackTraceElement stackTraceElement = stackTraceElements[0];
-//        errorLog.setExceptionClassName(stackTraceElement.getClassName());
-//        errorLog.setExceptionFileName(stackTraceElement.getFileName());
-//        errorLog.setExceptionMethodName(stackTraceElement.getMethodName());
-//        errorLog.setExceptionLineNumber(stackTraceElement.getLineNumber());
-//        // 设置其它字段
-//        errorLog.setTraceId(TracerUtils.getTraceId());
-//        errorLog.setApplicationName(applicationName);
-//        errorLog.setRequestUrl(request.getRequestURI());
-//        Map<String, Object> requestParams = MapUtil.<String, Object>builder()
-//                .put("query", ServletUtil.getParamMap(request))
-//                .put("body", ServletUtil.getBody(request)).build();
-//        errorLog.setRequestParams(JsonUtils.toJsonString(requestParams));
-//        errorLog.setRequestMethod(request.getMethod());
-//        errorLog.setUserAgent(ServletUtils.getUserAgent(request));
-//        errorLog.setUserIp(ServletUtil.getClientIP(request));
-//        errorLog.setExceptionTime(new Date());
-//    }
-
 }

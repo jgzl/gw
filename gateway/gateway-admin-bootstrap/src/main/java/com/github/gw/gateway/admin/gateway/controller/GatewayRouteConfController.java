@@ -3,7 +3,7 @@ package com.github.gw.gateway.admin.gateway.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.github.gw.common.core.domain.R;
+import com.github.gw.common.core.model.R;
 import com.github.gw.common.model.gateway.domain.GatewayRouteConf;
 import com.github.gw.gateway.admin.gateway.service.GatewayRouteConfService;
 import com.github.gw.common.model.gateway.vo.GatewayRouteConfVo;

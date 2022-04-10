@@ -5,7 +5,7 @@ import com.anji.captcha.model.common.ResponseModel;
 import com.anji.captcha.model.vo.CaptchaVO;
 import com.anji.captcha.service.CaptchaService;
 import com.github.gw.common.core.constant.SecurityConstants;
-import com.github.gw.common.core.exception.CaptchaException;
+import com.github.gw.common.core.exception.enums.ErrorCodeConstants;
 import com.github.gw.common.core.utils.JacksonUtils;
 import com.github.gw.common.model.system.vo.LoginUserVo;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+
+import static com.github.gw.common.core.exception.util.ServiceExceptionUtil.exception;
 
 /**
  * token登陆模块
@@ -83,7 +85,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
             //repCode  6112  获取验证码失败,请联系管理员
             String result = JSON.toJSONString(response);
             log.error("验证码校验失败,返回结果为为:{}", result);
-            throw new CaptchaException(result);
+            throw exception(ErrorCodeConstants.AUTH_LOGIN_CAPTCHA_CODE_ERROR);
         }
     }
 

@@ -7,6 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.gw.common.gateway.domain.GatewayLog;
 import com.github.gw.common.gateway.vo.GatewayLogVo;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -28,13 +29,12 @@ import java.util.stream.Collectors;
  * @date 2021/12/22
  */
 @Slf4j
+@RequiredArgsConstructor
 @Service("elasticsearchGatewayLogService")
 public class ElasticsearchGatewayLogService implements GatewayLogService {
 
-    @Autowired(required = false)
-    private GatewayLogElasticsearchRepository repository;
-    @Autowired(required = false)
-    private ElasticsearchRestTemplate elasticsearchRestTemplate;
+    private final GatewayLogElasticsearchRepository repository;
+    private final ElasticsearchRestTemplate elasticsearchRestTemplate;
 
     @Override
     public Page<GatewayLogVo> getByGatewayRequestLog(Page<GatewayLogVo> page,GatewayLogVo gatewayRequestLog) {

@@ -36,8 +36,8 @@
 
         <lombok.version>1.18.20</lombok.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
-        <fluent-mybatis.version>1.9.2</fluent-mybatis.version>
-        <spring-boot.version>2.6.5</spring-boot.version>
+        <!-- 在升级springboot版本时，需要同时更改dependencies-bom和根目录的版本 -->
+        <spring-boot.version>2.6.6</spring-boot.version>
     </properties>
 
     <dependencies>

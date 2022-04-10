@@ -1,6 +1,6 @@
 package com.github.gw.common.core.controller;
 
-import com.github.gw.common.core.domain.R;
+import com.github.gw.common.core.model.R;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type;
 import org.springframework.web.bind.annotation.GetMapping;

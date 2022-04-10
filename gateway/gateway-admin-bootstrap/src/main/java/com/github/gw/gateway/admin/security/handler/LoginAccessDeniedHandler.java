@@ -1,6 +1,6 @@
 package com.github.gw.gateway.admin.security.handler;
 
-import com.github.gw.common.core.domain.R;
+import com.github.gw.common.core.model.R;
 import com.github.gw.common.core.utils.WebmvcUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;

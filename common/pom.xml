@@ -10,6 +10,7 @@
     <modules>
         <module>common-core</module>
         <module>common-data</module>
+        <module>common-excel</module>
         <module>common-feign</module>
         <module>common-gateway</module>
         <module>common-model</module>

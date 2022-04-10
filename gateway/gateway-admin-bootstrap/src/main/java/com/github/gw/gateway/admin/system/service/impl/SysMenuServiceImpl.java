@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.gw.common.core.constant.CacheConstants;
 import com.github.gw.common.core.constant.CommonConstants;
 import com.github.gw.common.core.constant.enums.MenuTypeEnum;
-import com.github.gw.common.core.domain.R;
+import com.github.gw.common.core.model.R;
 import com.github.gw.common.model.system.domain.SysMenu;
 import com.github.gw.common.model.system.domain.SysRoleMenu;
 import com.github.gw.gateway.admin.system.mapper.SysMenuMapper;

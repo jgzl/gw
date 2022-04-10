@@ -2,7 +2,7 @@ package com.github.gw.common.core.utils.collection;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
-import com.github.gw.common.model.core.KeyValue;
+import com.github.gw.common.core.model.KeyValue;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 

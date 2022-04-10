@@ -1,4 +1,4 @@
-package com.github.gw.common.model.core;
+package com.github.gw.common.core.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

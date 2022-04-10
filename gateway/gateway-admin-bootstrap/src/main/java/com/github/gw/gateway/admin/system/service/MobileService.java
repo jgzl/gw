@@ -1,6 +1,6 @@
 package com.github.gw.gateway.admin.system.service;
 
-import com.github.gw.common.core.domain.R;
+import com.github.gw.common.core.model.R;
 
 /**
  * @author li7hai26@gmail.com

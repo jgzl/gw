@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.gw.common.core.constant.CacheConstants;
 import com.github.gw.common.core.constant.CommonConstants;
-import com.github.gw.common.core.domain.R;
+import com.github.gw.common.core.model.R;
 import com.github.gw.common.model.system.convert.UserConvert;
 import com.github.gw.common.model.system.domain.*;
 import com.github.gw.gateway.admin.system.mapper.SysUserMapper;

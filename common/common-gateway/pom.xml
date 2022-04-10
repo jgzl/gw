@@ -38,7 +38,7 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <scope>compile</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -49,10 +49,10 @@
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
             <optional>true</optional>
         </dependency>
-        <!--验证码-->
         <dependency>
             <groupId>com.github.anji-plus</groupId>
             <artifactId>captcha-spring-boot-starter</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>

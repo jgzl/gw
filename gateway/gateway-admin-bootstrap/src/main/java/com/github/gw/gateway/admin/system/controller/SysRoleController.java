@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.gw.common.core.constant.CacheConstants;
-import com.github.gw.common.core.domain.R;
+import com.github.gw.common.core.model.R;
 import com.github.gw.common.model.system.domain.SysRole;
 import com.github.gw.gateway.admin.system.service.SysRoleService;
 import com.github.gw.common.model.system.vo.RoleVo;

@@ -1,7 +1,7 @@
 package com.github.gw.gateway.admin.system.controller;
 
 import cn.hutool.core.lang.tree.Tree;
-import com.github.gw.common.core.domain.R;
+import com.github.gw.common.core.model.R;
 import com.github.gw.gateway.admin.security.utils.SecurityUtils;
 import com.github.gw.common.model.system.domain.SysMenu;
 import com.github.gw.gateway.admin.system.service.SysMenuService;

@@ -1,4 +1,4 @@
-package com.github.gw.common.model.core.constants;
+package com.github.gw.common.core.model.constants;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

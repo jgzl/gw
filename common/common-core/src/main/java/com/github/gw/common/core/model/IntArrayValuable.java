@@ -1,4 +1,4 @@
-package com.github.gw.common.model.core;
+package com.github.gw.common.core.model;
 
 /**
  * 可生成 Int 数组的接口

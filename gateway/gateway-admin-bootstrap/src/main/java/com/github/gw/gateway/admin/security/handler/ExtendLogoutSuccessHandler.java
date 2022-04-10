@@ -4,7 +4,7 @@ import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.ContentType;
 import com.alibaba.fastjson.JSON;
-import com.github.gw.common.core.domain.R;
+import com.github.gw.common.core.model.R;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 

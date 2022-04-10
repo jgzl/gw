@@ -1,7 +1,7 @@
 package com.github.gw.gateway.admin.system.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.github.gw.common.core.domain.R;
+import com.github.gw.common.core.model.R;
 import com.github.gw.common.model.errorcode.convert.ErrorCodeConvert;
 import com.github.gw.common.model.errorcode.dataobject.ErrorCodeDO;
 import com.github.gw.common.model.errorcode.vo.ErrorCodeCreateReqVO;
@@ -12,14 +12,13 @@ import com.github.gw.gateway.admin.system.service.ErrorCodeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
-import static com.github.gw.common.core.domain.R.success;
+import static com.github.gw.common.core.model.R.success;
 
 @Api(tags = "管理后台 - 错误码")
 @RestController

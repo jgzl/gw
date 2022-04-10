@@ -1,6 +1,6 @@
 package com.github.gw.common.model.errorcode.constants;
 
-import com.github.gw.common.model.core.IntArrayValuable;
+import com.github.gw.common.core.model.IntArrayValuable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

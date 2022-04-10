@@ -2,7 +2,7 @@ package com.github.gw.gateway.admin.security.handler;
 
 import cn.hutool.core.collection.CollUtil;
 import com.github.gw.common.core.constant.SecurityConstants;
-import com.github.gw.common.core.domain.R;
+import com.github.gw.common.core.model.R;
 import com.github.gw.common.core.utils.JwtTokenUtil;
 import com.github.gw.common.core.utils.WebmvcUtil;
 import com.github.gw.gateway.admin.security.vo.ExtendUser;

@@ -6,7 +6,7 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.github.gw.common.core.domain.R;
+import com.github.gw.common.core.model.R;
 import com.github.gw.common.gateway.domain.GatewayLog;
 import com.github.gw.common.gateway.vo.GatewayLogVo;
 import com.github.gw.gateway.spi.log.GatewayLogService;

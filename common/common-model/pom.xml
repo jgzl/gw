@@ -15,6 +15,14 @@
     </properties>
     <dependencies>
         <dependency>
+            <groupId>com.github.jgzl.gw</groupId>
+            <artifactId>common-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.jgzl.gw</groupId>
+            <artifactId>common-excel</artifactId>
+        </dependency>
+        <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
         </dependency>

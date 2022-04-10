@@ -3,7 +3,7 @@ package com.github.gw.gateway.admin.system.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.github.gw.common.core.domain.R;
+import com.github.gw.common.core.model.R;
 import com.github.gw.common.model.system.domain.SysUser;
 import com.github.gw.common.model.system.vo.SysUserDto;
 import com.github.gw.common.model.system.vo.SysUserVo;

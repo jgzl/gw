@@ -14,7 +14,7 @@ import lombok.ToString;
  *
  * @author lihaifeng
  */
-@TableName(value = "system_error_code")
+@TableName(value = "sys_error_code")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
