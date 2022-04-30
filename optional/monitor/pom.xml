@@ -4,13 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.github.jgzl.gw</groupId>
-        <artifactId>gateway-all</artifactId>
+        <artifactId>optional</artifactId>
         <version>${revision}</version>
     </parent>
     <artifactId>monitor</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>网关微服务平台::admin监控服务</name>
-    <description>网关微服务平台::admin监控服务</description>
+    <name>网关微服务平台::可选择服务::admin监控台服务</name>
+    <description>网关微服务平台::可选择服务::admin监控台服务</description>
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>2021.0.0</spring-cloud.version>

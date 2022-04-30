@@ -13,6 +13,6 @@ WORKDIR /app
 
 EXPOSE 9000
 
-ADD ./target/app.jar app.jar
+ADD target/app.jar app.jar
 
 CMD java $JAVA_OPTS -jar app.jar

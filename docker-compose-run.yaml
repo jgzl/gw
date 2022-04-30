@@ -33,3 +33,10 @@ services:
     image: dlhf/monitor:${image_version}
     ports:
       - 9000:9000
+
+  sentinel:
+    restart: always
+    container_name: sentinel
+    image: dlhf/sentinel:${image_version}
+    ports:
+      - 10000:10000

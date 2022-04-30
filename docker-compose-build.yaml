@@ -31,9 +31,18 @@ services:
 
   monitor:
     build:
-      context: ./monitor
+      context: ./optional/monitor
     restart: always
     container_name: monitor
     image: dlhf/monitor:${image_version}
     ports:
       - 9000:9000
+
+  sentinel:
+    build:
+      context: ./optional/sentinel
+    restart: always
+    container_name: sentinel
+    image: dlhf/sentinel:${image_version}
+    ports:
+      - 10000:10000

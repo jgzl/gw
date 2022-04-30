@@ -1,0 +1,6 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos.dev.cn:8848
+        namespace: gw-uat
