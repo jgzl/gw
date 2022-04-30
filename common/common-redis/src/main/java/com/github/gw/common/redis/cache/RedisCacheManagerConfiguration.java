@@ -1,4 +1,4 @@
-package com.github.gw.common.data.cache;
+package com.github.gw.common.redis.cache;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizer;

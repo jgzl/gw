@@ -7,26 +7,6 @@ package com.github.gw.common.core.constant;
 public class CommonConstants {
 
     /**
-     * 成功标记
-     */
-    public final static Integer SUCCESS = 0;
-
-    /**
-     * 失败标记
-     */
-    public final static Integer FAIL = 1;
-
-    /**
-     * 滑块验证码
-     */
-    public final static String IMAGE_CODE_TYPE = "blockPuzzle";
-
-    /**
-     * 验证码开关
-     */
-    public final static String CAPTCHA_FLAG = "captcha_flag";
-
-    /**
      * 删除
      */
     public final static String STATUS_DEL = "1";

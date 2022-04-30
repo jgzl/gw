@@ -16,7 +16,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.scheduling.annotation.Async;
 
 import java.net.URI;
@@ -53,7 +52,6 @@ public class DynamicRouteInitRunner {
             vo.setPredicates(predicateObj.toList(PredicateDefinition.class));
 
             log.info("加载路由ID：{},{}", route.getRouteId(), vo);
-            redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(RouteDefinitionVo.class));
             redisTemplate.opsForHash().put(CacheConstants.ROUTE_KEY, route.getRouteId(), vo);
         });
 

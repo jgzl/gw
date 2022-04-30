@@ -44,7 +44,7 @@ public class GatewayAccessConfServiceImpl extends ServiceImpl<GatewayAccessConfM
         try {
             boolean result = super.saveOrUpdate(item);
             GatewayAccessConfVo vo = AccessConvert.INSTANCE.convertDo2Vo(item);
-            redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(GatewayAccessConfVo.class));
+            // redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(GatewayAccessConfVo.class));
             redisTemplate.opsForHash().put(CacheConstants.ACCESS_CONF_KEY, vo.getApiKey(), vo);
             redisTemplate.convertAndSend(CacheConstants.ACCESS_CONF_JVM_RELOAD_TOPIC, "缓存更新");
             return result;
@@ -80,7 +80,7 @@ public class GatewayAccessConfServiceImpl extends ServiceImpl<GatewayAccessConfM
         GatewayAccessConf domain = AccessConvert.INSTANCE.convertVo2Do(vo);
         try {
             boolean result = super.updateById(domain);
-            redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(GatewayAccessConfVo.class));
+            // redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(GatewayAccessConfVo.class));
             redisTemplate.opsForHash().put(CacheConstants.ACCESS_CONF_KEY, vo.getApiKey(), vo);
             redisTemplate.convertAndSend(CacheConstants.ACCESS_CONF_JVM_RELOAD_TOPIC, "缓存更新");
             return result;

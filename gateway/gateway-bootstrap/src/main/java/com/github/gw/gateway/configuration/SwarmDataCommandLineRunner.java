@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 
 import java.util.List;
 
@@ -26,13 +25,12 @@ public class SwarmDataCommandLineRunner implements CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
-        log.info("开始预热缓存数据");
-        redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(GatewayAccessConfVo.class));
+        log.info("开始预热Redis缓存数据至本地缓存");
         List<GatewayAccessConfVo> vos = redisTemplate.<String, GatewayAccessConfVo>opsForHash().values(CacheConstants.ACCESS_CONF_KEY);
         if (CollUtil.isEmpty(vos)) {
             vos = ListUtil.empty();
         }
         AccessConfCacheHolder.setList(vos);
-        log.info("结束预热缓存数据");
+        log.info("结束预热Redis缓存数据至本地缓存");
     }
 }

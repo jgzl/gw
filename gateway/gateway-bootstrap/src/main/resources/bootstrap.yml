@@ -5,5 +5,39 @@ spring:
     active: @profiles.active@
   application:
     name: @artifactId@
+  cloud:
+    sentinel:
+      transport:
+        port: 7001
+        dashboard: localhost:10000
+      datasource:
+        gw-flow:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            dataId: ${spring.application.name}-gw-flow-rules
+            groupId: SENTINEL_GROUP
+            rule-type: gw-flow
+        gw-api-group:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            dataId: ${spring.application.name}-gw-api-group-rules
+            groupId: SENTINEL_GROUP
+            rule-type: gw-api-group
+        degrade:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            dataId: ${spring.application.name}-degrade-rules
+            groupId: SENTINEL_GROUP
+            rule-type: degrade
+        system:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            dataId: ${spring.application.name}-system-rules
+            groupId: SENTINEL_GROUP
+            rule-type: system
 gateway:
-  logType: LocalFile
+  type: LocalFile

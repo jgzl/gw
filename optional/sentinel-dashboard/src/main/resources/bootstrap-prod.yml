@@ -4,3 +4,4 @@ spring:
       discovery:
         server-addr: nacos.dev.cn:8848
         namespace: gw-prod
+        group: SENTINEL_GROUP

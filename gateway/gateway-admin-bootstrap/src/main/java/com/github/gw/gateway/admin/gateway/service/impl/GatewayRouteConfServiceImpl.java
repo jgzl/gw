@@ -77,7 +77,7 @@ public class GatewayRouteConfServiceImpl extends ServiceImpl<GatewayRouteConfMap
                 }));
             }
             // 插入生效路由
-            redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(RouteDefinitionVo.class));
+            // redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(RouteDefinitionVo.class));
             redisTemplate.opsForHash().put(CacheConstants.ROUTE_KEY, routeVo.getId(), routeVo);
             log.info("更新网关路由结束");
             // 通知网关重置路由

@@ -1,4 +1,4 @@
-package com.github.gw.common.data.cache;
+package com.github.gw.common.redis.cache;
 
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;

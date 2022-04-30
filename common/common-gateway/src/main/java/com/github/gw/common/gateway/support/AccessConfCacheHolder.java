@@ -1,12 +1,12 @@
 package com.github.gw.common.gateway.support;
 
-import cn.hutool.cache.Cache;
-import cn.hutool.cache.CacheUtil;
 import com.github.gw.common.model.gateway.vo.GatewayAccessConfVo;
 import lombok.experimental.UtilityClass;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author li7hai26@gmail.com
@@ -17,7 +17,7 @@ import java.util.List;
 @UtilityClass
 public class AccessConfCacheHolder {
 
-    private Cache<String, GatewayAccessConfVo> cache = CacheUtil.newLFUCache(20000);
+    private final Map<String,GatewayAccessConfVo> cache = new ConcurrentHashMap<>(100000);
 
     /**
      * 获取缓存的全部对象
@@ -26,7 +26,7 @@ public class AccessConfCacheHolder {
      */
     public List<GatewayAccessConfVo> getList() {
         List<GatewayAccessConfVo> list = new ArrayList<>();
-        cache.forEach(route -> list.add(route));
+        cache.forEach((route,vo) -> list.add(vo));
         return list;
     }
 

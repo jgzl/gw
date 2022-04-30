@@ -1,47 +1,32 @@
 package com.github.gw.common.core.json;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.gw.common.core.utils.JacksonUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.time.LocalDateTime;
 
 @Slf4j
 @Configuration
 public class JacksonAutoConfiguration {
 
     @Bean
-    public BeanPostProcessor objectMapperBeanPostProcessor() {
-        return new BeanPostProcessor() {
-            @Override
-            public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-                if (!(bean instanceof ObjectMapper)) {
-                    return bean;
-                }
-                ObjectMapper objectMapper = (ObjectMapper) bean;
-                SimpleModule simpleModule = new SimpleModule();
-                /*
-                 * 1. 新增Long类型序列化规则，数值超过2^53-1，在JS会出现精度丢失问题，因此Long自动序列化为字符串类型
-                 * 2. 新增LocalDateTime序列化、反序列化规则
-                 */
-                simpleModule
-//                .addSerializer(Long.class, ToStringSerializer.instance)
-//                    .addSerializer(Long.TYPE, ToStringSerializer.instance)
-                        .addSerializer(LocalDateTime.class, LocalDateTimeSerializer.INSTANCE)
-                        .addDeserializer(LocalDateTime.class, LocalDateTimeDeserializer.INSTANCE);
-
-                objectMapper.registerModules(simpleModule);
-
-                JacksonUtils.init(objectMapper);
-                log.info("初始化 jackson 自动配置");
-                return bean;
-            }
-        };
+    public ObjectMapper objectMapper() {
+        log.info("开始初始化自动配置Jackson的ObjectMapper");
+        ObjectMapper objectMapper = new ObjectMapper();
+        //设置序列化的域(属性,方法etc)以及修饰范围,Any包括private,public 默认是public的
+        //ALL所有方位,ANY所有修饰符
+        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        //如果java.time包下Json报错,添加如下两行代码
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.registerModule(new JavaTimeModule());
+        JacksonUtils.init(objectMapper);
+        log.info("结束初始化自动配置Jackson的ObjectMapper");
+        return objectMapper;
     }
 
 }
