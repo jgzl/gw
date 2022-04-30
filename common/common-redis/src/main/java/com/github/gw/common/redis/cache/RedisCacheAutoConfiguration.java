@@ -1,5 +1,6 @@
 package com.github.gw.common.redis.cache;
 
+import com.github.gw.common.redis.template.RedisObjectMapper;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizers;
@@ -9,13 +10,13 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
-import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.lang.Nullable;
 
 import java.util.LinkedHashMap;
@@ -29,6 +30,7 @@ import java.util.Map;
  * @author li7hai26@gmail.com
  * @date 2021/12/24
  */
+@EnableCaching
 @Configuration
 @AutoConfigureAfter({RedisAutoConfiguration.class})
 @ConditionalOnBean({RedisConnectionFactory.class})
@@ -74,7 +76,7 @@ public class RedisCacheAutoConfiguration {
             CacheProperties.Redis redisProperties = this.cacheProperties.getRedis();
             RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
             config = config.serializeValuesWith(RedisSerializationContext.SerializationPair
-                    .fromSerializer(RedisSerializer.json()));
+                    .fromSerializer(RedisObjectMapper.getJackson2JsonRedisSerializer()));
             if (redisProperties.getTimeToLive() != null) {
                 config = config.entryTtl(redisProperties.getTimeToLive());
             }
