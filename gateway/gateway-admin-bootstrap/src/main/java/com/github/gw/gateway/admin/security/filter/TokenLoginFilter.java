@@ -6,7 +6,7 @@ import com.anji.captcha.model.vo.CaptchaVO;
 import com.anji.captcha.service.CaptchaService;
 import com.github.gw.common.core.constant.SecurityConstants;
 import com.github.gw.common.core.exception.enums.ErrorCodeConstants;
-import com.github.gw.common.core.utils.JacksonUtils;
+import com.github.gw.common.core.utils.JacksonUtil;
 import com.github.gw.common.model.system.vo.LoginUserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -49,7 +49,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
                 || req.getContentType().equals(MediaType.APPLICATION_JSON_VALUE)) {
             UsernamePasswordAuthenticationToken authRequest = null;
             try (InputStream is = req.getInputStream()) {
-                LoginUserVo authenticationBean = JacksonUtils.readValue(is, LoginUserVo.class);
+                LoginUserVo authenticationBean = JacksonUtil.readValue(is, LoginUserVo.class);
                 authRequest = new UsernamePasswordAuthenticationToken(
                         authenticationBean.getUsername(), authenticationBean.getPassword());
             } catch (IOException e) {

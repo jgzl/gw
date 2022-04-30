@@ -144,7 +144,7 @@ public class WebmvcUtil {
         PrintWriter printWriter = null;
         try {
             printWriter = response.getWriter();
-            printWriter.append(JacksonUtils.writeValueAsString(result));
+            printWriter.append(JacksonUtil.writeValueAsString(result));
         } catch (IOException e) {
             log.error("生成文件流失败:", e);
         } finally {

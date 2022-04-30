@@ -3,10 +3,13 @@ package com.github.gw.common.core.utils;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
@@ -23,37 +26,43 @@ import java.util.List;
  */
 @UtilityClass
 @Slf4j
-public class JacksonUtils {
-
-    private static ObjectMapper objectMapper = new ObjectMapper();
+public class JacksonUtil {
+    
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     static {
+        log.info("开始初始化自动配置Jackson的ObjectMapper");
+        //设置序列化的域(属性,方法etc)以及修饰范围,Any包括private,public 默认是public的
+        //ALL所有方位,ANY所有修饰符
+        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        //如果java.time包下Json报错,添加如下两行代码
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.registerModule(new JavaTimeModule());
         objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        log.info("结束初始化自动配置Jackson的ObjectMapper");
     }
 
     /**
      * 初始化 objectMapper 属性
      * <p>
-     * 通过这样的方式，使用 Spring 创建的 ObjectMapper Bean
-     *
-     * @param objectMapper ObjectMapper 对象
+     * 通过这样的方式创建的ObjectMapper给到spring
      */
-    public static void init(ObjectMapper objectMapper) {
-        JacksonUtils.objectMapper = objectMapper;
+    public ObjectMapper getObjectMapper() {
+        return objectMapper;
     }
 
     @SneakyThrows
-    public static String toJsonString(Object object) {
+    public String toJsonString(Object object) {
         return objectMapper.writeValueAsString(object);
     }
 
     @SneakyThrows
-    public static byte[] toJsonByte(Object object) {
+    public byte[] toJsonByte(Object object) {
         return objectMapper.writeValueAsBytes(object);
     }
 
 
-    public static <T> T parseObject(String text, Class<T> clazz) {
+    public <T> T parseObject(String text, Class<T> clazz) {
         if (StrUtil.isEmpty(text)) {
             return null;
         }
@@ -74,14 +83,14 @@ public class JacksonUtils {
      * @param clazz 类型
      * @return 对象
      */
-    public static <T> T parseObject2(String text, Class<T> clazz) {
+    public <T> T parseObject2(String text, Class<T> clazz) {
         if (StrUtil.isEmpty(text)) {
             return null;
         }
         return JSONUtil.toBean(text, clazz);
     }
 
-    public static <T> T parseObject(byte[] bytes, Class<T> clazz) {
+    public <T> T parseObject(byte[] bytes, Class<T> clazz) {
         if (ArrayUtil.isEmpty(bytes)) {
             return null;
         }
@@ -93,7 +102,7 @@ public class JacksonUtils {
         }
     }
 
-    public static <T> T parseObject(String text, TypeReference<T> typeReference) {
+    public <T> T parseObject(String text, TypeReference<T> typeReference) {
         try {
             return objectMapper.readValue(text, typeReference);
         } catch (IOException e) {
@@ -102,7 +111,7 @@ public class JacksonUtils {
         }
     }
 
-    public static <T> List<T> parseArray(String text, Class<T> clazz) {
+    public <T> List<T> parseArray(String text, Class<T> clazz) {
         if (StrUtil.isEmpty(text)) {
             return new ArrayList<>();
         }
@@ -115,7 +124,7 @@ public class JacksonUtils {
     }
 
     // TODO @Li：和上面的风格保持一致哈。parseTree
-    public static JsonNode readTree(String text) {
+    public JsonNode readTree(String text) {
         try {
             return objectMapper.readTree(text);
         } catch (IOException e) {
@@ -124,7 +133,7 @@ public class JacksonUtils {
         }
     }
 
-    public static JsonNode readTree(byte[] text) {
+    public JsonNode readTree(byte[] text) {
         try {
             return objectMapper.readTree(text);
         } catch (IOException e) {
@@ -141,7 +150,7 @@ public class JacksonUtils {
      * @return json string
      * @throws Exception
      */
-    public static String writeValueAsString(Object obj) {
+    public String writeValueAsString(Object obj) {
         try {
             return objectMapper.writeValueAsString(obj);
         } catch (JsonGenerationException e) {
@@ -162,7 +171,7 @@ public class JacksonUtils {
      * @return obj
      * @throws Exception
      */
-    public static <T> T readValue(String jsonStr, TypeReference<T> valueType) {
+    public <T> T readValue(String jsonStr, TypeReference<T> valueType) {
         try {
             return objectMapper.readValue(jsonStr, valueType);
         } catch (JsonParseException e) {
@@ -184,7 +193,7 @@ public class JacksonUtils {
      * @param <T>
      * @return
      */
-    public static <T> T readValue(String jsonStr, Class<?> parametrized, Class<?>... parameterClasses) {
+    public <T> T readValue(String jsonStr, Class<?> parametrized, Class<?>... parameterClasses) {
         try {
             JavaType javaType = objectMapper.getTypeFactory().constructParametricType(parametrized, parameterClasses);
             return objectMapper.readValue(jsonStr, javaType);
@@ -198,7 +207,7 @@ public class JacksonUtils {
         return null;
     }
 
-    public static  <T> T readValue(InputStream src, Class<T> valueType) {
+    public <T> T readValue(InputStream src, Class<T> valueType) {
         try {
             return objectMapper.readValue(src,valueType);
         } catch (JsonParseException e) {
