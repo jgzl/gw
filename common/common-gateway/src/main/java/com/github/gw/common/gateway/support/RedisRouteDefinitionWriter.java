@@ -61,7 +61,7 @@ public class RedisRouteDefinitionWriter implements RouteDefinitionRepository {
     public Flux<RouteDefinition> getRouteDefinitions() {
         List<RouteDefinitionVo> routeList = RouteCacheHolder.getRouteList();
         if (CollUtil.isNotEmpty(routeList)) {
-            log.info("内存中路由定义条数： {}， {}", routeList.size(), routeList);
+            log.debug("内存中路由定义条数： {}， {}", routeList.size(), routeList);
             return Flux.fromIterable(routeList);
         }
         List<RouteDefinitionVo> values = redisTemplate.<String, RouteDefinitionVo>opsForHash().values(CacheConstants.ROUTE_KEY);

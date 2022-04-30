@@ -38,7 +38,7 @@ CREATE TABLE `gateway_route_conf`  (
   `route_id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '路由id',
   `predicates` json NULL COMMENT '断言',
   `filters` json NULL COMMENT '过滤器',
-  `uri` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'url',
+  `uri` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'url',
   `order` int(2) NULL DEFAULT 0 COMMENT '排序',
   `metadata` json NULL COMMENT '路由元信息',
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
