@@ -2,6 +2,6 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: nacos.dev.cn:8848
+        server-addr: nacos-localhost.152.70.108.210.nip.io:8848
         namespace: gw-localhost
         group: SENTINEL_GROUP

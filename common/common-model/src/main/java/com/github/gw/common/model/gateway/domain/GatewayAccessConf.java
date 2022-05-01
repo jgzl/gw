@@ -1,8 +1,6 @@
 package com.github.gw.common.model.gateway.domain;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -37,6 +35,7 @@ public class GatewayAccessConf extends Model<GatewayAccessConf> {
     /**
      * 访问系统
      */
+    @TableField(value = "`system`")
     private String system;
 
     /**

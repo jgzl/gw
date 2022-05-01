@@ -16,4 +16,7 @@ EXPOSE $SERVER_PORT
 
 ADD target/sentinel-dashboard.jar app.jar
 
-CMD java $JAVA_OPTS -Dcsp.sentinel.dashboard.server=localhost:$SERVER_PORT -jar app.jar
+CMD java $JAVA_OPTS -Dserver.port=$SERVER_PORT \
+                    -Dcsp.sentinel.dashboard.server=localhost:$SERVER_PORT \
+                    -Dproject.name=sentinel-dashboard \
+                    -jar app.jar

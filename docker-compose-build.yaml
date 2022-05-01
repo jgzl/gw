@@ -38,11 +38,13 @@ services:
     ports:
       - 9000:9000
 
-  sentinel:
+  sentinel-dashboard:
     build:
-      context: ./optional/sentinel
+      context: ./optional/sentinel-dashboard
     restart: always
-    container_name: sentinel
-    image: dlhf/sentinel:${image_version}
+    container_name: sentinel-dashboard
+    image: dlhf/sentinel-dashboard:${image_version}
+    environment:
+      SERVER_PORT: 9100
     ports:
-      - 10000:10000
+      - 9100:9100

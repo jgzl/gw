@@ -1,11 +1,5 @@
-server:
-  port: 10000
-  servlet:
-    encoding:
-      force: true
-
 spring:
+  profiles:
+    active:  @profiles.active@
   application:
     name: @artifactId@
-  profiles:
-    active: @profiles.active@

@@ -15,22 +15,23 @@ GW是一套基于Spring Cloud Gateway开发的网关管理平台，毫无保留�
 * 特别鸣谢：[vue-admin-work-x](https://gitee.com/qingqingxuan/vue-admin-work-x)。
 
 ## 项目启动
-* 1.配置nacos连接，分为注册中心和配置中心
+* 1.配置nacos信息，分为注册中心和配置中心
 * 2.配置redis信息
 * 3.配置mysql信息
-* 4.配置elasticsearch信息
+* 4.配置sentinel-dashboard信息
 
 ## 配置host
 ```shell
-127.0.0.1  nacos.dev.cn
+127.0.0.1  nacos-dev.152.70.108.210.nip.io
 127.0.0.1  mysql.dev.cn
 127.0.0.1  redis.dev.cn
-127.0.0.1  es.dev.cn
+127.0.0.1  sentinel-dashboard.dev.cn
 ```
 
 ## 访问信息
-账号 admin
-密码 123456
+>账号 admin 
+> 
+>密码 123456
 
 ## 部署步骤
 1.安装mysql,nacos,redis,elasticsearch步骤如下所示
