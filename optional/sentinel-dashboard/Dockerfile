@@ -1,10 +1,10 @@
-FROM docker.io/adoptopenjdk:8u292-b10-jdk-hotspot as builder
+FROM adoptopenjdk:8 as builder
 RUN mkdir -p /app
 WORKDIR /app
 ADD ./target/sentinel-dashboard.jar app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
 
-FROM docker.io/adoptopenjdk:8u292-b10-jdk-hotspot
+FROM adoptopenjdk:8
 MAINTAINER li7hai26@gmail.com
 
 RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
