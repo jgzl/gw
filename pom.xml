@@ -191,6 +191,11 @@
                             </goals>
                         </execution>
                     </executions>
+                    <configuration>
+                        <layers>
+                            <enabled>true</enabled>
+                        </layers>
+                    </configuration>
                 </plugin>
                 <!--打包关联最新 git commit 信息插件-->
                 <plugin>
