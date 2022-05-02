@@ -2,6 +2,7 @@ package com.github.jgzl.gw.common.core.handler.mvc;
 
 import com.github.jgzl.gw.common.core.constant.HttpHeaderConstants;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.mvc.condition.RequestCondition;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,9 @@ public class ApiRequestCondition implements RequestCondition<ApiRequestCondition
     @Override
     public ApiRequestCondition getMatchingCondition(HttpServletRequest request) {
         String headApiVersion = request.getHeader(HttpHeaderConstants.X_BUSINESS_API_VERSION);
+        if (StringUtils.isBlank(headApiVersion)) {
+            headApiVersion = "-1";
+        }
         if (compareVersion(headApiVersion, this.apiVersion) >= 0) {
             log.info("version={}, apiVersion={}", headApiVersion, this.apiVersion);
             return this;
@@ -40,20 +44,39 @@ public class ApiRequestCondition implements RequestCondition<ApiRequestCondition
     }
 
     private int compareVersion(String version1, String version2) {
-        if (version1 == null || version2 == null) {
-            throw new RuntimeException("compareVersion error:illegal params.");
+        if(version1.equals(version2)){
+            return 0;
         }
         String[] versionArray1 = version1.split("\\.");
         String[] versionArray2 = version2.split("\\.");
-        int maxLength = Math.max(versionArray1.length, versionArray2.length);
-        int v1count = 0;
-        for (int i = 0; i < versionArray1.length; i++) {
-            v1count += Long.parseLong(versionArray1[i]) * 10 * (maxLength-1-i);
+        int maxflag = 1;
+        int minLen = 0;
+        if(versionArray1.length > versionArray2.length){
+            minLen = versionArray2.length;
+        }else{
+            minLen = versionArray1.length;
+            maxflag = 2;
         }
-        int v2count = 0;
-        for (int i = 0; i < versionArray2.length; i++) {
-            v2count += Long.parseLong(versionArray2[i]) * 10 * (maxLength-1-i);
+        for(int i = 0; i < minLen; i++){
+            if(Integer.parseInt(versionArray1[i]) - Integer.parseInt(versionArray2[i]) > 0){
+                return 1;
+            }else if(Integer.parseInt(versionArray1[i]) - Integer.parseInt(versionArray2[i]) < 0){
+                return -1;
+            }
         }
-        return v1count-v2count;
+        if(maxflag == 1){
+            for (int j = minLen; j < versionArray1.length; j++) {
+                if(Integer.parseInt(versionArray1[j]) > 0){
+                    return 1;
+                }
+            }
+        }else{
+            for (int k = minLen; k < versionArray2.length; k++) {
+                if(Integer.parseInt(versionArray2[k]) > 0){
+                    return -1;
+                }
+            }
+        }
+        return 0;
     }
 }
