@@ -13,7 +13,6 @@ public class RouteCheckFailureAnalyzer extends AbstractFailureAnalyzer<RouteChec
 
     @Override
     protected FailureAnalysis analyze(Throwable rootFailure, RouteCheckException cause) {
-
         return new FailureAnalysis(cause.getMessage(), "必须先启动网关管理服务初始化路由,再启动网关核心服务", cause);
     }
 

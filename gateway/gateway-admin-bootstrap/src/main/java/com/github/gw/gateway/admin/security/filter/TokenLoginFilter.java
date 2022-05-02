@@ -58,8 +58,8 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
                         "", "");
             } finally {
                 setDetails(req, authRequest);
-                return this.getAuthenticationManager().authenticate(authRequest);
             }
+            return this.getAuthenticationManager().authenticate(authRequest);
         } else {
             return super.attemptAuthentication(req, res);
         }
@@ -75,7 +75,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         CaptchaVO captchaVO = new CaptchaVO();
         captchaVO.setCaptchaVerification(captchaVerification);
         ResponseModel response = captchaService.verification(captchaVO);
-        if (response.isSuccess() == false) {
+        if (!response.isSuccess()) {
             //验证码校验失败，返回信息告诉前端
             //repCode  0000  无异常，代表成功
             //repCode  9999  服务器内部异常

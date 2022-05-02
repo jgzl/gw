@@ -5,10 +5,11 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
@@ -90,56 +91,35 @@ public class JacksonUtil {
         return JSONUtil.toBean(text, clazz);
     }
 
+    @SneakyThrows
     public <T> T parseObject(byte[] bytes, Class<T> clazz) {
         if (ArrayUtil.isEmpty(bytes)) {
             return null;
         }
-        try {
-            return objectMapper.readValue(bytes, clazz);
-        } catch (IOException e) {
-            log.error("json parse err,json:{}", bytes, e);
-            throw new RuntimeException(e);
-        }
+        return objectMapper.readValue(bytes, clazz);
     }
 
+    @SneakyThrows
     public <T> T parseObject(String text, TypeReference<T> typeReference) {
-        try {
-            return objectMapper.readValue(text, typeReference);
-        } catch (IOException e) {
-            log.error("json parse err,json:{}", text, e);
-            throw new RuntimeException(e);
-        }
+        return objectMapper.readValue(text, typeReference);
     }
 
+    @SneakyThrows
     public <T> List<T> parseArray(String text, Class<T> clazz) {
         if (StrUtil.isEmpty(text)) {
             return new ArrayList<>();
         }
-        try {
-            return objectMapper.readValue(text, objectMapper.getTypeFactory().constructCollectionType(List.class, clazz));
-        } catch (IOException e) {
-            log.error("json parse err,json:{}", text, e);
-            throw new RuntimeException(e);
-        }
+        return objectMapper.readValue(text, objectMapper.getTypeFactory().constructCollectionType(List.class, clazz));
     }
 
-    // TODO @Li：和上面的风格保持一致哈。parseTree
+    @SneakyThrows
     public JsonNode readTree(String text) {
-        try {
-            return objectMapper.readTree(text);
-        } catch (IOException e) {
-            log.error("json parse err,json:{}", text, e);
-            throw new RuntimeException(e);
-        }
+        return objectMapper.readTree(text);
     }
 
+    @SneakyThrows
     public JsonNode readTree(byte[] text) {
-        try {
-            return objectMapper.readTree(text);
-        } catch (IOException e) {
-            log.error("json parse err,json:{}", text, e);
-            throw new RuntimeException(e);
-        }
+        return objectMapper.readTree(text);
     }
 
 
@@ -150,17 +130,9 @@ public class JacksonUtil {
      * @return json string
      * @throws Exception
      */
+    @SneakyThrows
     public String writeValueAsString(Object obj) {
-        try {
-            return objectMapper.writeValueAsString(obj);
-        } catch (JsonGenerationException e) {
-            log.error(e.getMessage(), e);
-        } catch (JsonMappingException e) {
-            log.error(e.getMessage(), e);
-        } catch (IOException e) {
-            log.error(e.getMessage(), e);
-        }
-        return null;
+        return objectMapper.writeValueAsString(obj);
     }
 
     /**
@@ -171,17 +143,9 @@ public class JacksonUtil {
      * @return obj
      * @throws Exception
      */
+    @SneakyThrows
     public <T> T readValue(String jsonStr, TypeReference<T> valueType) {
-        try {
-            return objectMapper.readValue(jsonStr, valueType);
-        } catch (JsonParseException e) {
-            log.error(e.getMessage(), e);
-        } catch (JsonMappingException e) {
-            log.error(e.getMessage(), e);
-        } catch (IOException e) {
-            log.error(e.getMessage(), e);
-        }
-        return null;
+        return objectMapper.readValue(jsonStr, valueType);
     }
 
     /**
@@ -193,31 +157,15 @@ public class JacksonUtil {
      * @param <T>
      * @return
      */
+    @SneakyThrows
     public <T> T readValue(String jsonStr, Class<?> parametrized, Class<?>... parameterClasses) {
-        try {
-            JavaType javaType = objectMapper.getTypeFactory().constructParametricType(parametrized, parameterClasses);
-            return objectMapper.readValue(jsonStr, javaType);
-        } catch (JsonParseException e) {
-            log.error(e.getMessage(), e);
-        } catch (JsonMappingException e) {
-            log.error(e.getMessage(), e);
-        } catch (IOException e) {
-            log.error(e.getMessage(), e);
-        }
-        return null;
+        JavaType javaType = objectMapper.getTypeFactory().constructParametricType(parametrized, parameterClasses);
+        return objectMapper.readValue(jsonStr, javaType);
     }
 
+    @SneakyThrows
     public <T> T readValue(InputStream src, Class<T> valueType) {
-        try {
-            return objectMapper.readValue(src,valueType);
-        } catch (JsonParseException e) {
-            log.error(e.getMessage(), e);
-        } catch (JsonMappingException e) {
-            log.error(e.getMessage(), e);
-        } catch (IOException e) {
-            log.error(e.getMessage(), e);
-        }
-        return null;
+        return objectMapper.readValue(src,valueType);
     }
 
 }

@@ -16,7 +16,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
  * @author li7hai26@gmail.com
@@ -57,13 +56,10 @@ public class DynamicRouteAutoConfiguration {
      * @return
      */
     @Bean
-    public DynamicRouteHealthIndicator healthIndicator(RedisTemplate redisTemplate) {
-
-        redisTemplate.setKeySerializer(new StringRedisSerializer());
-        if (!redisTemplate.hasKey(CacheConstants.ROUTE_KEY)) {
+    public DynamicRouteHealthIndicator healthIndicator(RedisTemplate<String,Object> redisTemplate) {
+        if (Boolean.FALSE.equals(redisTemplate.hasKey(CacheConstants.ROUTE_KEY))) {
             throw new RouteCheckException("路由信息未初始化，网关启动失败");
         }
-
         return new DynamicRouteHealthIndicator(redisTemplate);
     }
 
