@@ -5,7 +5,7 @@ import com.github.jgzl.gw.common.core.constant.enums.StatusEnum;
 import com.github.jgzl.gw.common.core.utils.WebfluxUtil;
 import com.github.jgzl.gw.common.gateway.support.AccessConfCacheHolder;
 import com.github.jgzl.gw.common.model.gateway.vo.GatewayAccessConfVo;
-import com.github.jgzl.gw.gateway.common.GatewayConstants;
+import com.github.jgzl.gw.common.core.constant.GatewayConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.server.ServerWebExchange;

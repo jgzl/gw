@@ -1,11 +1,11 @@
 package com.github.jgzl.gw.gateway.controller;
 
+import com.github.jgzl.gw.common.core.annotaion.ApiVersion;
 import com.github.jgzl.gw.common.core.model.R;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 /**
@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
  */
 @Slf4j
 @AllArgsConstructor
-@Controller
+@RestController
 public class IndexController {
 
     /**
@@ -23,9 +23,31 @@ public class IndexController {
      *
      * @return
      */
+    @ApiVersion(1)
     @GetMapping("/")
-    @ResponseBody
-    public Mono<R<String>> index() {
-        return Mono.just(R.success("success"));
+    public Mono<R<String>> index1() {
+        return Mono.just(R.success("success,version1"));
+    }
+
+    /**
+     * 根节点跳转
+     *
+     * @return
+     */
+    @ApiVersion(2)
+    @GetMapping("/")
+    public Mono<R<String>> index2() {
+        return Mono.just(R.success("success,version2"));
+    }
+
+    /**
+     * 根节点跳转
+     *
+     * @return
+     */
+    @ApiVersion(3)
+    @GetMapping("/")
+    public Mono<R<String>> index3() {
+        return Mono.just(R.success("success,version3"));
     }
 }

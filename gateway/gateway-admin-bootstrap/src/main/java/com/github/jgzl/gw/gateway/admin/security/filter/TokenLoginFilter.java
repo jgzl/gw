@@ -1,13 +1,12 @@
 package com.github.jgzl.gw.gateway.admin.security.filter;
 
-import com.alibaba.fastjson.JSON;
 import com.anji.captcha.model.common.ResponseModel;
 import com.anji.captcha.model.vo.CaptchaVO;
 import com.anji.captcha.service.CaptchaService;
-import com.github.jgzl.gw.common.model.system.vo.LoginUserVo;
 import com.github.jgzl.gw.common.core.constant.SecurityConstants;
 import com.github.jgzl.gw.common.core.exception.enums.ErrorCodeConstants;
 import com.github.jgzl.gw.common.core.utils.JacksonUtil;
+import com.github.jgzl.gw.common.model.system.vo.LoginUserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -83,7 +82,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
             //repCode  6110  验证码已失效，请重新获取
             //repCode  6111  验证失败
             //repCode  6112  获取验证码失败,请联系管理员
-            String result = JSON.toJSONString(response);
+            String result = JacksonUtil.toJsonString(response);
             log.error("验证码校验失败,返回结果为为:{}", result);
             throw exception(ErrorCodeConstants.AUTH_LOGIN_CAPTCHA_CODE_ERROR);
         }

@@ -1,7 +1,7 @@
 package com.github.jgzl.gw.gateway.spi.log;
 
-import com.alibaba.fastjson.JSON;
 import com.github.jgzl.gw.common.core.spi.Join;
+import com.github.jgzl.gw.common.core.utils.JacksonUtil;
 import com.github.jgzl.gw.common.gateway.domain.GatewayLog;
 import lombok.extern.slf4j.Slf4j;
 
@@ -10,6 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 public class LocalFileRecordLogService implements RecordLogService {
     @Override
     public void recordLog(GatewayLog gatewayLog) {
-        log.info(JSON.toJSONString(gatewayLog));
+        log.info(JacksonUtil.toJsonString(gatewayLog));
     }
 }

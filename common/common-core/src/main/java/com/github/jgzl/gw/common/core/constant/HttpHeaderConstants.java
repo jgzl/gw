@@ -1,15 +1,6 @@
-package com.github.jgzl.gw.gateway.common;
+package com.github.jgzl.gw.common.core.constant;
 
-/**
- * @author li7hai26@gmail.com
- * @date 2021/12/20
- */
-public class GatewayConstants {
-
-    /**
-     * 统一前缀
-     */
-    public static final String SYSTEM_PREFIX = "gateway";
+public class HttpHeaderConstants {
     /**
      * 环境
      */
@@ -27,7 +18,7 @@ public class GatewayConstants {
      */
     public static final String X_BUSINESS_API_SYSTEM = "x-business-api-system";
     /**
-     * 默认大小限制
+     * 访问版本
      */
-    public static final Integer DEFAULT_LIMIT = 20 * 1024 * 1024;
+    public static final String X_BUSINESS_API_VERSION = "x-business-api-version";
 }

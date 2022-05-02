@@ -3,7 +3,6 @@ package com.github.jgzl.gw.common.core.utils;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson.JSONObject;
 import com.github.jgzl.gw.common.core.model.R;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -179,7 +178,7 @@ public class WebfluxUtil {
         response.setStatusCode(status);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, contentType);
         R<?> result = R.error(code, value.toString());
-        DataBuffer dataBuffer = response.bufferFactory().wrap(JSONObject.toJSONString(result).getBytes());
+        DataBuffer dataBuffer = response.bufferFactory().wrap(JacksonUtil.toJsonByte(result));
         return response.writeWith(Mono.just(dataBuffer));
     }
 }

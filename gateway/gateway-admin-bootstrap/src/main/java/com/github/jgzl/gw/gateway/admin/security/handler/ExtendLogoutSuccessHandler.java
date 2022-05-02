@@ -3,8 +3,8 @@ package com.github.jgzl.gw.gateway.admin.security.handler;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.ContentType;
-import com.alibaba.fastjson.JSON;
 import com.github.jgzl.gw.common.core.model.R;
+import com.github.jgzl.gw.common.core.utils.JacksonUtil;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
@@ -21,6 +21,6 @@ public class ExtendLogoutSuccessHandler implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         response.setCharacterEncoding(CharsetUtil.UTF_8);
-        ServletUtil.write(response, JSON.toJSONString(R.success("登出成功")), ContentType.JSON.getValue());
+        ServletUtil.write(response, JacksonUtil.toJsonString(R.success("登出成功")), ContentType.JSON.getValue());
     }
 }
