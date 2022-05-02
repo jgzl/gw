@@ -23,10 +23,10 @@ public class IndexController {
      *
      * @return
      */
-    @ApiVersion(1)
+    @ApiVersion("1.1.0")
     @GetMapping("/")
     public Mono<R<String>> index1() {
-        return Mono.just(R.success("success,version1"));
+        return Mono.just(R.success("success,version1.1.0"));
     }
 
     /**
@@ -34,10 +34,10 @@ public class IndexController {
      *
      * @return
      */
-    @ApiVersion(2)
+    @ApiVersion("1.2")
     @GetMapping("/")
     public Mono<R<String>> index2() {
-        return Mono.just(R.success("success,version2"));
+        return Mono.just(R.success("success,version1.2"));
     }
 
     /**
@@ -45,9 +45,9 @@ public class IndexController {
      *
      * @return
      */
-    @ApiVersion(3)
+    @ApiVersion("1.3")
     @GetMapping("/")
     public Mono<R<String>> index3() {
-        return Mono.just(R.success("success,version3"));
+        return Mono.just(R.success("success,version1.3"));
     }
 }

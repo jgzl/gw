@@ -10,6 +10,6 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD})
 public @interface ApiVersion {
 
-    int value() default 0;
+    String value() default "v1";
 
 }

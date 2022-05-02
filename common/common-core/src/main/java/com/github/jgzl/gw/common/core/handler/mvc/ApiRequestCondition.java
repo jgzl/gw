@@ -1,21 +1,35 @@
 package com.github.jgzl.gw.common.core.handler.mvc;
 
 import com.github.jgzl.gw.common.core.constant.HttpHeaderConstants;
-import org.apache.commons.lang3.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.mvc.condition.RequestCondition;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Slf4j
 public class ApiRequestCondition implements RequestCondition<ApiRequestCondition> {
 
-    private int apiVersion;
+    /**
+     * support v1.1.1, v1.1, v1; three levels .
+     */
+    private static final Pattern VERSION_PREFIX_PATTERN_1 = Pattern.compile("v\\d\\.\\d\\.\\d");
+    private static final Pattern VERSION_PREFIX_PATTERN_2 = Pattern.compile("v\\d\\.\\d");
+    private static final Pattern VERSION_PREFIX_PATTERN_3 = Pattern.compile("v\\d");
+    private static final List<Pattern> VERSION_LIST = Collections.unmodifiableList(
+            Arrays.asList(VERSION_PREFIX_PATTERN_1, VERSION_PREFIX_PATTERN_2, VERSION_PREFIX_PATTERN_3)
+    );
 
-    public ApiRequestCondition(int apiVersion) {
+    private String apiVersion;
+
+    public ApiRequestCondition(String apiVersion) {
         this.apiVersion = apiVersion;
     }
-    public int getApiVersion() {
+    public String getApiVersion() {
         return apiVersion;
     }
 
@@ -26,27 +40,35 @@ public class ApiRequestCondition implements RequestCondition<ApiRequestCondition
     }
 
     @Override
-    public int compareTo(ApiRequestCondition other, HttpServletRequest request) {
-        //对符合请求版本的版本号进行排序
-        return other.getApiVersion() - this.apiVersion;
-    }
-
-    @Override
     public ApiRequestCondition getMatchingCondition(HttpServletRequest request) {
-        //设置默认版本号，请求版本号错误时使用最新版本号的接口
-        int version=10000;
-        //得到请求版本号
-        String apiVersion=request.getHeader(HttpHeaderConstants.X_BUSINESS_API_VERSION);
-        if(StringUtils.isNotEmpty(apiVersion)){
-            Matcher m = Pattern.compile("v(\\d+)").matcher(apiVersion);
-            if (m.find()) {
-                version = Integer.parseInt(m.group(1));
-            }
-        }
-        // 返回小于等于请求版本号的版本
-        if (version >= this.apiVersion){
+        String headApiVersion = request.getHeader(HttpHeaderConstants.X_BUSINESS_API_VERSION);
+        if (compareVersion(headApiVersion, this.apiVersion) >= 0) {
+            log.info("version={}, apiVersion={}", headApiVersion, this.apiVersion);
             return this;
         }
         return null;
+    }
+
+    @Override
+    public int compareTo(ApiRequestCondition other, HttpServletRequest request) {
+        return compareVersion(other.getApiVersion(), this.apiVersion);
+    }
+
+    private int compareVersion(String version1, String version2) {
+        if (version1 == null || version2 == null) {
+            throw new RuntimeException("compareVersion error:illegal params.");
+        }
+        String[] versionArray1 = version1.split("\\.");
+        String[] versionArray2 = version2.split("\\.");
+        int maxLength = Math.max(versionArray1.length, versionArray2.length);
+        int v1count = 0;
+        for (int i = 0; i < versionArray1.length; i++) {
+            v1count += Long.parseLong(versionArray1[i]) * 10 * (maxLength-1-i);
+        }
+        int v2count = 0;
+        for (int i = 0; i < versionArray2.length; i++) {
+            v2count += Long.parseLong(versionArray2[i]) * 10 * (maxLength-1-i);
+        }
+        return v1count-v2count;
     }
 }
