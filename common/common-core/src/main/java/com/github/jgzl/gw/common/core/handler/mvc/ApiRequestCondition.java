@@ -5,24 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.mvc.condition.RequestCondition;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Slf4j
 public class ApiRequestCondition implements RequestCondition<ApiRequestCondition> {
-
-    /**
-     * support v1.1.1, v1.1, v1; three levels .
-     */
-    private static final Pattern VERSION_PREFIX_PATTERN_1 = Pattern.compile("v\\d\\.\\d\\.\\d");
-    private static final Pattern VERSION_PREFIX_PATTERN_2 = Pattern.compile("v\\d\\.\\d");
-    private static final Pattern VERSION_PREFIX_PATTERN_3 = Pattern.compile("v\\d");
-    private static final List<Pattern> VERSION_LIST = Collections.unmodifiableList(
-            Arrays.asList(VERSION_PREFIX_PATTERN_1, VERSION_PREFIX_PATTERN_2, VERSION_PREFIX_PATTERN_3)
-    );
 
     private String apiVersion;
 
