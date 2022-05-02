@@ -6,8 +6,6 @@ services:
     restart: always
     container_name: gateway-bootstrap
     image: dlhf/gateway-bootstrap:${image_version}
-    ports:
-      - 7000:7000
 
   gateway-admin-bootstrap:
     build:
@@ -15,8 +13,6 @@ services:
     restart: always
     container_name: gateway-admin-bootstrap
     image: dlhf/gateway-admin-bootstrap:${image_version}
-    ports:
-      - 8000:8000
 
   gateway-admin-ui:
     build:
@@ -24,10 +20,6 @@ services:
     restart: always
     container_name: gateway-admin-ui
     image: dlhf/gateway-admin-ui:${image_version}
-    ports:
-      - 80:80
-    depends_on:
-      - gateway-admin-bootstrap
 
   monitor:
     build:
@@ -35,8 +27,6 @@ services:
     restart: always
     container_name: monitor
     image: dlhf/monitor:${image_version}
-    ports:
-      - 9000:9000
 
   sentinel-dashboard:
     build:
@@ -44,7 +34,3 @@ services:
     restart: always
     container_name: sentinel-dashboard
     image: dlhf/sentinel-dashboard:${image_version}
-    environment:
-      SERVER_PORT: 9100
-    ports:
-      - 9100:9100

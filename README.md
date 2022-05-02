@@ -46,12 +46,12 @@ GW是一套基于Spring Cloud Gateway开发的网关管理平台，毫无保留�
 
 2.build.sh 打包脚本(用法如下)
 ```shell
-# sh build.sh 需要打包的profile
-sh build.sh prod
+# sh build-docker.sh 需要打包的profile
+sh build-docker.sh prod
 ```
 3.run.sh 运行脚本(用法如下)
 ```shell
-sh run.sh
+sh run-docker.sh
 ```
 
 ## 计划完成功能
