@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.github.gw.common.core.CoreAutoConfiguration
+  com.github.jgzl.gw.common.core.CoreAutoConfiguration

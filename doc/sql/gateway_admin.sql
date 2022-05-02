@@ -38,7 +38,7 @@ CREATE TABLE `gateway_route_conf`  (
   `route_id` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '路由id',
   `predicates` json NULL COMMENT '断言',
   `filters` json NULL COMMENT '过滤器',
-  `uri` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'url',
+  `uri` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT 'url',
   `order` int(2) NULL DEFAULT 0 COMMENT '排序',
   `metadata` json NULL COMMENT '路由元信息',
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -51,6 +51,49 @@ CREATE TABLE `gateway_route_conf`  (
 -- Records of gateway_route_conf
 -- ----------------------------
 INSERT INTO `gateway_route_conf` VALUES (1, '监控管理', 'monitor', '[{\"args\": {\"_genkey_0\": \"/monitor/**\"}, \"name\": \"Path\"}]', '[]', 'lb://monitor', 0, '{\"version\": \"1\"}', '2021-12-27 10:43:25', '2022-01-06 10:40:46', '0');
+
+-- ----------------------------
+-- Table structure for magic_api_backup
+-- ----------------------------
+DROP TABLE IF EXISTS `magic_api_backup`;
+CREATE TABLE `magic_api_backup`  (
+  `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '原对象ID',
+  `create_date` bigint(13) NOT NULL COMMENT '备份时间',
+  `tag` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标签',
+  `type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类型',
+  `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '原名称',
+  `content` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '备份内容',
+  `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '操作人',
+  PRIMARY KEY (`id`, `create_date`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of magic_api_backup
+-- ----------------------------
+INSERT INTO `magic_api_backup` VALUES ('0ff52bca18bd48c98502ece1329eeac0', 1651505339211, NULL, 'api', '获取全部网关路由信息', '{\r\n  \"properties\" : { },\r\n  \"id\" : \"0ff52bca18bd48c98502ece1329eeac0\",\r\n  \"script\" : \"return \'Hello magic-api\'\",\r\n  \"groupId\" : \"968a9a7ee3c04483a1c6a6c23f8c445d\",\r\n  \"name\" : \"获取全部网关路由信息\",\r\n  \"createTime\" : 1651505339190,\r\n  \"updateTime\" : null,\r\n  \"lock\" : null,\r\n  \"createBy\" : null,\r\n  \"updateBy\" : null,\r\n  \"path\" : \"/routes\",\r\n  \"method\" : \"GET\",\r\n  \"parameters\" : [ ],\r\n  \"options\" : [ ],\r\n  \"requestBody\" : null,\r\n  \"headers\" : [ ],\r\n  \"paths\" : [ ],\r\n  \"responseBody\" : null,\r\n  \"description\" : null,\r\n  \"requestBodyDefinition\" : null,\r\n  \"responseBodyDefinition\" : null\r\n}', NULL);
+INSERT INTO `magic_api_backup` VALUES ('0ff52bca18bd48c98502ece1329eeac0', 1651505411818, NULL, 'api', '获取全部网关路由信息', '{\r\n  \"properties\" : { },\r\n  \"id\" : \"0ff52bca18bd48c98502ece1329eeac0\",\r\n  \"script\" : \"db.table(\\\"gateway_route_conf\\\").count()\",\r\n  \"groupId\" : \"968a9a7ee3c04483a1c6a6c23f8c445d\",\r\n  \"name\" : \"获取全部网关路由信息\",\r\n  \"createTime\" : null,\r\n  \"updateTime\" : 1651505411797,\r\n  \"lock\" : null,\r\n  \"createBy\" : null,\r\n  \"updateBy\" : null,\r\n  \"path\" : \"/routes\",\r\n  \"method\" : \"GET\",\r\n  \"parameters\" : [ ],\r\n  \"options\" : [ ],\r\n  \"requestBody\" : null,\r\n  \"headers\" : [ ],\r\n  \"paths\" : [ ],\r\n  \"responseBody\" : null,\r\n  \"description\" : null,\r\n  \"requestBodyDefinition\" : null,\r\n  \"responseBodyDefinition\" : null\r\n}', NULL);
+INSERT INTO `magic_api_backup` VALUES ('0ff52bca18bd48c98502ece1329eeac0', 1651505432267, NULL, 'api', '获取全部网关路由信息', '{\r\n  \"properties\" : { },\r\n  \"id\" : \"0ff52bca18bd48c98502ece1329eeac0\",\r\n  \"script\" : \"db.table(\\\"gateway_route_conf\\\").page()\",\r\n  \"groupId\" : \"968a9a7ee3c04483a1c6a6c23f8c445d\",\r\n  \"name\" : \"获取全部网关路由信息\",\r\n  \"createTime\" : null,\r\n  \"updateTime\" : 1651505432248,\r\n  \"lock\" : null,\r\n  \"createBy\" : null,\r\n  \"updateBy\" : null,\r\n  \"path\" : \"/routes\",\r\n  \"method\" : \"GET\",\r\n  \"parameters\" : [ ],\r\n  \"options\" : [ ],\r\n  \"requestBody\" : null,\r\n  \"headers\" : [ ],\r\n  \"paths\" : [ ],\r\n  \"responseBody\" : \"{\\n    \\\"code\\\": 1,\\n    \\\"message\\\": \\\"success\\\",\\n    \\\"data\\\": 1,\\n    \\\"timestamp\\\": 1651505412773,\\n    \\\"executeTime\\\": 26\\n}\",\r\n  \"description\" : null,\r\n  \"requestBodyDefinition\" : null,\r\n  \"responseBodyDefinition\" : {\r\n    \"name\" : \"\",\r\n    \"value\" : \"\",\r\n    \"description\" : \"\",\r\n    \"required\" : false,\r\n    \"dataType\" : \"Object\",\r\n    \"type\" : null,\r\n    \"defaultValue\" : null,\r\n    \"validateType\" : \"\",\r\n    \"error\" : \"\",\r\n    \"expression\" : \"\",\r\n    \"children\" : [ {\r\n      \"name\" : \"code\",\r\n      \"value\" : \"1\",\r\n      \"description\" : \"\",\r\n      \"required\" : false,\r\n      \"dataType\" : \"Integer\",\r\n      \"type\" : null,\r\n      \"defaultValue\" : null,\r\n      \"validateType\" : \"\",\r\n      \"error\" : \"\",\r\n      \"expression\" : \"\",\r\n      \"children\" : [ ]\r\n    }, {\r\n      \"name\" : \"message\",\r\n      \"value\" : \"success\",\r\n      \"description\" : \"\",\r\n      \"required\" : false,\r\n      \"dataType\" : \"String\",\r\n      \"type\" : null,\r\n      \"defaultValue\" : null,\r\n      \"validateType\" : \"\",\r\n      \"error\" : \"\",\r\n      \"expression\" : \"\",\r\n      \"children\" : [ ]\r\n    }, {\r\n      \"name\" : \"data\",\r\n      \"value\" : \"1\",\r\n      \"description\" : \"\",\r\n      \"required\" : false,\r\n      \"dataType\" : \"Integer\",\r\n      \"type\" : null,\r\n      \"defaultValue\" : null,\r\n      \"validateType\" : \"\",\r\n      \"error\" : \"\",\r\n      \"expression\" : \"\",\r\n      \"children\" : [ ]\r\n    }, {\r\n      \"name\" : \"timestamp\",\r\n      \"value\" : \"1651505412773\",\r\n      \"description\" : \"\",\r\n      \"required\" : false,\r\n      \"dataType\" : \"Long\",\r\n      \"type\" : null,\r\n      \"defaultValue\" : null,\r\n      \"validateType\" : \"\",\r\n      \"error\" : \"\",\r\n      \"expression\" : \"\",\r\n      \"children\" : [ ]\r\n    }, {\r\n      \"name\" : \"executeTime\",\r\n      \"value\" : \"26\",\r\n      \"description\" : \"\",\r\n      \"required\" : false,\r\n      \"dataType\" : \"Integer\",\r\n      \"type\" : null,\r\n      \"defaultValue\" : null,\r\n      \"validateType\" : \"\",\r\n      \"error\" : \"\",\r\n      \"expression\" : \"\",\r\n      \"children\" : [ ]\r\n    } ]\r\n  }\r\n}', NULL);
+INSERT INTO `magic_api_backup` VALUES ('62ee0d323ae946b8a9fcd08a11389fc1', 1651505239995, NULL, 'api', '测试', '{\r\n  \"properties\" : { },\r\n  \"id\" : \"62ee0d323ae946b8a9fcd08a11389fc1\",\r\n  \"script\" : \"return \'Hello magic-api\'\",\r\n  \"groupId\" : \"968a9a7ee3c04483a1c6a6c23f8c445d\",\r\n  \"name\" : \"测试\",\r\n  \"createTime\" : 1651505239976,\r\n  \"updateTime\" : null,\r\n  \"lock\" : null,\r\n  \"createBy\" : null,\r\n  \"updateBy\" : null,\r\n  \"path\" : \"/test\",\r\n  \"method\" : \"GET\",\r\n  \"parameters\" : [ ],\r\n  \"options\" : [ ],\r\n  \"requestBody\" : null,\r\n  \"headers\" : [ ],\r\n  \"paths\" : [ ],\r\n  \"responseBody\" : null,\r\n  \"description\" : null,\r\n  \"requestBodyDefinition\" : null,\r\n  \"responseBodyDefinition\" : null\r\n}', NULL);
+INSERT INTO `magic_api_backup` VALUES ('968a9a7ee3c04483a1c6a6c23f8c445d', 1651505223813, NULL, 'api-group', '网管管理服务', '{\r\n  \"properties\" : { },\r\n  \"id\" : \"968a9a7ee3c04483a1c6a6c23f8c445d\",\r\n  \"name\" : \"网管管理服务\",\r\n  \"type\" : \"api\",\r\n  \"parentId\" : \"0\",\r\n  \"path\" : \"/magic/api\",\r\n  \"createTime\" : 1651505223795,\r\n  \"updateTime\" : null,\r\n  \"createBy\" : null,\r\n  \"updateBy\" : null,\r\n  \"paths\" : [ ],\r\n  \"options\" : [ ]\r\n}', NULL);
+INSERT INTO `magic_api_backup` VALUES ('968a9a7ee3c04483a1c6a6c23f8c445d', 1651505331365, NULL, 'api-group', '网管管理服务', '{\r\n  \"properties\" : { },\r\n  \"id\" : \"968a9a7ee3c04483a1c6a6c23f8c445d\",\r\n  \"name\" : \"网管管理服务\",\r\n  \"type\" : \"api\",\r\n  \"parentId\" : \"0\",\r\n  \"path\" : \"/magic/api/gateway/admin\",\r\n  \"createTime\" : null,\r\n  \"updateTime\" : 1651505331355,\r\n  \"createBy\" : null,\r\n  \"updateBy\" : null,\r\n  \"paths\" : [ ],\r\n  \"options\" : [ ]\r\n}', NULL);
+
+-- ----------------------------
+-- Table structure for magic_api_file
+-- ----------------------------
+DROP TABLE IF EXISTS `magic_api_file`;
+CREATE TABLE `magic_api_file`  (
+  `file_path` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `file_content` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  PRIMARY KEY (`file_path`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of magic_api_file
+-- ----------------------------
+INSERT INTO `magic_api_file` VALUES ('magic-api/api/网管管理服务/', 'this is directory');
+INSERT INTO `magic_api_file` VALUES ('magic-api/api/网管管理服务/group.json', '{\r\n  \"properties\" : { },\r\n  \"id\" : \"968a9a7ee3c04483a1c6a6c23f8c445d\",\r\n  \"name\" : \"网管管理服务\",\r\n  \"type\" : \"api\",\r\n  \"parentId\" : \"0\",\r\n  \"path\" : \"/magic/api/gateway/admin\",\r\n  \"createTime\" : null,\r\n  \"updateTime\" : 1651505331355,\r\n  \"createBy\" : null,\r\n  \"updateBy\" : null,\r\n  \"paths\" : [ ],\r\n  \"options\" : [ ]\r\n}');
+INSERT INTO `magic_api_file` VALUES ('magic-api/api/网管管理服务/测试.ms', '{\r\n  \"properties\" : { },\r\n  \"id\" : \"62ee0d323ae946b8a9fcd08a11389fc1\",\r\n  \"script\" : null,\r\n  \"groupId\" : \"968a9a7ee3c04483a1c6a6c23f8c445d\",\r\n  \"name\" : \"测试\",\r\n  \"createTime\" : 1651505239976,\r\n  \"updateTime\" : null,\r\n  \"lock\" : null,\r\n  \"createBy\" : null,\r\n  \"updateBy\" : null,\r\n  \"path\" : \"/test\",\r\n  \"method\" : \"GET\",\r\n  \"parameters\" : [ ],\r\n  \"options\" : [ ],\r\n  \"requestBody\" : null,\r\n  \"headers\" : [ ],\r\n  \"paths\" : [ ],\r\n  \"responseBody\" : null,\r\n  \"description\" : null,\r\n  \"requestBodyDefinition\" : null,\r\n  \"responseBodyDefinition\" : null\r\n}\r\n================================\r\nreturn \'Hello magic-api\'');
+INSERT INTO `magic_api_file` VALUES ('magic-api/api/网管管理服务/获取全部网关路由信息.ms', '{\r\n  \"properties\" : { },\r\n  \"id\" : \"0ff52bca18bd48c98502ece1329eeac0\",\r\n  \"script\" : null,\r\n  \"groupId\" : \"968a9a7ee3c04483a1c6a6c23f8c445d\",\r\n  \"name\" : \"获取全部网关路由信息\",\r\n  \"createTime\" : null,\r\n  \"updateTime\" : 1651505432248,\r\n  \"lock\" : null,\r\n  \"createBy\" : null,\r\n  \"updateBy\" : null,\r\n  \"path\" : \"/routes\",\r\n  \"method\" : \"GET\",\r\n  \"parameters\" : [ ],\r\n  \"options\" : [ ],\r\n  \"requestBody\" : null,\r\n  \"headers\" : [ ],\r\n  \"paths\" : [ ],\r\n  \"responseBody\" : \"{\\n    \\\"code\\\": 1,\\n    \\\"message\\\": \\\"success\\\",\\n    \\\"data\\\": 1,\\n    \\\"timestamp\\\": 1651505412773,\\n    \\\"executeTime\\\": 26\\n}\",\r\n  \"description\" : null,\r\n  \"requestBodyDefinition\" : null,\r\n  \"responseBodyDefinition\" : {\r\n    \"name\" : \"\",\r\n    \"value\" : \"\",\r\n    \"description\" : \"\",\r\n    \"required\" : false,\r\n    \"dataType\" : \"Object\",\r\n    \"type\" : null,\r\n    \"defaultValue\" : null,\r\n    \"validateType\" : \"\",\r\n    \"error\" : \"\",\r\n    \"expression\" : \"\",\r\n    \"children\" : [ {\r\n      \"name\" : \"code\",\r\n      \"value\" : \"1\",\r\n      \"description\" : \"\",\r\n      \"required\" : false,\r\n      \"dataType\" : \"Integer\",\r\n      \"type\" : null,\r\n      \"defaultValue\" : null,\r\n      \"validateType\" : \"\",\r\n      \"error\" : \"\",\r\n      \"expression\" : \"\",\r\n      \"children\" : [ ]\r\n    }, {\r\n      \"name\" : \"message\",\r\n      \"value\" : \"success\",\r\n      \"description\" : \"\",\r\n      \"required\" : false,\r\n      \"dataType\" : \"String\",\r\n      \"type\" : null,\r\n      \"defaultValue\" : null,\r\n      \"validateType\" : \"\",\r\n      \"error\" : \"\",\r\n      \"expression\" : \"\",\r\n      \"children\" : [ ]\r\n    }, {\r\n      \"name\" : \"data\",\r\n      \"value\" : \"1\",\r\n      \"description\" : \"\",\r\n      \"required\" : false,\r\n      \"dataType\" : \"Integer\",\r\n      \"type\" : null,\r\n      \"defaultValue\" : null,\r\n      \"validateType\" : \"\",\r\n      \"error\" : \"\",\r\n      \"expression\" : \"\",\r\n      \"children\" : [ ]\r\n    }, {\r\n      \"name\" : \"timestamp\",\r\n      \"value\" : \"1651505412773\",\r\n      \"description\" : \"\",\r\n      \"required\" : false,\r\n      \"dataType\" : \"Long\",\r\n      \"type\" : null,\r\n      \"defaultValue\" : null,\r\n      \"validateType\" : \"\",\r\n      \"error\" : \"\",\r\n      \"expression\" : \"\",\r\n      \"children\" : [ ]\r\n    }, {\r\n      \"name\" : \"executeTime\",\r\n      \"value\" : \"26\",\r\n      \"description\" : \"\",\r\n      \"required\" : false,\r\n      \"dataType\" : \"Integer\",\r\n      \"type\" : null,\r\n      \"defaultValue\" : null,\r\n      \"validateType\" : \"\",\r\n      \"error\" : \"\",\r\n      \"expression\" : \"\",\r\n      \"children\" : [ ]\r\n    } ]\r\n  }\r\n}\r\n================================\r\ndb.table(\"gateway_route_conf\").page()');
 
 -- ----------------------------
 -- Table structure for sys_dept
@@ -115,6 +158,105 @@ INSERT INTO `sys_dept_relation` VALUES (7, 8);
 INSERT INTO `sys_dept_relation` VALUES (7, 11);
 INSERT INTO `sys_dept_relation` VALUES (7, 12);
 INSERT INTO `sys_dept_relation` VALUES (8, 8);
+
+-- ----------------------------
+-- Table structure for sys_error_code
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_error_code`;
+CREATE TABLE `sys_error_code`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '错误码编号',
+  `type` tinyint(4) NOT NULL DEFAULT 0 COMMENT '错误码类型',
+  `application_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '应用名',
+  `code` int(11) NOT NULL DEFAULT 0 COMMENT '错误码编码',
+  `message` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '错误码错误提示',
+  `memo` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '备注',
+  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1512820178886918148 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '错误码表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_error_code
+-- ----------------------------
+INSERT INTO `sys_error_code` VALUES (1512820177905451010, 1, 'gateway-admin-bootstrap', 1002000000, '登录失败，账号密码不正确', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820177913839618, 1, 'gateway-admin-bootstrap', 1002000001, '登录失败，账号被禁用', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820177913839619, 1, 'gateway-admin-bootstrap', 1002000002, '登录失败', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820177913839620, 1, 'gateway-admin-bootstrap', 1002000003, '验证码不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820177980948481, 1, 'gateway-admin-bootstrap', 1002000004, '验证码不正确', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820177980948482, 1, 'gateway-admin-bootstrap', 1002000005, '未绑定账号，需要进行绑定', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820177980948483, 1, 'gateway-admin-bootstrap', 1002000006, 'Token 已经过期', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820177980948484, 1, 'gateway-admin-bootstrap', 1002001000, '已经存在该名字的菜单', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820177980948485, 1, 'gateway-admin-bootstrap', 1002001001, '父菜单不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178043863042, 1, 'gateway-admin-bootstrap', 1002001002, '不能设置自己为父菜单', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178043863043, 1, 'gateway-admin-bootstrap', 1002001003, '菜单不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178043863044, 1, 'gateway-admin-bootstrap', 1002001004, '存在子菜单，无法删除', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178043863045, 1, 'gateway-admin-bootstrap', 1002001005, '父菜单的类型必须是目录或者菜单', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178043863046, 1, 'gateway-admin-bootstrap', 1002002000, '角色不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178115166209, 1, 'gateway-admin-bootstrap', 1002002001, '已经存在名为【{}】的角色', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178115166210, 1, 'gateway-admin-bootstrap', 1002002002, '已经存在编码为【{}】的角色', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178115166211, 1, 'gateway-admin-bootstrap', 1002002003, '不能操作类型为系统内置的角色', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178115166212, 1, 'gateway-admin-bootstrap', 1002002004, '名字为【{}】的角色已被禁用', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178173886465, 1, 'gateway-admin-bootstrap', 1002002005, '编码【{}】不能使用', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178173886466, 1, 'gateway-admin-bootstrap', 1002003000, '用户账号已经存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178173886467, 1, 'gateway-admin-bootstrap', 1002003001, '手机号已经存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178173886468, 1, 'gateway-admin-bootstrap', 1002003002, '邮箱已经存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178173886469, 1, 'gateway-admin-bootstrap', 1002003003, '用户不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178240995330, 1, 'gateway-admin-bootstrap', 1002003004, '导入用户数据不能为空！', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178240995331, 1, 'gateway-admin-bootstrap', 1002003005, '用户密码校验失败', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178240995332, 1, 'gateway-admin-bootstrap', 1002003006, '名字为【{}】的用户已被禁用', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178240995333, 1, 'gateway-admin-bootstrap', 1002003008, '创建用户失败，原因：超过租户最大租户配额({})！', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178240995334, 1, 'gateway-admin-bootstrap', 1002004000, '已经存在该名字的部门', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178303909890, 1, 'gateway-admin-bootstrap', 1002004001, '父级部门不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178303909891, 1, 'gateway-admin-bootstrap', 1002004002, '当前部门不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178303909892, 1, 'gateway-admin-bootstrap', 1002004003, '存在子部门，无法删除', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178303909893, 1, 'gateway-admin-bootstrap', 1002004004, '不能设置自己为父部门', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178303909894, 1, 'gateway-admin-bootstrap', 1002004005, '部门中存在员工，无法删除', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178371018754, 1, 'gateway-admin-bootstrap', 1002004006, '部门不处于开启状态，不允许选择', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178371018755, 1, 'gateway-admin-bootstrap', 1002004007, '不能设置自己的子部门为父部门', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178371018756, 1, 'gateway-admin-bootstrap', 1002005000, '当前岗位不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178371018757, 1, 'gateway-admin-bootstrap', 1002005001, '岗位({}) 不处于开启状态，不允许选择', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178371018758, 1, 'gateway-admin-bootstrap', 1002005002, '已经存在该名字的岗位', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178433933313, 1, 'gateway-admin-bootstrap', 1002005003, '已经存在该标识的岗位', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178433933314, 1, 'gateway-admin-bootstrap', 1002006001, '当前字典类型不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178433933315, 1, 'gateway-admin-bootstrap', 1002006002, '字典类型不处于开启状态，不允许选择', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178433933316, 1, 'gateway-admin-bootstrap', 1002006003, '已经存在该名字的字典类型', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178501042178, 1, 'gateway-admin-bootstrap', 1002006004, '已经存在该类型的字典类型', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178501042179, 1, 'gateway-admin-bootstrap', 1002006005, '无法删除，该字典类型还有字典数据', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178501042180, 1, 'gateway-admin-bootstrap', 1002007001, '当前字典数据不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178501042181, 1, 'gateway-admin-bootstrap', 1002007002, '字典数据({})不处于开启状态，不允许选择', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178501042182, 1, 'gateway-admin-bootstrap', 1002007003, '已经存在该值的字典数据', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178568151041, 1, 'gateway-admin-bootstrap', 1002008001, '当前通知公告不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178568151042, 1, 'gateway-admin-bootstrap', 1002011000, '短信渠道不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178568151043, 1, 'gateway-admin-bootstrap', 1002011001, '短信渠道不处于开启状态，不允许选择', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178568151044, 1, 'gateway-admin-bootstrap', 1002011002, '无法删除，该短信渠道还有短信模板', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178568151045, 1, 'gateway-admin-bootstrap', 1002012000, '短信模板不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178643648513, 1, 'gateway-admin-bootstrap', 1002012001, '已经存在编码为【{}】的短信模板', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178647842817, 1, 'gateway-admin-bootstrap', 1002013000, '手机号不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178647842818, 1, 'gateway-admin-bootstrap', 1002013001, '模板参数({})缺失', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178647842819, 1, 'gateway-admin-bootstrap', 1002013002, '短信模板不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178647842820, 1, 'gateway-admin-bootstrap', 1002014000, '验证码不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178693980161, 1, 'gateway-admin-bootstrap', 1002014001, '验证码已过期', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178693980162, 1, 'gateway-admin-bootstrap', 1002014002, '验证码已使用', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178693980163, 1, 'gateway-admin-bootstrap', 1002014003, '验证码不正确', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178693980164, 1, 'gateway-admin-bootstrap', 1002014004, '超过每日短信发送数量', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178693980165, 1, 'gateway-admin-bootstrap', 1002014005, '短信发送过于频率', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178756894721, 1, 'gateway-admin-bootstrap', 1002014006, '手机号已被使用', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178756894722, 1, 'gateway-admin-bootstrap', 1002014007, '验证码未被使用', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178756894723, 1, 'gateway-admin-bootstrap', 1002015000, '租户不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178756894724, 1, 'gateway-admin-bootstrap', 1002015001, '名字为【{}】的租户已被禁用', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178756894725, 1, 'gateway-admin-bootstrap', 1002015002, '名字为【{}】的租户已过期', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178824003585, 1, 'gateway-admin-bootstrap', 1002015003, '系统租户不能进行修改、删除等操作！', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178824003586, 1, 'gateway-admin-bootstrap', 1002016000, '租户套餐不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178824003587, 1, 'gateway-admin-bootstrap', 1002016001, '租户正在使用该套餐，请给租户重新设置套餐后再尝试删除', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178824003588, 1, 'gateway-admin-bootstrap', 1002016002, '名字为【{}】的租户套餐已被禁用', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178824003589, 1, 'gateway-admin-bootstrap', 1002017000, '错误码不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178824003590, 1, 'gateway-admin-bootstrap', 1002017001, '已经存在编码为【{}】的错误码', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178824003591, 1, 'gateway-admin-bootstrap', 1002018000, '社交授权失败，原因是：{}', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178886918146, 1, 'gateway-admin-bootstrap', 1002018001, '社交解绑失败，非当前用户绑定', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
+INSERT INTO `sys_error_code` VALUES (1512820178886918147, 1, 'gateway-admin-bootstrap', 1002018002, '社交授权失败，找不到对应的用户', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -312,104 +454,5 @@ CREATE TABLE `sys_user_role`  (
 INSERT INTO `sys_user_role` VALUES (1, 1);
 INSERT INTO `sys_user_role` VALUES (1, 2);
 INSERT INTO `sys_user_role` VALUES (2, 2);
-
--- ----------------------------
--- Table structure for sys_error_code
--- ----------------------------
-DROP TABLE IF EXISTS `sys_error_code`;
-CREATE TABLE `sys_error_code`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '错误码编号',
-  `type` tinyint(4) NOT NULL DEFAULT 0 COMMENT '错误码类型',
-  `application_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '应用名',
-  `code` int(11) NOT NULL DEFAULT 0 COMMENT '错误码编码',
-  `message` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '错误码错误提示',
-  `memo` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '备注',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1512820178886918148 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '错误码表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_error_code
--- ----------------------------
-INSERT INTO `sys_error_code` VALUES (1512820177905451010, 1, 'gateway-admin-bootstrap', 1002000000, '登录失败，账号密码不正确', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820177913839618, 1, 'gateway-admin-bootstrap', 1002000001, '登录失败，账号被禁用', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820177913839619, 1, 'gateway-admin-bootstrap', 1002000002, '登录失败', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820177913839620, 1, 'gateway-admin-bootstrap', 1002000003, '验证码不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820177980948481, 1, 'gateway-admin-bootstrap', 1002000004, '验证码不正确', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820177980948482, 1, 'gateway-admin-bootstrap', 1002000005, '未绑定账号，需要进行绑定', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820177980948483, 1, 'gateway-admin-bootstrap', 1002000006, 'Token 已经过期', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820177980948484, 1, 'gateway-admin-bootstrap', 1002001000, '已经存在该名字的菜单', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820177980948485, 1, 'gateway-admin-bootstrap', 1002001001, '父菜单不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178043863042, 1, 'gateway-admin-bootstrap', 1002001002, '不能设置自己为父菜单', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178043863043, 1, 'gateway-admin-bootstrap', 1002001003, '菜单不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178043863044, 1, 'gateway-admin-bootstrap', 1002001004, '存在子菜单，无法删除', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178043863045, 1, 'gateway-admin-bootstrap', 1002001005, '父菜单的类型必须是目录或者菜单', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178043863046, 1, 'gateway-admin-bootstrap', 1002002000, '角色不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178115166209, 1, 'gateway-admin-bootstrap', 1002002001, '已经存在名为【{}】的角色', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178115166210, 1, 'gateway-admin-bootstrap', 1002002002, '已经存在编码为【{}】的角色', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178115166211, 1, 'gateway-admin-bootstrap', 1002002003, '不能操作类型为系统内置的角色', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178115166212, 1, 'gateway-admin-bootstrap', 1002002004, '名字为【{}】的角色已被禁用', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178173886465, 1, 'gateway-admin-bootstrap', 1002002005, '编码【{}】不能使用', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178173886466, 1, 'gateway-admin-bootstrap', 1002003000, '用户账号已经存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178173886467, 1, 'gateway-admin-bootstrap', 1002003001, '手机号已经存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178173886468, 1, 'gateway-admin-bootstrap', 1002003002, '邮箱已经存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178173886469, 1, 'gateway-admin-bootstrap', 1002003003, '用户不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178240995330, 1, 'gateway-admin-bootstrap', 1002003004, '导入用户数据不能为空！', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178240995331, 1, 'gateway-admin-bootstrap', 1002003005, '用户密码校验失败', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178240995332, 1, 'gateway-admin-bootstrap', 1002003006, '名字为【{}】的用户已被禁用', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178240995333, 1, 'gateway-admin-bootstrap', 1002003008, '创建用户失败，原因：超过租户最大租户配额({})！', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178240995334, 1, 'gateway-admin-bootstrap', 1002004000, '已经存在该名字的部门', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178303909890, 1, 'gateway-admin-bootstrap', 1002004001, '父级部门不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178303909891, 1, 'gateway-admin-bootstrap', 1002004002, '当前部门不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178303909892, 1, 'gateway-admin-bootstrap', 1002004003, '存在子部门，无法删除', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178303909893, 1, 'gateway-admin-bootstrap', 1002004004, '不能设置自己为父部门', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178303909894, 1, 'gateway-admin-bootstrap', 1002004005, '部门中存在员工，无法删除', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178371018754, 1, 'gateway-admin-bootstrap', 1002004006, '部门不处于开启状态，不允许选择', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178371018755, 1, 'gateway-admin-bootstrap', 1002004007, '不能设置自己的子部门为父部门', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178371018756, 1, 'gateway-admin-bootstrap', 1002005000, '当前岗位不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178371018757, 1, 'gateway-admin-bootstrap', 1002005001, '岗位({}) 不处于开启状态，不允许选择', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178371018758, 1, 'gateway-admin-bootstrap', 1002005002, '已经存在该名字的岗位', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178433933313, 1, 'gateway-admin-bootstrap', 1002005003, '已经存在该标识的岗位', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178433933314, 1, 'gateway-admin-bootstrap', 1002006001, '当前字典类型不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178433933315, 1, 'gateway-admin-bootstrap', 1002006002, '字典类型不处于开启状态，不允许选择', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178433933316, 1, 'gateway-admin-bootstrap', 1002006003, '已经存在该名字的字典类型', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178501042178, 1, 'gateway-admin-bootstrap', 1002006004, '已经存在该类型的字典类型', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178501042179, 1, 'gateway-admin-bootstrap', 1002006005, '无法删除，该字典类型还有字典数据', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178501042180, 1, 'gateway-admin-bootstrap', 1002007001, '当前字典数据不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178501042181, 1, 'gateway-admin-bootstrap', 1002007002, '字典数据({})不处于开启状态，不允许选择', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178501042182, 1, 'gateway-admin-bootstrap', 1002007003, '已经存在该值的字典数据', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178568151041, 1, 'gateway-admin-bootstrap', 1002008001, '当前通知公告不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178568151042, 1, 'gateway-admin-bootstrap', 1002011000, '短信渠道不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178568151043, 1, 'gateway-admin-bootstrap', 1002011001, '短信渠道不处于开启状态，不允许选择', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178568151044, 1, 'gateway-admin-bootstrap', 1002011002, '无法删除，该短信渠道还有短信模板', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178568151045, 1, 'gateway-admin-bootstrap', 1002012000, '短信模板不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178643648513, 1, 'gateway-admin-bootstrap', 1002012001, '已经存在编码为【{}】的短信模板', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178647842817, 1, 'gateway-admin-bootstrap', 1002013000, '手机号不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178647842818, 1, 'gateway-admin-bootstrap', 1002013001, '模板参数({})缺失', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178647842819, 1, 'gateway-admin-bootstrap', 1002013002, '短信模板不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178647842820, 1, 'gateway-admin-bootstrap', 1002014000, '验证码不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178693980161, 1, 'gateway-admin-bootstrap', 1002014001, '验证码已过期', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178693980162, 1, 'gateway-admin-bootstrap', 1002014002, '验证码已使用', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178693980163, 1, 'gateway-admin-bootstrap', 1002014003, '验证码不正确', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178693980164, 1, 'gateway-admin-bootstrap', 1002014004, '超过每日短信发送数量', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178693980165, 1, 'gateway-admin-bootstrap', 1002014005, '短信发送过于频率', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178756894721, 1, 'gateway-admin-bootstrap', 1002014006, '手机号已被使用', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178756894722, 1, 'gateway-admin-bootstrap', 1002014007, '验证码未被使用', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178756894723, 1, 'gateway-admin-bootstrap', 1002015000, '租户不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178756894724, 1, 'gateway-admin-bootstrap', 1002015001, '名字为【{}】的租户已被禁用', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178756894725, 1, 'gateway-admin-bootstrap', 1002015002, '名字为【{}】的租户已过期', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178824003585, 1, 'gateway-admin-bootstrap', 1002015003, '系统租户不能进行修改、删除等操作！', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178824003586, 1, 'gateway-admin-bootstrap', 1002016000, '租户套餐不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178824003587, 1, 'gateway-admin-bootstrap', 1002016001, '租户正在使用该套餐，请给租户重新设置套餐后再尝试删除', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178824003588, 1, 'gateway-admin-bootstrap', 1002016002, '名字为【{}】的租户套餐已被禁用', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178824003589, 1, 'gateway-admin-bootstrap', 1002017000, '错误码不存在', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178824003590, 1, 'gateway-admin-bootstrap', 1002017001, '已经存在编码为【{}】的错误码', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178824003591, 1, 'gateway-admin-bootstrap', 1002018000, '社交授权失败，原因是：{}', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178886918146, 1, 'gateway-admin-bootstrap', 1002018001, '社交解绑失败，非当前用户绑定', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
-INSERT INTO `sys_error_code` VALUES (1512820178886918147, 1, 'gateway-admin-bootstrap', 1002018002, '社交授权失败，找不到对应的用户', '', '-1', '2022-04-09 23:50:12', '-1', '2022-04-09 23:50:12', b'0');
 
 SET FOREIGN_KEY_CHECKS = 1;

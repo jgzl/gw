@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.github.gw.gateway.spi.log.LogAutoConfiguration
+  com.github.jgzl.gw.gateway.spi.log.LogAutoConfiguration

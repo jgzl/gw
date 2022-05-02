@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.github.gw.common.security.SecurityAutoConfiguration
+  com.github.jgzl.gw.common.security.SecurityAutoConfiguration
