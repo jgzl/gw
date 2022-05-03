@@ -31,6 +31,8 @@ public interface GlobalErrorCodeConstants {
 
     ErrorCode INTERNAL_SERVER_ERROR = new ErrorCode(500, "系统异常");
 
+    ErrorCode SERVICE_UNAVAILABLE = new ErrorCode(503, "无法找到服务");
+
     // ========== 自定义错误段 ==========
     ErrorCode REPEATED_REQUESTS = new ErrorCode(900, "重复请求，请稍后重试"); // 重复请求
     ErrorCode DEMO_DENY = new ErrorCode(901, "演示模式，禁止写操作");

@@ -25,7 +25,7 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
  */
 @Slf4j
 @Configuration
-@ComponentScan("com.github.gw.common.gateway")
+@ComponentScan("com.github.jgzl.gw.common.gateway")
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 public class DynamicRouteAutoConfiguration {
 

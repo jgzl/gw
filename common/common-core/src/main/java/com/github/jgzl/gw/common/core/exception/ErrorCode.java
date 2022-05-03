@@ -18,13 +18,13 @@ public class ErrorCode {
     /**
      * 错误码
      */
-    private final Integer code;
+    private final int code;
     /**
      * 错误提示
      */
     private final String msg;
 
-    public ErrorCode(Integer code, String message) {
+    public ErrorCode(int code, String message) {
         this.code = code;
         this.msg = message;
     }

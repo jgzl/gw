@@ -28,9 +28,9 @@ import java.net.URI;
 @Configuration
 public class DynamicRouteInitRunner {
 
-    private RedisTemplate redisTemplate;
+    private final RedisTemplate<String,Object> redisTemplate;
 
-    private GatewayRouteConfService routeConfService;
+    private final GatewayRouteConfService routeConfService;
 
     @Async
     @Order
@@ -64,7 +64,7 @@ public class DynamicRouteInitRunner {
      * redis 监听配置,监听 gateway_redis_route_reload_topic,重新加载Redis
      *
      */
-    public DynamicRouteInitRunner(RedisTemplate redisTemplate,
+    public DynamicRouteInitRunner(RedisTemplate<String,Object> redisTemplate,
                                   GatewayRouteConfService routeConfService,
                                   RedisMessageListenerContainer container) {
         this.redisTemplate = redisTemplate;

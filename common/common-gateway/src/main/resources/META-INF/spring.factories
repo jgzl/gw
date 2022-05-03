@@ -1,4 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.github.jgzl.gw.common.gateway.configuration.DynamicAccessConfAutoConfiguration
+  com.github.jgzl.gw.common.gateway.configuration.DynamicAccessConfAutoConfiguration,\
+  com.github.jgzl.gw.common.gateway.configuration.GatewayExceptionHandlerConfiguration
 org.springframework.boot.diagnostics.FailureAnalyzer=\
     com.github.jgzl.gw.common.gateway.exception.RouteCheckFailureAnalyzer

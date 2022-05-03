@@ -2,6 +2,7 @@ package com.github.jgzl.gw.gateway.filter.webflux;
 
 import cn.hutool.core.util.StrUtil;
 import com.github.jgzl.gw.common.core.constant.enums.StatusEnum;
+import com.github.jgzl.gw.common.core.exception.enums.ErrorCodeConstants;
 import com.github.jgzl.gw.common.core.utils.WebfluxUtil;
 import com.github.jgzl.gw.common.gateway.support.AccessConfCacheHolder;
 import com.github.jgzl.gw.common.model.gateway.vo.GatewayAccessConfVo;
@@ -34,13 +35,13 @@ public class AccessFilter implements WebFilter {
         if (StrUtil.isNotBlank(apiKey)&&StrUtil.isNotBlank(apiSecret)) {
             GatewayAccessConfVo vo = AccessConfCacheHolder.get(apiKey);
             if (vo == null) {
-                return WebfluxUtil.webFluxResponseWriter(exchange.getResponse(),"网关访问key不存在",100001);
+                return WebfluxUtil.webFluxResponseWriter(exchange.getResponse(), ErrorCodeConstants.GATEWAY_ACCESS_API_KEY_NOT_EXIST);
             }
             if (!apiSecret.equals(vo.getApiSecret())) {
-                return WebfluxUtil.webFluxResponseWriter(exchange.getResponse(),"网关访问secret不合法",100002);
+                return WebfluxUtil.webFluxResponseWriter(exchange.getResponse(),ErrorCodeConstants.GATEWAY_ACCESS_API_SECRET_NOT_VALID);
             }
             if (StatusEnum.DISABLE.getCode().equals(vo.getStatus())) {
-                return WebfluxUtil.webFluxResponseWriter(exchange.getResponse(),"网关访问key secret已禁用",100003);
+                return WebfluxUtil.webFluxResponseWriter(exchange.getResponse(),ErrorCodeConstants.GATEWAY_ACCESS_DISABLED);
             }
         }
         return chain.filter(exchange);

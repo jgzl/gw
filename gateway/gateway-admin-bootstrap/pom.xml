@@ -21,25 +21,11 @@
         </dependency>
         <dependency>
             <groupId>com.github.jgzl.gw</groupId>
-            <artifactId>common-gateway</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.cloud</groupId>
-                    <artifactId>spring-cloud-gateway-server</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.github.jgzl.gw</groupId>
             <artifactId>common-security</artifactId>
         </dependency>
         <dependency>
             <groupId>com.github.jgzl.gw</groupId>
             <artifactId>common-model</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.jgzl.gw</groupId>
-            <artifactId>spi-log-localfile</artifactId>
         </dependency>
         <dependency>
             <groupId>com.github.jgzl.gw</groupId>

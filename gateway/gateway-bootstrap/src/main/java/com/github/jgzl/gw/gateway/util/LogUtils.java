@@ -71,7 +71,6 @@ public class LogUtils {
      * 记录非xml/json格式请求返回日志数据-无body
      *
      * @param gatewayLog
-     * @param actionEnum
      */
     public static void logging(GatewayLog gatewayLog) {
         GatewayRequestLogApplicationEvent event = new GatewayRequestLogApplicationEvent(gatewayLog.getId(), gatewayLog);

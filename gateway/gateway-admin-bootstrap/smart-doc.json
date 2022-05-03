@@ -5,7 +5,7 @@
   "outPath": "doc",
   "coverOld": true,
   "createDebugPage": true,
-  "packageFilters": "com.github.gw.*.*.controller.*",
+  "packageFilters": "com.github.jgzl.gw.*.*.controller.*",
   "md5EncryptedHtmlName": false,
   "style":"xt256",
   "projectName": "smart-doc",

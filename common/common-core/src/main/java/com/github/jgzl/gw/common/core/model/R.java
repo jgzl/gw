@@ -1,5 +1,6 @@
 package com.github.jgzl.gw.common.core.model;
 
+import com.github.jgzl.gw.common.core.exception.ErrorCode;
 import com.github.jgzl.gw.common.core.exception.enums.GlobalErrorCodeConstants;
 import lombok.Data;
 
@@ -67,6 +68,13 @@ public class R<T> implements Serializable {
         apiResult.setCode(code);
         apiResult.setData(data);
         apiResult.setMsg(msg);
+        return apiResult;
+    }
+
+    public static R<Void> error(ErrorCode errorCode) {
+        R<Void> apiResult = new R<>();
+        apiResult.setCode(errorCode.getCode());
+        apiResult.setMsg(error().getMsg());
         return apiResult;
     }
 }

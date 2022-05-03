@@ -1,6 +1,7 @@
 package com.github.jgzl.gw.common.core.exception.enums;
 
 import com.github.jgzl.gw.common.core.exception.ErrorCode;
+import com.github.jgzl.gw.common.core.utils.WebfluxUtil;
 
 /**
  * System 错误码枚举类
@@ -118,5 +119,12 @@ public interface ErrorCodeConstants {
     ErrorCode SOCIAL_USER_AUTH_FAILURE = new ErrorCode(1002018000, "社交授权失败，原因是：{}");
     ErrorCode SOCIAL_USER_UNBIND_NOT_SELF = new ErrorCode(1002018001, "社交解绑失败，非当前用户绑定");
     ErrorCode SOCIAL_USER_NOT_FOUND = new ErrorCode(1002018002, "社交授权失败，找不到对应的用户");
+
+    // ========== 网关路由 1002019000 ==========
+
+    // ========== 网关访问 1002020000 ==========
+    ErrorCode GATEWAY_ACCESS_API_KEY_NOT_EXIST = new ErrorCode(1002020001,"网关apiKey不存在");
+    ErrorCode GATEWAY_ACCESS_API_SECRET_NOT_VALID = new ErrorCode(1002020002,"网关apiSecret不合法");
+    ErrorCode GATEWAY_ACCESS_DISABLED = new ErrorCode(1002020003,"网关apiKey/apiSecret已禁用");
 
 }

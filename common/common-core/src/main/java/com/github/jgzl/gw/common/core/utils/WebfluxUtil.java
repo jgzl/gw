@@ -3,6 +3,7 @@ package com.github.jgzl.gw.common.core.utils;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
+import com.github.jgzl.gw.common.core.exception.ErrorCode;
 import com.github.jgzl.gw.common.core.model.R;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -135,8 +136,8 @@ public class WebfluxUtil {
      * @param value    响应内容
      * @return Mono<Void>
      */
-    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, Object value) {
-        return webFluxResponseWriter(response, HttpStatus.OK, value, R.ERROR);
+    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, String value) {
+        return webFluxResponseWriter(response, HttpStatus.OK, R.ERROR, value);
     }
 
     /**
@@ -147,8 +148,30 @@ public class WebfluxUtil {
      * @param value    响应内容
      * @return Mono<Void>
      */
-    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, Object value, int code) {
-        return webFluxResponseWriter(response, HttpStatus.OK, value, code);
+    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, int code, String value) {
+        return webFluxResponseWriter(response, HttpStatus.OK, code, value);
+    }
+
+    /**
+     * 设置webflux模型响应
+     *
+     * @param response ServerHttpResponse
+     * @param result 通用返回状态码
+     * @return Mono<Void>
+     */
+    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, R<?> result) {
+        return webFluxResponseWriter(response, HttpStatus.OK, result.getCode(), result.getMsg());
+    }
+
+    /**
+     * 设置webflux模型响应
+     *
+     * @param response ServerHttpResponse
+     * @param errorCode 错误状态吗枚举
+     * @return Mono<Void>
+     */
+    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, ErrorCode errorCode) {
+        return webFluxResponseWriter(response, HttpStatus.OK, errorCode.getCode(), errorCode.getMsg());
     }
 
     /**
@@ -160,8 +183,8 @@ public class WebfluxUtil {
      * @param value    响应内容
      * @return Mono<Void>
      */
-    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, HttpStatus status, Object value, int code) {
-        return webFluxResponseWriter(response, MediaType.APPLICATION_JSON_VALUE, status, value, code);
+    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, HttpStatus status, int code, String value) {
+        return webFluxResponseWriter(response, MediaType.APPLICATION_JSON_VALUE, status, code, value);
     }
 
     /**
@@ -174,10 +197,10 @@ public class WebfluxUtil {
      * @param value       响应内容
      * @return Mono<Void>
      */
-    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, String contentType, HttpStatus status, Object value, int code) {
+    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, String contentType, HttpStatus status, int code, String value) {
         response.setStatusCode(status);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, contentType);
-        R<?> result = R.error(code, value.toString());
+        R<Void> result = R.error(code, value);
         DataBuffer dataBuffer = response.bufferFactory().wrap(JacksonUtil.toJsonByte(result));
         return response.writeWith(Mono.just(dataBuffer));
     }

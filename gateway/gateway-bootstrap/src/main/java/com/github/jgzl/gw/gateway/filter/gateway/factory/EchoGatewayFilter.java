@@ -1,6 +1,5 @@
 package com.github.jgzl.gw.gateway.filter.gateway.factory;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
