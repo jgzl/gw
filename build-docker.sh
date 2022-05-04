@@ -32,6 +32,7 @@ echo $0 '脚本地址上层目录为' $DIR
 commit_id=$(git rev-parse --short HEAD)
 current_time=`date '+%Y%m%d%H%M%S'`
 export image_version=$commit_id"-"$current_time
+export DOCKER_BUILDKIT=1
 
 build_frontend() {
   cd $DIR/gateway/gateway-admin-ui/
