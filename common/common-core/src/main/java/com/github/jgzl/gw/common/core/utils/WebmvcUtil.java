@@ -4,10 +4,10 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.ContentType;
-import cn.hutool.http.HttpStatus;
 import com.github.jgzl.gw.common.core.model.R;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import javax.servlet.http.HttpServletRequest;
@@ -113,7 +113,7 @@ public class WebmvcUtil {
      */
     public static String renderString(HttpServletResponse response, String string) {
         try {
-            response.setStatus(HttpStatus.HTTP_OK);
+            response.setStatus(response.getStatus());
             response.setContentType(ContentType.JSON.getValue());
             response.setCharacterEncoding(UTF8);
             response.getWriter().print(string);
@@ -137,8 +137,14 @@ public class WebmvcUtil {
         }
     }
 
-    public static void out(HttpServletResponse response, R result) {
-        response.setStatus(org.springframework.http.HttpStatus.OK.value());
+    /**
+     * 返回http状态发生异常统一使用400
+     * @param response
+     * @param httpStatus
+     * @param result
+     */
+    public static void out(HttpServletResponse response, HttpStatus httpStatus, R result) {
+        response.setStatus(httpStatus.value());
         response.setCharacterEncoding(CharsetUtil.UTF_8);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         PrintWriter printWriter = null;
@@ -153,5 +159,23 @@ public class WebmvcUtil {
                 printWriter.close();
             }
         }
+    }
+
+    /**
+     * 业务成功
+     * @param response
+     * @param result
+     */
+    public static void okOut(HttpServletResponse response, R result) {
+        out(response,HttpStatus.OK,result);
+    }
+
+    /**
+     * 业务失败
+     * @param response
+     * @param result
+     */
+    public static void errorOut(HttpServletResponse response, R result) {
+        out(response,HttpStatus.BAD_REQUEST,result);
     }
 }

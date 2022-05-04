@@ -3,6 +3,7 @@ package com.github.jgzl.gw.gateway.admin.security.handler;
 import com.github.jgzl.gw.common.core.model.R;
 import com.github.jgzl.gw.common.core.utils.WebmvcUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
@@ -20,6 +21,6 @@ public class LoginAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
         log.error("登录授权发生异常:", e);
-        WebmvcUtil.out(response, R.error("登录异常", e.getMessage()));
+        WebmvcUtil.errorOut(response, R.error("登录异常", e.getMessage()));
     }
 }

@@ -8,7 +8,9 @@ import com.github.jgzl.gw.common.gateway.support.AccessConfCacheHolder;
 import com.github.jgzl.gw.common.model.gateway.vo.GatewayAccessConfVo;
 import com.github.jgzl.gw.common.core.constant.GatewayConstants;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
@@ -34,14 +36,15 @@ public class AccessFilter implements WebFilter {
         String system = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_SYSTEM);
         if (StrUtil.isNotBlank(apiKey)&&StrUtil.isNotBlank(apiSecret)) {
             GatewayAccessConfVo vo = AccessConfCacheHolder.get(apiKey);
+            ServerHttpResponse response = exchange.getResponse();
             if (vo == null) {
-                return WebfluxUtil.webFluxResponseWriter(exchange.getResponse(), ErrorCodeConstants.GATEWAY_ACCESS_API_KEY_NOT_EXIST);
+                return WebfluxUtil.errorOut(response, ErrorCodeConstants.GATEWAY_ACCESS_API_KEY_NOT_EXIST);
             }
             if (!apiSecret.equals(vo.getApiSecret())) {
-                return WebfluxUtil.webFluxResponseWriter(exchange.getResponse(),ErrorCodeConstants.GATEWAY_ACCESS_API_SECRET_NOT_VALID);
+                return WebfluxUtil.errorOut(response, ErrorCodeConstants.GATEWAY_ACCESS_API_SECRET_NOT_VALID);
             }
             if (StatusEnum.DISABLE.getCode().equals(vo.getStatus())) {
-                return WebfluxUtil.webFluxResponseWriter(exchange.getResponse(),ErrorCodeConstants.GATEWAY_ACCESS_DISABLED);
+                return WebfluxUtil.errorOut(response, ErrorCodeConstants.GATEWAY_ACCESS_DISABLED);
             }
         }
         return chain.filter(exchange);

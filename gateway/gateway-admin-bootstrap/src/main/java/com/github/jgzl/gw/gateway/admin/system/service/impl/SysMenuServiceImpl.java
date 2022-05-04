@@ -11,6 +11,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.jgzl.gw.common.core.constant.CacheConstants;
 import com.github.jgzl.gw.common.core.constant.CommonConstants;
 import com.github.jgzl.gw.common.core.constant.enums.MenuTypeEnum;
+import com.github.jgzl.gw.common.core.exception.enums.ErrorCodeConstants;
+import com.github.jgzl.gw.common.core.exception.util.ServiceExceptionUtil;
 import com.github.jgzl.gw.common.core.model.R;
 import com.github.jgzl.gw.common.model.system.domain.SysMenu;
 import com.github.jgzl.gw.common.model.system.domain.SysRoleMenu;
@@ -58,7 +60,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         // 查询父节点为当前节点的节点
         List<SysMenu> menuList = this.list(Wrappers.<SysMenu>query().lambda().eq(SysMenu::getParentId, id));
         if (CollUtil.isNotEmpty(menuList)) {
-            return R.error("菜单含有下级不能删除");
+            throw ServiceExceptionUtil.exception(ErrorCodeConstants.MENU_EXISTS_CHILDREN);
         }
 
         sysRoleMenuMapper.delete(Wrappers.<SysRoleMenu>query().lambda().eq(SysRoleMenu::getMenuId, id));

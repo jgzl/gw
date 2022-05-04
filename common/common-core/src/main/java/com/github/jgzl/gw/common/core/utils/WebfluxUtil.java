@@ -136,20 +136,8 @@ public class WebfluxUtil {
      * @param value    响应内容
      * @return Mono<Void>
      */
-    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, String value) {
-        return webFluxResponseWriter(response, HttpStatus.OK, R.ERROR, value);
-    }
-
-    /**
-     * 设置webflux模型响应
-     *
-     * @param response ServerHttpResponse
-     * @param code     响应状态码
-     * @param value    响应内容
-     * @return Mono<Void>
-     */
-    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, int code, String value) {
-        return webFluxResponseWriter(response, HttpStatus.OK, code, value);
+    public static Mono<Void> out(ServerHttpResponse response, HttpStatus httpStatus, String value) {
+        return out(response, httpStatus, R.ERROR, value);
     }
 
     /**
@@ -159,8 +147,8 @@ public class WebfluxUtil {
      * @param result 通用返回状态码
      * @return Mono<Void>
      */
-    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, R<?> result) {
-        return webFluxResponseWriter(response, HttpStatus.OK, result.getCode(), result.getMsg());
+    public static Mono<Void> out(ServerHttpResponse response, HttpStatus httpStatus, R<?> result) {
+        return out(response, httpStatus, result.getCode(), result.getMsg());
     }
 
     /**
@@ -170,8 +158,8 @@ public class WebfluxUtil {
      * @param errorCode 错误状态吗枚举
      * @return Mono<Void>
      */
-    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, ErrorCode errorCode) {
-        return webFluxResponseWriter(response, HttpStatus.OK, errorCode.getCode(), errorCode.getMsg());
+    public static Mono<Void> out(ServerHttpResponse response, HttpStatus httpStatus, ErrorCode errorCode) {
+        return out(response, httpStatus, errorCode.getCode(), errorCode.getMsg());
     }
 
     /**
@@ -183,8 +171,8 @@ public class WebfluxUtil {
      * @param value    响应内容
      * @return Mono<Void>
      */
-    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, HttpStatus status, int code, String value) {
-        return webFluxResponseWriter(response, MediaType.APPLICATION_JSON_VALUE, status, code, value);
+    public static Mono<Void> out(ServerHttpResponse response, HttpStatus status, int code, String value) {
+        return out(response, MediaType.APPLICATION_JSON_VALUE, status, code, value);
     }
 
     /**
@@ -197,11 +185,56 @@ public class WebfluxUtil {
      * @param value       响应内容
      * @return Mono<Void>
      */
-    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, String contentType, HttpStatus status, int code, String value) {
+    public static Mono<Void> out(ServerHttpResponse response, String contentType, HttpStatus status, int code, String value) {
         response.setStatusCode(status);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, contentType);
         R<Void> result = R.error(code, value);
         DataBuffer dataBuffer = response.bufferFactory().wrap(JacksonUtil.toJsonByte(result));
         return response.writeWith(Mono.just(dataBuffer));
+    }
+
+    /**
+     * 设置webflux模型响应
+     *
+     * @param response ServerHttpResponse
+     * @param result 错误状态吗枚举
+     * @return Mono<Void>
+     */
+    public static Mono<Void> errorOut(ServerHttpResponse response, R<?> result) {
+        return out(response,HttpStatus.BAD_REQUEST,result);
+    }
+
+    /**
+     * 设置webflux模型响应
+     *
+     * @param response ServerHttpResponse
+     * @param errorCode 错误状态吗枚举
+     * @return Mono<Void>
+     */
+    public static Mono<Void> errorOut(ServerHttpResponse response, ErrorCode errorCode) {
+        return out(response,HttpStatus.BAD_REQUEST,errorCode);
+    }
+
+
+    /**
+     * 设置webflux模型响应
+     *
+     * @param response ServerHttpResponse
+     * @param result 错误状态吗枚举
+     * @return Mono<Void>
+     */
+    public static Mono<Void> okOut(ServerHttpResponse response, R<?> result) {
+        return out(response,HttpStatus.OK,result);
+    }
+
+    /**
+     * 设置webflux模型响应
+     *
+     * @param response ServerHttpResponse
+     * @param errorCode 错误状态吗枚举
+     * @return Mono<Void>
+     */
+    public static Mono<Void> okOut(ServerHttpResponse response, ErrorCode errorCode) {
+        return out(response,HttpStatus.OK,errorCode);
     }
 }

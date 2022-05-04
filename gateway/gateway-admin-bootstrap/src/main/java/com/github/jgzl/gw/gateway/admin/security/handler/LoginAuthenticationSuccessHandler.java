@@ -9,6 +9,7 @@ import com.github.jgzl.gw.common.core.utils.WebmvcUtil;
 import com.github.jgzl.gw.gateway.admin.security.vo.ExtendUser;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -50,6 +51,6 @@ public class LoginAuthenticationSuccessHandler implements AuthenticationSuccessH
                 }
             });
         }
-        WebmvcUtil.out(response, R.success(result));
+        WebmvcUtil.okOut(response, R.success(result));
     }
 }

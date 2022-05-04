@@ -11,6 +11,7 @@ import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.cloud.gateway.support.NotFoundException;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
@@ -56,7 +57,7 @@ public class GatewayExceptionHandlerConfiguration implements ErrorWebExceptionHa
             result = globalExceptionHandler.allExceptionHandler(exchange, ex);
         }
         log.error("[网关异常处理]请求路径:[" + exchange.getRequest().getPath() + "],异常信息:", ex);
-        return WebfluxUtil.webFluxResponseWriter(response, result);
+        return WebfluxUtil.errorOut(response, result);
     }
 
 }

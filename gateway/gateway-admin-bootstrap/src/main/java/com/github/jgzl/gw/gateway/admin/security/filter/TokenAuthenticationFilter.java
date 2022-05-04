@@ -13,6 +13,7 @@ import com.github.jgzl.gw.common.core.utils.WebmvcUtil;
 import com.github.jgzl.gw.gateway.admin.security.configuration.PermitAllUrlResolver;
 import com.github.jgzl.gw.gateway.admin.security.service.ExtendUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -57,13 +58,15 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
         try {
             authentication = getAuthentication(request);
         } catch (Exception e) {
-            WebmvcUtil.out(response, R.error(e, e.getMessage()));
+            log.error("登录认证发生异常:", e);
+            WebmvcUtil.errorOut(response, R.error(e.getMessage()));
             return;
         }
         if (authentication != null) {
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } else {
-            WebmvcUtil.out(response, R.error("鉴权失败"));
+            log.error("登录认证发生异常");
+            WebmvcUtil.errorOut(response, R.error("登录异常"));
             return;
         }
         chain.doFilter(request, response);
