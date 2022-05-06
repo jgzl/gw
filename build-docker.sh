@@ -1,23 +1,23 @@
 #!/bin/sh
 ENVIRONMENT="$1"
 
-check_env() {
-  if [ -z $ENVIRONMENT ]; then
-    echo "Usage: $0 {dev|sit|uat|pp|prod}"
-    exit 1;
-  fi
-
-  CMD_ARRAY=(java node docker docker-compose)
-  for i in ${CMD_ARRAY[@]} ; do
-    type $i
-    if [ "$?" -ne 0 ]; then
-      echo "$i command not found."
-      exit 1;
-    fi
-  done
-}
-
-check_env
+#check_env() {
+#  if [ -z $ENVIRONMENT ]; then
+#    echo "Usage: $0 {dev|sit|uat|pp|prod}"
+#    exit 1;
+#  fi
+#
+#  CMD_ARRAY=(java node docker docker-compose)
+#  for i in ${CMD_ARRAY[@]} ; do
+#    type $i
+#    if [ "$?" -ne 0 ]; then
+#      echo "$i command not found."
+#      exit 1;
+#    fi
+#  done
+#}
+#
+#check_env
 
 SOURCE="$0"
 while [ -h "$SOURCE"  ]; do
