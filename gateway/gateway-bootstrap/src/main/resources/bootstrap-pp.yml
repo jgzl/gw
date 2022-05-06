@@ -2,10 +2,10 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: nacos-pp.152.70.108.210.nip.io:8848
+        server-addr: edf9e2530be2.c.methodot.com:80
         namespace: gw-pp
       config:
-        server-addr: nacos-pp.152.70.108.210.nip.io:8848
+        server-addr: edf9e2530be2.c.methodot.com:80
         namespace: gw-pp
         file-extension: yml
         shared-configs:
