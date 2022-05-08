@@ -14,19 +14,16 @@ GW是一套基于Spring Cloud Gateway开发的网关管理平台，毫无保留�
 * 提供了技术栈（[Vue3](https://v3.cn.vuejs.org) [Element Plus](https://element-plus.org/zh-CN) [Vite](https://cn.vitejs.dev)）
 * 特别鸣谢：[vue-admin-work-x](https://gitee.com/qingqingxuan/vue-admin-work-x)。
 
+## docker-compose方式快速打包
+export IMAGE_REPO_URL=registry.cn-shanghai.aliyuncs.com/gatewayx && export IMAGE_VERSION=dev && sh build-docker.sh prod
+## docker-compose方式快速启动
+export IMAGE_REPO_URL=registry.cn-shanghai.aliyuncs.com/gatewayx && export IMAGE_VERSION=dev && sh run-docker.sh
+
 ## 项目启动
 * 1.配置nacos信息，分为注册中心和配置中心
 * 2.配置redis信息
 * 3.配置mysql信息
 * 4.配置sentinel-dashboard信息
-
-## 配置host
-```shell
-127.0.0.1  nacos-dev.152.70.108.210.nip.io
-127.0.0.1  mysql.dev.cn
-127.0.0.1  redis.dev.cn
-127.0.0.1  sentinel-dashboard.dev.cn
-```
 
 ## 访问信息
 >账号 admin 
@@ -65,19 +62,15 @@ sh run-docker.sh
 ## 生产发布(内网)
 内网地址 
 
-http://192.168.192.201
+http://192.168.192.151
 
-http://192.168.192.202
+http://192.168.192.152
 
 外网地址
 
-http://dlhf.gitee.io/gw
+http://150.230.202.112
 
-http://152.70.108.210/
-
-http://140.83.39.222/
-
-http://155.248.183.128/
+http://150.230.219.246
 
 使用**Zerotier**进行内网发布,公网使用Oracle Cloud LB进行负载均衡发布
 
@@ -90,4 +83,4 @@ zerotier-cli join 83048a0632ecb930
 ## 接口文档(内网)
 使用smart-doc + torna来管理接口文档
 
-~~torna地址 http://192.168.192.201:7700,账号密码自行注册~~
+~~torna地址 http://192.168.192.3:7700,账号密码自行注册~~

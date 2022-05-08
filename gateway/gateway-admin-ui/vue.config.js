@@ -36,7 +36,7 @@ module.exports = {
     }
   },
   chainWebpack(config) {
-    if (process.env.NODE_ENV === 'production') {
+    // if (process.env.NODE_ENV !== 'dev') {
       config.plugin('compressionPlugin')
         .use(new CompressionPlugin({
           filename: '[path].gz[query]',
@@ -45,6 +45,6 @@ module.exports = {
           threshold: 50240,
           deleteOriginalAssets: false
         }))
-    }
+    // }
   }
 };

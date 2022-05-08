@@ -1,36 +1,26 @@
 version: '3'
 services:
-  gateway-bootstrap:
+  gateway-server:
     build:
-      context: ./gateway/gateway-bootstrap
-    restart: always
-    container_name: gateway-bootstrap
-    image: dlhf/gateway-bootstrap:${image_version}
+      context: ./gateway/gateway-server
+    image: $IMAGE_REPO_URL/gateway-server:${IMAGE_VERSION}
 
-  gateway-admin-bootstrap:
+  gateway-admin-server:
     build:
-      context: ./gateway/gateway-admin-bootstrap
-    restart: always
-    container_name: gateway-admin-bootstrap
-    image: dlhf/gateway-admin-bootstrap:${image_version}
+      context: ./gateway/gateway-admin-server
+    image: $IMAGE_REPO_URL/gateway-admin-server:${IMAGE_VERSION}
 
   gateway-admin-ui:
     build:
-      context: ./gateway/gateway-admin-ui/docker
-    restart: always
-    container_name: gateway-admin-ui
-    image: dlhf/gateway-admin-ui:${image_version}
+      context: ./gateway/gateway-admin-ui
+    image: $IMAGE_REPO_URL/gateway-admin-ui:${IMAGE_VERSION}
 
   monitor:
     build:
       context: ./optional/monitor
-    restart: always
-    container_name: monitor
-    image: dlhf/monitor:${image_version}
+    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
 
   sentinel-dashboard:
     build:
       context: ./optional/sentinel-dashboard
-    restart: always
-    container_name: sentinel-dashboard
-    image: dlhf/sentinel-dashboard:${image_version}
+    image: $IMAGE_REPO_URL/sentinel-dashboard:${IMAGE_VERSION}
