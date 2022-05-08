@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <version>${revision}</version>
 
-    <name>网关微服务平台::ROOT::依赖POM模块</name>
+    <name>网关微服务平台::根目录POM</name>
     <description>${project.name}</description>
 
     <modules>
@@ -34,7 +34,7 @@
         <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
         <smart-doc-maven-plugin.version>2.3.4</smart-doc-maven-plugin.version>
 
-        <lombok.version>1.18.20</lombok.version>
+        <lombok.version>1.18.24</lombok.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <!-- 在升级springboot版本时，需要同时更改dependencies-bom和根目录的版本 -->
         <spring-boot.version>2.6.7</spring-boot.version>

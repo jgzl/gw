@@ -11,8 +11,8 @@
 
     <artifactId>common-excel</artifactId>
     <modelVersion>4.0.0</modelVersion>
-    <description>网关微服务平台::通用服务::EXCEL模块</description>
-    <name>网关微服务平台::通用服务::EXCEL模块</name>
+    <description>网关微服务平台::通用模块::Excel模块</description>
+    <name>网关微服务平台::通用模块::Excel模块</name>
     <dependencies>
         <dependency>
             <groupId>cn.hutool</groupId>

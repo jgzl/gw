@@ -11,8 +11,8 @@
 
     <artifactId>common-gateway</artifactId>
     <modelVersion>4.0.0</modelVersion>
-    <description>网关微服务平台::通用服务::网关模块</description>
-    <name>网关微服务平台::通用服务::网关模块</name>
+    <description>网关微服务平台::通用模块::网关模块</description>
+    <name>网关微服务平台::通用模块::网关模块</name>
 
     <dependencies>
         <dependency>

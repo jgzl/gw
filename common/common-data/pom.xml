@@ -11,8 +11,8 @@
 
     <artifactId>common-data</artifactId>
     <modelVersion>4.0.0</modelVersion>
-    <description>网关微服务平台::通用服务::数据库ORM模块</description>
-    <name>网关微服务平台::通用服务::数据库ORM模块</name>
+    <description>网关微服务平台::通用模块::数据库Orm模块</description>
+    <name>网关微服务平台::通用模块::数据库Orm模块</name>
     <dependencies>
         <dependency>
             <groupId>com.github.jgzl.gw</groupId>

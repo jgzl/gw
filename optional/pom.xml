@@ -14,8 +14,8 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>optional</artifactId>
     <packaging>pom</packaging>
-    <name>网关微服务平台::可选择服务::依赖POM模块</name>
-    <description>网关微服务平台::可选择服务服务::依赖POM模块</description>
+    <name>网关微服务平台::选装服务POM</name>
+    <description>${project.name}</description>
 
     <dependencies>
         <dependency>

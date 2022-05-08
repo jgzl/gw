@@ -13,14 +13,14 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>spi</artifactId>
     <packaging>pom</packaging>
-    <name>网关微服务平台::SPI::SPI依赖POM模块</name>
-    <description>网关微服务平台::SPI::SPI依赖POM模块</description>
+    <name>网关微服务平台::SPI扩展模块POM</name>
+    <description>${project.name}</description>
 
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter</artifactId>-->
+        <!--        </dependency>-->
     </dependencies>
 
 </project>
