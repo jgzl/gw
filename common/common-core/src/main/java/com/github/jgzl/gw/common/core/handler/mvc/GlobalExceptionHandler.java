@@ -231,7 +231,6 @@ public class GlobalExceptionHandler {
      * 例如说，商品库存不足，用户手机号已存在。
      */
     @ExceptionHandler(value = ServiceException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public R<Void> serviceExceptionHandler(ServiceException ex) {
         log.info("[serviceExceptionHandler]", ex);
         return R.error(ex.getCode().intValue(), ex.getMessage());
