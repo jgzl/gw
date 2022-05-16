@@ -42,6 +42,7 @@ public class ElasticsearchGatewayLogService implements GatewayLogService {
         String apiKey = gatewayRequestLog.getApiKey();
         String apiSecret = gatewayRequestLog.getApiSecret();
         String system = gatewayRequestLog.getSystem();
+        String targetService = gatewayRequestLog.getTargetService();
         String requestSourceIp = gatewayRequestLog.getRequestSourceIp();
         String requestPath = gatewayRequestLog.getRequestPath();
         String requestPathAndQuery = gatewayRequestLog.getRequestPathAndQuery();
@@ -66,6 +67,9 @@ public class ElasticsearchGatewayLogService implements GatewayLogService {
         }
         if (StrUtil.isNotBlank(system)) {
             boolQueryBuilder.must(QueryBuilders.matchQuery("system", system));
+        }
+        if (StrUtil.isNotBlank(targetService)) {
+            boolQueryBuilder.must(QueryBuilders.matchQuery("targetService", targetService));
         }
         if (StrUtil.isNotBlank(requestSourceIp)) {
             boolQueryBuilder.must(QueryBuilders.matchQuery("requestSourceIp", requestSourceIp));

@@ -15,6 +15,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import static reactor.core.scheduler.Schedulers.single;
 
@@ -42,10 +43,10 @@ public class PartnerServerHttpResponseDecorator extends ServerHttpResponseDecora
     @SuppressWarnings("unchecked")
     @Override
     public Mono<Void> writeWith(Publisher<? extends DataBuffer> body) {
-        LocalDateTime updateTime = LocalDateTime.now();
-        long costTime = DateUtil.between(DateUtil.date(gatewayLog.getCreateTime()), DateUtil.date(updateTime), DateUnit.MS);
+        LocalDateTime updateTime = LocalDateTime.now(ZoneId.of("GMT"));
+        long costTime = DateUtil.between(DateUtil.date(gatewayLog.getRequestTime()), DateUtil.date(updateTime), DateUnit.MS);
         gatewayLog.setExecuteTime(costTime);
-        gatewayLog.setUpdateTime(updateTime);
+        gatewayLog.setResponseTime(updateTime);
         gatewayLog.setHttpStatus(response.getStatusCode() != null ? response.getStatusCode().value() + "" : null);
         final MediaType contentType = super.getHeaders().getContentType();
         if (LogUtils.legalLogMediaTypes.contains(contentType)) {

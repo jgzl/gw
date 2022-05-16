@@ -16,13 +16,13 @@ public class GatewayPathProperties {
     /**
      * 网关白名单(访问，限流，降级)
      */
-    private List<String> whitePaths = Lists.newArrayList();
+    private List<String> whitePath = Lists.newArrayList();
     /**
      * 网关黑名单(访问，限流，降级)
      */
-    private List<String> blackPaths = Lists.newArrayList();
+    private List<String> blackPath = Lists.newArrayList("/gateway-admin/**");
     /**
      * 网关日志过滤名单(不记录日志路径名单),日志接口不允许通过网关进行调用,套娃调用会产生黑洞影响
      */
-    private List<String> withOutTracePaths = Lists.newArrayList("/actuator/**", "/gateway-admin/**");
+    private List<String> notRecordPath = Lists.newArrayList();
 }

@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 /**
  * 网关日志
@@ -42,6 +43,11 @@ public class GatewayLog {
      * 请求来源环境
      */
     private String environment;
+
+    /**
+     * 目标服务
+     */
+    private String targetService;
 
     /**
      * 请求路径
@@ -100,12 +106,18 @@ public class GatewayLog {
     /**
      * 创建时间
      */
-    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "uuuu-MM-dd HH:mm:ss")
-    private LocalDateTime createTime;
+    @Field(type = FieldType.Date, format = DateFormat.date_hour_minute_second, name = "@requestTime")
+    private LocalDateTime requestTime;
 
     /**
      * 更新时间
      */
-    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "uuuu-MM-dd HH:mm:ss")
-    private LocalDateTime updateTime;
+    @Field(type = FieldType.Date, format = DateFormat.date_hour_minute_second, name = "@responseTime")
+    private LocalDateTime responseTime;
+
+    /**
+     * 时间戳
+     */
+    @Field(type = FieldType.Date, format = DateFormat.date_hour_minute_second, name = "@timestamp")
+    private LocalDateTime timestamp = LocalDateTime.now(ZoneId.of("GMT"));
 }

@@ -34,7 +34,7 @@ public class BlackPathFilter implements WebFilter {
         URI uri = request.getURI();
         String path = uri.getPath();
         GatewayPathProperties propertiesPath = properties.getPath();
-        List<String> blackPaths = propertiesPath.getBlackPaths();
+        List<String> blackPaths = propertiesPath.getBlackPath();
         blackPaths.forEach(p -> log.info("白名单地址为:{}", p));
         return chain.filter(exchange);
     }

@@ -34,7 +34,7 @@ public class WhitePathFilter implements WebFilter {
         URI uri = request.getURI();
         String path = uri.getPath();
         GatewayPathProperties propertiesPath = properties.getPath();
-        List<String> whitePaths = propertiesPath.getWhitePaths();
+        List<String> whitePaths = propertiesPath.getWhitePath();
         whitePaths.forEach(p -> log.info("白名单地址为:{}", p));
         return chain.filter(exchange);
     }
