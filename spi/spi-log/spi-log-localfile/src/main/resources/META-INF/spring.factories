@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  cn.cleanarch.gw.gateway.spi.log.LogAutoConfiguration

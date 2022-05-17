@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.jgzl.gw.gateway.admin.system.mapper.SysDeptRelationMapper">
+<mapper namespace="cn.cleanarch.gw.gateway.admin.system.mapper.SysDeptRelationMapper">
 
-	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.github.jgzl.gw.common.model.system.domain.SysDeptRelation">
-		<id column="ancestor" property="ancestor"/>
-		<result column="descendant" property="descendant"/>
-	</resultMap>
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.cleanarch.gw.common.model.system.domain.SysDeptRelation">
+        <id column="ancestor" property="ancestor"/>
+        <result column="descendant" property="descendant"/>
+    </resultMap>
 
-	<!-- 通用查询结果列 -->
-	<sql id="Base_Column_List">
-        ancestor, descendant
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ancestor
+        , descendant
     </sql>
 
 	<!-- 更新部门关系 -->

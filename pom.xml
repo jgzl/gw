@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.jgzl.gw</groupId>
+    <groupId>cn.cleanarch.gw</groupId>
     <artifactId>gw-all</artifactId>
     <packaging>pom</packaging>
     <version>${revision}</version>
@@ -67,7 +67,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.github.jgzl.gw</groupId>
+                <groupId>cn.cleanarch.gw</groupId>
                 <artifactId>dependencies-bom</artifactId>
                 <version>${revision}</version>
                 <type>pom</type>
@@ -248,13 +248,13 @@
                         <projectName>${project.name}</projectName><!--smart-doc实现自动分析依赖树加载第三方依赖的源码，如果一些框架依赖库加载不到导致报错，这时请使用excludes排除掉-->
                         <includes>
                             <!--格式为：groupId:artifactId;参考如下-->
-                            <include>com.github.jgzl.gw:common-core</include>
-                            <include>com.github.jgzl.gw:common-data</include>
-                            <include>com.github.jgzl.gw:common-excel</include>
-                            <include>com.github.jgzl.gw:common-feign</include>
-                            <include>com.github.jgzl.gw:common-gateway</include>
-                            <include>com.github.jgzl.gw:common-model</include>
-                            <include>com.github.jgzl.gw:common-security</include>
+                            <include>cn.cleanarch.gw:common-core</include>
+                            <include>cn.cleanarch.gw:common-data</include>
+                            <include>cn.cleanarch.gw:common-excel</include>
+                            <include>cn.cleanarch.gw:common-feign</include>
+                            <include>cn.cleanarch.gw:common-gateway</include>
+                            <include>cn.cleanarch.gw:common-model</include>
+                            <include>cn.cleanarch.gw:common-security</include>
                         </includes>
                     </configuration>
                     <executions>
