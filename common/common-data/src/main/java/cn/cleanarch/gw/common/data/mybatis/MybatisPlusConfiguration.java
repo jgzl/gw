@@ -1,24 +1,22 @@
 package cn.cleanarch.gw.common.data.mybatis;
 
+import cn.cleanarch.gw.common.core.constant.CommonConstants;
 import cn.cleanarch.gw.common.data.handler.DefaultDBFieldHandler;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.apache.ibatis.annotations.Mapper;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.sql.DataSource;
 
 /**
  * @author li7hai26@gmail.com
  * @date 2020-02-08
  */
 @Configuration
-@ConditionalOnBean(DataSource.class)
-@AutoConfigureAfter(DataSourceAutoConfiguration.class)
+@MapperScan(value = "${" + CommonConstants.CONFIGURATION_PREFIX + ".mybatis.base-package}", annotationClass = Mapper.class,
+        lazyInitialization = "${" + CommonConstants.CONFIGURATION_PREFIX + ".mybatis.lazy-initialization:false}")
 public class MybatisPlusConfiguration {
 
     /**

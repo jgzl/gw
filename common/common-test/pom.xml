@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>cn.cleanarch.gw</groupId>
+        <artifactId>common</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>common-test</artifactId>
+    <modelVersion>4.0.0</modelVersion>
+    <name>网关微服务平台::通用模块::测试模块</name>
+    <description>${project.name}</description>
+    <dependencies>
+        <dependency>
+            <groupId>cn.cleanarch.gw</groupId>
+            <artifactId>common-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.cleanarch.gw</groupId>
+            <artifactId>common-data</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter-test</artifactId>
+        </dependency>
+        <!-- Test 测试相关 -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-inline</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter-test</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId> <!-- 单元测试，我们采用 H2 作为数据库 -->
+            <artifactId>h2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>uk.co.jemos.podam</groupId> <!-- 单元测试，随机生成 POJO 类 -->
+            <artifactId>podam</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.microwww</groupId>
+            <artifactId>redis-server</artifactId>
+        </dependency>
+    </dependencies>
+</project>

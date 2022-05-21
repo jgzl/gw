@@ -57,6 +57,8 @@
         <skywalking.version>8.8.0</skywalking.version>
         <lock4j.version>2.2.0</lock4j.version>
         <resilience4j.version>1.7.0</resilience4j.version>
+        <jedis-mock.version>0.1.16</jedis-mock.version>
+        <redis-server.version>0.3.0</redis-server.version>
 
         <!-- bom依赖配置管理 -->
         <!-- 在升级springboot版本时，需要同时更改dependencies-bom和根目录的版本 -->
@@ -133,6 +135,11 @@
             </dependency>
             <dependency>
                 <groupId>cn.cleanarch.gw</groupId>
+                <artifactId>common-model</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.cleanarch.gw</groupId>
                 <artifactId>common-redis</artifactId>
                 <version>${revision}</version>
             </dependency>
@@ -143,7 +150,7 @@
             </dependency>
             <dependency>
                 <groupId>cn.cleanarch.gw</groupId>
-                <artifactId>common-model</artifactId>
+                <artifactId>common-test</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
@@ -213,6 +220,11 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatisplus.starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter-test</artifactId>
                 <version>${mybatisplus.starter.version}</version>
             </dependency>
             <dependency>
@@ -373,6 +385,17 @@
                 <groupId>uk.co.jemos.podam</groupId>
                 <artifactId>podam</artifactId>
                 <version>${podam.version}</version>
+            </dependency>
+            <!-- 单元测试，我们采用内嵌的 Redis 数据库 -->
+            <dependency>
+                <groupId>com.github.fppt</groupId>
+                <artifactId>jedis-mock</artifactId>
+                <version>${jedis-mock.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.microwww</groupId>
+                <artifactId>redis-server</artifactId>
+                <version>${redis-server.version}</version>
             </dependency>
             <!-- 监控相关 -->
             <dependency>

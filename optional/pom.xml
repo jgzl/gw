@@ -10,6 +10,7 @@
     <modules>
         <module>monitor</module>
         <module>sentinel-dashboard</module>
+        <module>tool</module>
     </modules>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>optional</artifactId>

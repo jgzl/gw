@@ -73,6 +73,7 @@ public class GatewayAccessConfServiceImpl extends ServiceImpl<GatewayAccessConfM
         }
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public Boolean updateStatus(GatewayAccessConfVo vo) {
         vo.setUpdateTime(LocalDateTime.now());

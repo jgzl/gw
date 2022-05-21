@@ -16,6 +16,7 @@
         <module>common-model</module>
         <module>common-redis</module>
         <module>common-security</module>
+        <module>common-test</module>
     </modules>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>common</artifactId>

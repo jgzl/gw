@@ -1,5 +1,6 @@
-package cn.cleanarch.gw.common.core.utils;
+package cn.cleanarch.gw.common.test.core.util;
 
+import cn.cleanarch.gw.common.core.utils.collection.SetUtils;
 import cn.hutool.core.util.ArrayUtil;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
@@ -16,12 +17,14 @@ import java.util.stream.Stream;
 /**
  * 随机工具类
  *
- * @author li7hai26@gmail.com
- * @date 2021/12/27
+ * @author 芋道源码
  */
-public class RandomUtil {
+public class RandomUtil extends cn.hutool.core.util.RandomUtil {
 
     private static final int RANDOM_STRING_LENGTH = 10;
+
+    private static final Set<String> TINYINT_FIELDS = SetUtils.asSet("type", "category");
+    private static final int TINYINT_MAX = 127;
 
     private static final int RANDOM_DATE_MAX = 30;
 
@@ -64,7 +67,7 @@ public class RandomUtil {
     }
 
     public static <T> Set<T> randomSet(Class<T> clazz) {
-        return Stream.iterate(0, i -> i).limit(cn.hutool.core.util.RandomUtil.randomInt(0, RANDOM_DATE_MAX))
+        return Stream.iterate(0, i -> i).limit(cn.hutool.core.util.RandomUtil.randomInt(1, RANDOM_COLLECTION_LENGTH))
                 .map(i -> randomPojo(clazz)).collect(Collectors.toSet());
     }
 

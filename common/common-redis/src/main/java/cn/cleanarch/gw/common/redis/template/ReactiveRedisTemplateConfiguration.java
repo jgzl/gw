@@ -1,8 +1,5 @@
 package cn.cleanarch.gw.common.redis.template;
 
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
@@ -16,11 +13,7 @@ import org.springframework.data.redis.serializer.RedisSerializer;
  * @author lihaifeng
  * @date 2021/12/24
  */
-@Slf4j
 @Configuration
-@AllArgsConstructor
-@AutoConfigureBefore(name = {"org.redisson.spring.starter.RedissonAutoConfiguration",
-        "org.springframework.boot.autoconfigure.data.redis.RedisReactiveAutoConfiguration"})
 public class ReactiveRedisTemplateConfiguration {
 
     @Bean

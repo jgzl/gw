@@ -11,8 +11,8 @@
 
     <artifactId>common-core</artifactId>
     <modelVersion>4.0.0</modelVersion>
-    <description>网关微服务平台::通用模块::核心模块</description>
     <name>网关微服务平台::通用模块::核心模块</name>
+    <description>${project.name}</description>
     <dependencies>
         <dependency>
             <groupId>cn.hutool</groupId>

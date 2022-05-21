@@ -10,7 +10,7 @@
     <artifactId>monitor</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>网关微服务平台::选装服务::Admin监控台服务</name>
-    <description>网关微服务平台::选装服务::Admin监控台服务</description>
+    <description>${project.name}</description>
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>2021.0.0</spring-cloud.version>
