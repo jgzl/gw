@@ -24,10 +24,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 扩展redis-cache支持注解cacheName添加超时时间
- *
- * @author L.cm
  * @author li7hai26@gmail.com
+ * @title: RedisCacheAutoConfiguration
+ * @description: 扩展redis-cache支持注解cacheName添加超时时间
  * @date 2021/12/24
  */
 @EnableCaching
@@ -76,7 +75,7 @@ public class RedisCacheAutoConfiguration {
             CacheProperties.Redis redisProperties = this.cacheProperties.getRedis();
             RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
             config = config.serializeValuesWith(RedisSerializationContext.SerializationPair
-                    .fromSerializer(RedisObjectMapper.getJackson2JsonRedisSerializer()));
+                    .fromSerializer(RedisObjectMapper.getRedisSerializer()));
             if (redisProperties.getTimeToLive() != null) {
                 config = config.entryTtl(redisProperties.getTimeToLive());
             }

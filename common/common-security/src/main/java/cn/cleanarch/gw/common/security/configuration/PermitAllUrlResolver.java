@@ -1,4 +1,4 @@
-package cn.cleanarch.gw.gateway.admin.security.configuration;
+package cn.cleanarch.gw.common.security.configuration;
 
 import cn.hutool.core.util.StrUtil;
 import lombok.Getter;

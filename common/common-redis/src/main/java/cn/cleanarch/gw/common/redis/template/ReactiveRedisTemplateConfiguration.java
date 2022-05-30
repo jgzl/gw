@@ -20,8 +20,8 @@ public class ReactiveRedisTemplateConfiguration {
     public ReactiveRedisTemplate<String, Object> reactiveRedisTemplate(ReactiveRedisConnectionFactory reactiveRedisConnectionFactory) {
         RedisSerializationContext<String, Object> serializationContext = RedisSerializationContext
                 .<String, Object>newSerializationContext()
-                .key(RedisSerializer.string()).value(RedisObjectMapper.getJackson2JsonRedisSerializer())
-                .hashKey(RedisSerializer.string()).hashValue(RedisObjectMapper.getJackson2JsonRedisSerializer())
+                .key(RedisSerializer.string()).value(RedisObjectMapper.getRedisSerializer())
+                .hashKey(RedisSerializer.string()).hashValue(RedisObjectMapper.getRedisSerializer())
                 .build();
         return new ReactiveRedisTemplate<>(reactiveRedisConnectionFactory, serializationContext);
     }

@@ -1,4 +1,4 @@
-package cn.cleanarch.gw.gateway.admin.system.service;
+package cn.cleanarch.gw.common.security.service;
 
 import cn.cleanarch.gw.common.core.model.R;
 import cn.cleanarch.gw.common.model.system.domain.SysUser;

@@ -1,8 +1,9 @@
-package cn.cleanarch.gw.gateway.admin.security.utils;
+package cn.cleanarch.gw.common.security.utils;
 
 import cn.cleanarch.gw.common.core.constant.SecurityConstants;
-import cn.cleanarch.gw.gateway.admin.security.vo.ExtendUser;
+import cn.cleanarch.gw.common.security.vo.LoginUser;
 import cn.hutool.core.util.StrUtil;
+import com.google.common.collect.Lists;
 import lombok.experimental.UtilityClass;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,17 +14,14 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * @author li7hai26@gmail.com
- * @date 2021/12/24
- */
-
-/**
- * 安全工具类
- *
- * @author L.cm
+ * @author lihaifeng
+ * @version 1.0
+ * @title: AppContextHolder
+ * @description: 应用上下文
+ * @date: 2022/5/30 20:55
  */
 @UtilityClass
-public class SecurityUtils {
+public class AppContextHolder {
 
     /**
      * 获取Authentication
@@ -39,10 +37,13 @@ public class SecurityUtils {
      * @return ExtendUser
      * <p>
      */
-    public ExtendUser getUser(Authentication authentication) {
+    public LoginUser getUser(Authentication authentication) {
+        if (authentication == null) {
+            return null;
+        }
         Object principal = authentication.getPrincipal();
-        if (principal instanceof ExtendUser) {
-            return (ExtendUser) principal;
+        if (principal instanceof LoginUser) {
+            return (LoginUser) principal;
         }
         return null;
     }
@@ -50,7 +51,7 @@ public class SecurityUtils {
     /**
      * 获取用户
      */
-    public ExtendUser getUser() {
+    public LoginUser getUser() {
         Authentication authentication = getAuthentication();
         return getUser(authentication);
     }
@@ -62,6 +63,9 @@ public class SecurityUtils {
      */
     public List<String> getRoles() {
         Authentication authentication = getAuthentication();
+        if (authentication == null) {
+            return Lists.newArrayList();
+        }
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
         List<String> roleList = new ArrayList<>();

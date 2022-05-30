@@ -5,8 +5,8 @@ import cn.cleanarch.gw.common.model.system.domain.SysUser;
 import cn.cleanarch.gw.common.model.system.vo.SysUserDto;
 import cn.cleanarch.gw.common.model.system.vo.SysUserVo;
 import cn.cleanarch.gw.common.model.system.vo.UserInfo;
-import cn.cleanarch.gw.gateway.admin.security.utils.SecurityUtils;
-import cn.cleanarch.gw.gateway.admin.system.service.SysUserService;
+import cn.cleanarch.gw.common.security.service.SysUserService;
+import cn.cleanarch.gw.common.security.utils.AppContextHolder;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -49,7 +49,7 @@ public class SysUserController {
      */
     @GetMapping(value = {"/info"})
     public R<UserInfo> info() {
-        return R.success(userService.findUserInfo(SecurityUtils.getUser().getUsername()));
+        return R.success(userService.findUserInfo(AppContextHolder.getUser().getUsername()));
     }
 
     /**

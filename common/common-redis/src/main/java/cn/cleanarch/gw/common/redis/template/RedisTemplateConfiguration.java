@@ -18,11 +18,11 @@ public class RedisTemplateConfiguration {
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
-        // 使用 String 序列化方式，序列化 KEY 。
+        // 使用 String 序列化方式，序列化 KEY
         template.setKeySerializer(RedisSerializer.string());
         template.setHashKeySerializer(RedisSerializer.string());
-        template.setValueSerializer(RedisObjectMapper.getJackson2JsonRedisSerializer());
-        template.setHashValueSerializer(RedisObjectMapper.getJackson2JsonRedisSerializer());
+        template.setValueSerializer(RedisObjectMapper.getRedisSerializer());
+        template.setHashValueSerializer(RedisObjectMapper.getRedisSerializer());
         template.setConnectionFactory(redisConnectionFactory);
         template.afterPropertiesSet();
         return template;

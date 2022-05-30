@@ -3,7 +3,7 @@ package cn.cleanarch.gw.common.test.core.ut;
 import cn.cleanarch.gw.common.data.mybatis.MybatisPlusConfiguration;
 import cn.cleanarch.gw.common.redis.template.ReactiveRedisTemplateConfiguration;
 import cn.cleanarch.gw.common.redis.template.RedisTemplateConfiguration;
-import cn.cleanarch.gw.common.test.config.RedisServerListener;
+import cn.cleanarch.gw.common.test.config.MockRedisServerConfiguration;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -18,7 +18,7 @@ import org.springframework.test.context.jdbc.Sql;
  * <p>
  * 相比 {@link BaseDbUnitTest} 来说，额外增加了内存 Redis
  *
- * @author 芋道源码
+ * @author 整洁架构
  */
 @SpringBootTest(classes = BaseDbAndRedisUnitTest.Application.class)
 @ActiveProfiles("unit-test") // 设置使用 application-unit-test 配置文件
@@ -36,7 +36,7 @@ public class BaseDbAndRedisUnitTest {
             MybatisPlusAutoConfiguration.class, // MyBatis 的自动配置类
 
             // Redis 配置类
-            RedisServerListener.class, // Redis 测试配置类，用于启动 RedisServer
+            MockRedisServerConfiguration.class, // Redis 测试配置类，用于启动 RedisServer
             RedisAutoConfiguration.class, // Spring Redis 自动配置类
             RedisTemplateConfiguration.class, // 自己的 Redis 配置类
             ReactiveRedisTemplateConfiguration.class, // 自己的 Redis 配置类

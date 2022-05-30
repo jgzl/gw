@@ -2,7 +2,7 @@ package cn.cleanarch.gw.gateway.admin.system.controller;
 
 import cn.cleanarch.gw.common.core.model.R;
 import cn.cleanarch.gw.common.model.system.domain.SysMenu;
-import cn.cleanarch.gw.gateway.admin.security.utils.SecurityUtils;
+import cn.cleanarch.gw.common.security.utils.AppContextHolder;
 import cn.cleanarch.gw.gateway.admin.system.service.SysMenuService;
 import cn.cleanarch.gw.gateway.admin.system.service.SysRoleService;
 import cn.hutool.core.lang.tree.Tree;
@@ -41,7 +41,7 @@ public class SysMenuController {
     public R<List<Tree<Long>>> getTreeWithUser(String type, Long parentId) {
         Set<SysMenu> all = new HashSet<>();
         // 获取符合条件的菜单
-        SecurityUtils.getRoles().stream()
+        AppContextHolder.getRoles().stream()
                 .map(sysRoleService::findRoleByRoleCode)
                 .forEach(sysRole -> all.addAll(sysMenuService.findMenuByRoleId(sysRole.getRoleId())));
         return R.success(sysMenuService.filterMenu(all, type, parentId));

@@ -1,5 +1,9 @@
 server:
   port: 9200
+logging:
+  file:
+    prefix: /app/logs
+    path: ${logging.file.prefix}/${spring.application.name}
 spring:
   profiles:
     active: @profiles.active@
@@ -7,3 +11,5 @@ spring:
     name: @artifactId@
   main:
     allow-bean-definition-overriding: true
+cxf:
+  path: /service

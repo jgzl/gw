@@ -1,7 +1,7 @@
 package cn.cleanarch.gw.gateway.admin.system.service.impl;
 
 import cn.cleanarch.gw.common.model.system.domain.SysMenu;
-import cn.cleanarch.gw.gateway.admin.security.utils.SecurityUtils;
+import cn.cleanarch.gw.common.security.utils.AppContextHolder;
 import cn.cleanarch.gw.gateway.admin.system.service.PermissionService;
 import cn.cleanarch.gw.gateway.admin.system.service.SysMenuService;
 import cn.hutool.core.collection.CollUtil;
@@ -33,7 +33,7 @@ public class PermissionServiceImpl implements PermissionService {
         }
 
         // 获得当前登录的角色。如果为空，说明没有权限
-        List<String> currentUserRoles = SecurityUtils.getRoles();
+        List<String> currentUserRoles = AppContextHolder.getRoles();
         if (CollUtil.isEmpty(currentUserRoles)) {
             return false;
         }
@@ -62,6 +62,6 @@ public class PermissionServiceImpl implements PermissionService {
         if (ArrayUtil.isEmpty(roles)) {
             return true;
         }
-        return CollUtil.containsAny(SecurityUtils.getRoles(), Sets.newHashSet(roles));
+        return CollUtil.containsAny(AppContextHolder.getRoles(), Sets.newHashSet(roles));
     }
 }

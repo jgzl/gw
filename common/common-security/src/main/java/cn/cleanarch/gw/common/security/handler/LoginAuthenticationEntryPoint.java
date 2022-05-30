@@ -1,4 +1,4 @@
-package cn.cleanarch.gw.gateway.admin.security.handler;
+package cn.cleanarch.gw.common.security.handler;
 
 import cn.cleanarch.gw.common.core.model.R;
 import cn.cleanarch.gw.common.core.utils.WebmvcUtil;

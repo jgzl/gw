@@ -1,4 +1,4 @@
-package cn.cleanarch.gw.gateway.admin.security.handler;
+package cn.cleanarch.gw.common.security.handler;
 
 import cn.cleanarch.gw.common.core.model.R;
 import cn.cleanarch.gw.common.core.utils.JacksonUtil;
@@ -17,7 +17,7 @@ import java.io.IOException;
  * @author li7hai26@gmail.com
  * @date 2021/12/24
  */
-public class ExtendLogoutSuccessHandler implements LogoutSuccessHandler {
+public class LoginLogoutSuccessHandler implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         response.setCharacterEncoding(CharsetUtil.UTF_8);

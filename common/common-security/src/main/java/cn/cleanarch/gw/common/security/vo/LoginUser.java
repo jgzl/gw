@@ -1,4 +1,4 @@
-package cn.cleanarch.gw.gateway.admin.security.vo;
+package cn.cleanarch.gw.common.security.vo;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
 
-public class ExtendUser extends User {
+public class LoginUser extends User {
 
     private static final long serialVersionUID = 1L;
 
@@ -63,14 +63,14 @@ public class ExtendUser extends User {
      *                                  a parameter or as an element in the <code>GrantedAuthority</code> collection
      */
     @JsonCreator
-    public ExtendUser(@JsonProperty("userId") Long userId, @JsonProperty("deptId") Long deptId,
-                      @JsonProperty("mobile") String mobile, @JsonProperty("avatar") String avatar,
-                      @JsonProperty("userName") String userName, @JsonProperty("nickName") String nickName,
-                      @JsonProperty("password") String password, @JsonProperty("enabled") boolean enabled,
-                      @JsonProperty("accountNonExpired") boolean accountNonExpired,
-                      @JsonProperty("credentialsNonExpired") boolean credentialsNonExpired,
-                      @JsonProperty("accountNonLocked") boolean accountNonLocked,
-                      @JsonProperty("authorities") Collection<? extends GrantedAuthority> authorities) {
+    public LoginUser(@JsonProperty("userId") Long userId, @JsonProperty("deptId") Long deptId,
+                     @JsonProperty("mobile") String mobile, @JsonProperty("avatar") String avatar,
+                     @JsonProperty("userName") String userName, @JsonProperty("nickName") String nickName,
+                     @JsonProperty("password") String password, @JsonProperty("enabled") boolean enabled,
+                     @JsonProperty("accountNonExpired") boolean accountNonExpired,
+                     @JsonProperty("credentialsNonExpired") boolean credentialsNonExpired,
+                     @JsonProperty("accountNonLocked") boolean accountNonLocked,
+                     @JsonProperty("authorities") Collection<? extends GrantedAuthority> authorities) {
         super(userName, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
         this.userId = userId;
         this.deptId = deptId;

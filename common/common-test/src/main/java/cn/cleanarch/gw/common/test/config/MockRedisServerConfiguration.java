@@ -13,15 +13,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Configuration
 @Lazy(value = false) // 禁止延迟加载
-public class RedisServerListener {
+public class MockRedisServerConfiguration {
 
-    private static final Logger logger = LoggerFactory.getLogger(RedisServerListener.class);
+    private static final Logger logger = LoggerFactory.getLogger(MockRedisServerConfiguration.class);
     private static RedisServer server; // 运行多个单元测试的时候, 会启动多个 ApplicationContext, 导致多次端口绑定, 所以此处缓存
     private static final AtomicInteger count = new AtomicInteger(0);
 
     @Bean(destroyMethod = "close")
     public RedisServer mockRedisServer(RedisProperties redisProperties) throws IOException {
-        if (server == null) synchronized (RedisServerListener.class) {
+        if (server == null) synchronized (MockRedisServerConfiguration.class) {
             if (server == null) {
                 RedisServer server = new RedisServer() {
                     @Override
@@ -33,7 +33,7 @@ public class RedisServerListener {
                     }
                 };
                 server.listener(redisProperties.getHost(), redisProperties.getPort());
-                RedisServerListener.server = server;
+                MockRedisServerConfiguration.server = server;
             }
         }
         count.incrementAndGet();

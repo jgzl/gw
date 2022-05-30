@@ -21,7 +21,7 @@
         <disruptor.version>3.4.4</disruptor.version>
         <lombok.version>1.18.22</lombok.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
-        <cxf.rs.version>3.5.1</cxf.rs.version>
+        <cxf.rs.version>3.5.2</cxf.rs.version>
         <cxf.jackson.version>2.13.2</cxf.jackson.version>
         <druid.version>1.2.9</druid.version>
         <camunda.starter.version>7.16.0</camunda.starter.version>

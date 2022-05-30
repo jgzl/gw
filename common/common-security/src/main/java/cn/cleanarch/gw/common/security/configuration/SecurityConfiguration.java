@@ -1,10 +1,9 @@
-package cn.cleanarch.gw.gateway.admin.security.configuration;
+package cn.cleanarch.gw.common.security.configuration;
 
 import cn.cleanarch.gw.common.core.constant.SecurityConstants;
-import cn.cleanarch.gw.gateway.admin.security.filter.TokenAuthenticationFilter;
-import cn.cleanarch.gw.gateway.admin.security.filter.TokenLoginFilter;
-import cn.cleanarch.gw.gateway.admin.security.handler.*;
-import com.anji.captcha.service.CaptchaService;
+import cn.cleanarch.gw.common.security.filter.TokenAuthenticationFilter;
+import cn.cleanarch.gw.common.security.filter.TokenLoginFilter;
+import cn.cleanarch.gw.common.security.handler.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -41,7 +40,6 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
-    private final CaptchaService captchaService;
     private final PermitAllUrlResolver permitAllUrlResolver;
 
     private final RequestMappingHandlerMapping requestMappingHandlerMapping;
@@ -79,7 +77,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public LogoutSuccessHandler logoutSuccessHandler() {
-        return new ExtendLogoutSuccessHandler();
+        return new LoginLogoutSuccessHandler();
     }
 
     /**
@@ -117,7 +115,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(loginAccessDeniedHandler());
 
         // 开启登录认证流程过滤器
-        TokenLoginFilter tokenLoginFilter = new TokenLoginFilter(authenticationManager(), captchaService);
+        TokenLoginFilter tokenLoginFilter = new TokenLoginFilter(authenticationManager());
         TokenAuthenticationFilter tokenAuthenticationFilter = new TokenAuthenticationFilter(authenticationManager(), permitAllUrlResolver);
         tokenLoginFilter.setAuthenticationSuccessHandler(loginAuthenticationSuccessHandler());
         tokenLoginFilter.setAuthenticationFailureHandler(loginAuthenticationFailureHandler());

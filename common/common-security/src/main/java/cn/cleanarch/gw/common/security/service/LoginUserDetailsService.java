@@ -1,11 +1,10 @@
-package cn.cleanarch.gw.gateway.admin.security.service;
+package cn.cleanarch.gw.common.security.service;
 
 import cn.cleanarch.gw.common.core.constant.CommonConstants;
 import cn.cleanarch.gw.common.core.constant.SecurityConstants;
 import cn.cleanarch.gw.common.model.system.vo.SysUserVo;
 import cn.cleanarch.gw.common.model.system.vo.UserInfo;
-import cn.cleanarch.gw.gateway.admin.security.vo.ExtendUser;
-import cn.cleanarch.gw.gateway.admin.system.service.SysUserService;
+import cn.cleanarch.gw.common.security.vo.LoginUser;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,7 @@ import java.util.Set;
  */
 @RequiredArgsConstructor
 @Service
-public class ExtendUserDetailsService implements UserDetailsService {
+public class LoginUserDetailsService implements UserDetailsService {
 
     private final SysUserService userService;
 
@@ -53,7 +52,7 @@ public class ExtendUserDetailsService implements UserDetailsService {
         SysUserVo user = info.getSysUser();
         boolean enabled = StrUtil.equals(user.getLockFlag(), CommonConstants.STATUS_NORMAL);
         // 构造security用户
-        return new ExtendUser(user.getUserId(), user.getDeptId(), user.getMobile(), user.getAvatar(),
+        return new LoginUser(user.getUserId(), user.getDeptId(), user.getMobile(), user.getAvatar(),
                 user.getUserName(), user.getNickName(), SecurityConstants.BCRYPT + user.getPassword(), enabled, true, true,
                 !CommonConstants.STATUS_LOCK.equals(user.getLockFlag()), authorities);
     }

@@ -1,4 +1,4 @@
-package cn.cleanarch.gw.gateway.admin.security.filter;
+package cn.cleanarch.gw.common.security.filter;
 
 import cn.cleanarch.gw.common.core.constant.SecurityConstants;
 import cn.cleanarch.gw.common.core.constant.TokenConstants;
@@ -6,8 +6,8 @@ import cn.cleanarch.gw.common.core.exception.enums.ErrorCodeConstants;
 import cn.cleanarch.gw.common.core.model.R;
 import cn.cleanarch.gw.common.core.utils.JwtTokenUtil;
 import cn.cleanarch.gw.common.core.utils.WebmvcUtil;
-import cn.cleanarch.gw.gateway.admin.security.configuration.PermitAllUrlResolver;
-import cn.cleanarch.gw.gateway.admin.security.service.ExtendUserDetailsService;
+import cn.cleanarch.gw.common.security.configuration.PermitAllUrlResolver;
+import cn.cleanarch.gw.common.security.service.LoginUserDetailsService;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.spring.SpringUtil;
@@ -86,7 +86,7 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
                 // 从Token中解密获取用户名
                 JWTPayload jwtPayload = JwtTokenUtil.getPayLoad(token);
                 String userName = Convert.toStr(jwtPayload.getClaim(SecurityConstants.DETAILS_USERNAME), SecurityConstants.DEFAULT_USER);
-                ExtendUserDetailsService service = SpringUtil.getBean(ExtendUserDetailsService.class);
+                LoginUserDetailsService service = SpringUtil.getBean(LoginUserDetailsService.class);
                 if (StrUtil.isNotBlank(userName)) {
                     UserDetails userDetails = service.loadUserByUsername(userName);
                     if (userDetails != null) {

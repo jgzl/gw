@@ -1,4 +1,4 @@
-package cn.cleanarch.gw.gateway.admin.security.filter;
+package cn.cleanarch.gw.common.security.filter;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;

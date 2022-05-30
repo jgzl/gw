@@ -1,11 +1,11 @@
-package cn.cleanarch.gw.gateway.admin.security.handler;
+package cn.cleanarch.gw.common.security.handler;
 
 import cn.cleanarch.gw.common.core.constant.SecurityConstants;
 import cn.cleanarch.gw.common.core.model.R;
 import cn.cleanarch.gw.common.core.utils.JwtTokenUtil;
 import cn.cleanarch.gw.common.core.utils.WebmvcUtil;
 import cn.cleanarch.gw.common.model.system.vo.LoginUserVo;
-import cn.cleanarch.gw.gateway.admin.security.vo.ExtendUser;
+import cn.cleanarch.gw.common.security.vo.LoginUser;
 import cn.hutool.core.collection.CollUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -26,7 +26,7 @@ import java.util.Map;
 public class LoginAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        ExtendUser user = (ExtendUser) authentication.getPrincipal();
+        LoginUser user = (LoginUser) authentication.getPrincipal();
         Map<String, Object> kvMap = Maps.newHashMap();
         kvMap.put(SecurityConstants.DETAILS_USER_ID, user.getUserId());
         kvMap.put(SecurityConstants.DETAILS_USERNAME, user.getUsername());

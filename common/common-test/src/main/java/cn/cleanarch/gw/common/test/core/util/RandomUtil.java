@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 /**
  * 随机工具类
  *
- * @author 芋道源码
+ * @author 整洁架构
  */
 public class RandomUtil extends cn.hutool.core.util.RandomUtil {
 

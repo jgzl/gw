@@ -8,6 +8,7 @@ import cn.cleanarch.gw.common.model.system.domain.*;
 import cn.cleanarch.gw.common.model.system.vo.SysUserDto;
 import cn.cleanarch.gw.common.model.system.vo.SysUserVo;
 import cn.cleanarch.gw.common.model.system.vo.UserInfo;
+import cn.cleanarch.gw.common.security.service.SysUserService;
 import cn.cleanarch.gw.gateway.admin.system.mapper.SysUserMapper;
 import cn.cleanarch.gw.gateway.admin.system.service.*;
 import cn.hutool.core.util.StrUtil;

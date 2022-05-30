@@ -25,7 +25,7 @@ public class GatewayAccessConfDORepositoryTest {
     private GatewayAccessConfDORepository repository;
 
     @Test
-    public void test_FindAll_success() {
+    public void test_findAll_success() {
         List<GatewayAccessConfDO> gatewayAccessConfDOS = RandomUtil.randomPojoList(GatewayAccessConfDO.class, conf -> {
             conf.setId(null);
         });
