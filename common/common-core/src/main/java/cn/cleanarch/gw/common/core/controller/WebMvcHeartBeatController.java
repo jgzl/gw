@@ -1,5 +1,6 @@
 package cn.cleanarch.gw.common.core.controller;
 
+import cn.cleanarch.gw.common.core.constant.CommonConstants;
 import cn.cleanarch.gw.common.core.model.R;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author li7hai26@gmail.com
  */
 @RestController
-@RequestMapping("/heartbeat")
+@RequestMapping(CommonConstants.HEART_BEAT_URL)
 @ConditionalOnWebApplication(type = Type.SERVLET)
 public class WebMvcHeartBeatController {
     /**

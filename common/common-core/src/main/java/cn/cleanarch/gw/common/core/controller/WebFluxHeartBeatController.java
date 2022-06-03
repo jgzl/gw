@@ -1,5 +1,6 @@
 package cn.cleanarch.gw.common.core.controller;
 
+import cn.cleanarch.gw.common.core.constant.CommonConstants;
 import cn.cleanarch.gw.common.core.model.R;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type;
@@ -14,7 +15,7 @@ import reactor.core.publisher.Mono;
  * @author li7hai26@gmail.com
  */
 @RestController
-@RequestMapping("/heartbeat")
+@RequestMapping(CommonConstants.HEART_BEAT_URL)
 @ConditionalOnWebApplication(type = Type.REACTIVE)
 public class WebFluxHeartBeatController {
     /**

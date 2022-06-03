@@ -7,10 +7,13 @@ import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Publisher;
+import org.springframework.cloud.gateway.route.Route;
+import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.http.server.reactive.ServerHttpResponseDecorator;
+import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -28,11 +31,13 @@ public class PartnerServerHttpResponseDecorator extends ServerHttpResponseDecora
 
     private final GatewayLog gatewayLog;
     private final ServerHttpResponse response;
+    private final ServerWebExchange delegate;
 
-    public PartnerServerHttpResponseDecorator(ServerHttpResponse response, GatewayLog gatewayLog) {
+    public PartnerServerHttpResponseDecorator(ServerWebExchange delegate,ServerHttpResponse response, GatewayLog gatewayLog) {
         super(response);
         this.gatewayLog = gatewayLog;
         this.response = response;
+        this.delegate = delegate;
     }
 
     @Override
@@ -45,6 +50,7 @@ public class PartnerServerHttpResponseDecorator extends ServerHttpResponseDecora
     public Mono<Void> writeWith(Publisher<? extends DataBuffer> body) {
         LocalDateTime updateTime = LocalDateTime.now(ZoneId.of("GMT"));
         long costTime = DateUtil.between(DateUtil.date(gatewayLog.getRequestTime()), DateUtil.date(updateTime), DateUnit.MS);
+        gatewayLog.setTargetService(getRoute(delegate).getId());
         gatewayLog.setExecuteTime(costTime);
         gatewayLog.setResponseTime(updateTime);
         gatewayLog.setHttpStatus(response.getStatusCode() != null ? response.getStatusCode().value() + "" : null);
@@ -69,5 +75,9 @@ public class PartnerServerHttpResponseDecorator extends ServerHttpResponseDecora
             log.debug("结束访问[{}],合计共消耗时间为:{}ms", gatewayLog.getRequestPath(), gatewayLog.getExecuteTime());
         }
         return super.writeWith(body);
+    }
+
+    private Route getRoute(ServerWebExchange exchange) {
+        return exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
     }
 }

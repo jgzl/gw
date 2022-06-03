@@ -18,12 +18,11 @@ import static reactor.core.scheduler.Schedulers.single;
  */
 @Slf4j
 public class PartnerServerHttpRequestDecorator extends ServerHttpRequestDecorator {
-
     private final Flux<DataBuffer> body;
 
-    PartnerServerHttpRequestDecorator(ServerHttpRequest delegate, GatewayLog gatewayLog) {
-        super(delegate);
-        final MediaType contentType = delegate.getHeaders().getContentType();
+    PartnerServerHttpRequestDecorator(ServerHttpRequest request, GatewayLog gatewayLog) {
+        super(request);
+        final MediaType contentType = request.getHeaders().getContentType();
 
         Flux<DataBuffer> flux = super.getBody();
         if (contentType == null || LogUtils.legalLogMediaTypes.contains(contentType)) {

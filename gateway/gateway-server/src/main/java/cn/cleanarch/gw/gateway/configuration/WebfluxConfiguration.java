@@ -1,8 +1,11 @@
 package cn.cleanarch.gw.gateway.configuration;
 
+import cn.cleanarch.gw.gateway.common.FilterOrderConstants;
 import cn.cleanarch.gw.gateway.configuration.properties.GatewayProperties;
-import cn.cleanarch.gw.gateway.filter.webflux.AccessFilter;
 import cn.cleanarch.gw.gateway.filter.webflux.FileSizeFilter;
+import cn.cleanarch.gw.gateway.filter.webflux.GatewayApiAccessFilter;
+import cn.cleanarch.gw.gateway.filter.webflux.GatewayApiLogFilter;
+import cn.cleanarch.gw.gateway.filter.webflux.GatewayApiPrefixFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -24,14 +27,25 @@ public class WebfluxConfiguration implements WebFluxConfigurer {
     private final GatewayProperties gatewayProperties;
 
     @Bean(FileSizeFilter.FILTER_NAME)
-    @Order
     public FileSizeFilter fileSizeFilter() {
         return new FileSizeFilter(gatewayProperties.getFile().getFileMaxSize());
     }
 
-    @Bean(AccessFilter.FILTER_NAME)
-    @Order
-    public AccessFilter accessFilter() {
-        return new AccessFilter();
+    @Order(FilterOrderConstants.GATEWAY_API_ACCESS_FILTER)
+    @Bean(GatewayApiAccessFilter.FILTER_NAME)
+    public GatewayApiAccessFilter gatewayApiAccessFilter() {
+        return new GatewayApiAccessFilter();
+    }
+
+    @Order(FilterOrderConstants.GATEWAY_API_PREFIX_FILTER)
+    @Bean(GatewayApiPrefixFilter.FILTER_NAME)
+    public GatewayApiPrefixFilter gatewayApiPrefixFilter() {
+        return new GatewayApiPrefixFilter(gatewayProperties);
+    }
+
+    @Order(FilterOrderConstants.GATEWAY_API_LOG_FILTER)
+    @Bean(GatewayApiLogFilter.FILTER_NAME)
+    public GatewayApiLogFilter gatewayApiLogFilter() {
+        return new GatewayApiLogFilter(gatewayProperties);
     }
 }

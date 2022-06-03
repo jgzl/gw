@@ -7,7 +7,17 @@ package cn.cleanarch.gw.common.core.constant;
 public class GatewayConstants extends HttpHeaderConstants{
 
     /**
-     * 统一前缀
+     * 网关配置统一前缀
      */
-    public static final String CONFIGURATION_PREFIX = "gateway";
+    public static final String CONFIGURATION_PREFIX = CommonConstants.CONFIGURATION_PREFIX + ".gateway";
+
+    /**
+     * 网关动态路由访问统一前缀
+     */
+    public static final String API_PREFIX = "/api/";
+
+    /**
+     * 网关管理访问统一前缀
+     */
+    public static final String ADMIN_PREFIX = "/admin";
 }

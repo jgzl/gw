@@ -35,4 +35,19 @@ public class CommonConstants {
      * 系统标志前缀
      */
     public final static String CACHE_PREFIX = CONFIGURATION_PREFIX +":";
+
+    /**
+     * 网站图标路径
+     */
+    public final static String FAVICON_ICO_URL = "/favicon.ico";
+
+    /**
+     * 心跳接口路径
+     */
+    public final static String HEART_BEAT_URL = "/heartbeat";
+
+    /**
+     * SpringBoot Admin Client actuator接口路径
+     */
+    public final static String ACTUATOR_URL = "/actuator";
 }

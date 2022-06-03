@@ -22,7 +22,7 @@ import reactor.core.publisher.Mono;
  * @date 2021/12/16
  */
 @Slf4j
-public class AccessFilter implements WebFilter {
+public class GatewayApiAccessFilter implements WebFilter {
 
     public static final String FILTER_NAME = "accessFilter";
 

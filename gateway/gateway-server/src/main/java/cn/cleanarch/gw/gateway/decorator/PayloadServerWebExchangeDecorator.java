@@ -19,7 +19,7 @@ public class PayloadServerWebExchangeDecorator extends ServerWebExchangeDecorato
     public PayloadServerWebExchangeDecorator(ServerWebExchange delegate, GatewayLog gatewayLog) {
         super(delegate);
         requestDecorator = new PartnerServerHttpRequestDecorator(delegate.getRequest(), gatewayLog);
-        responseDecorator = new PartnerServerHttpResponseDecorator(delegate.getResponse(), gatewayLog);
+        responseDecorator = new PartnerServerHttpResponseDecorator(delegate,delegate.getResponse(), gatewayLog);
     }
 
     @Override
