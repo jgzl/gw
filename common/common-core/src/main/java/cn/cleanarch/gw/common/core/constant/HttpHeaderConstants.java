@@ -4,7 +4,7 @@ public class HttpHeaderConstants {
     /**
      * 环境
      */
-    public static final String X_BUSINESS_ENV = "x-business-env";
+    public static final String X_BUSINESS_API_ENV = "x-business-api-env";
     /**
      * 访问key
      */

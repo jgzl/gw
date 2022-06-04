@@ -25,9 +25,9 @@ public class GatewayLog {
     private String id;
 
     /**
-     * 请求来源系统
+     * 请求来源服务
      */
-    private String system;
+    private String sourceService;
 
     /**
      * 请求来源key

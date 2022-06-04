@@ -42,7 +42,7 @@ public class ElasticsearchGatewayLogService implements GatewayLogService {
         String environment = gatewayRequestLog.getEnvironment();
         String apiKey = gatewayRequestLog.getApiKey();
         String apiSecret = gatewayRequestLog.getApiSecret();
-        String system = gatewayRequestLog.getSystem();
+        String sourceService = gatewayRequestLog.getSourceService();
         String targetService = gatewayRequestLog.getTargetService();
         String requestSourceIp = gatewayRequestLog.getRequestSourceIp();
         String requestPath = gatewayRequestLog.getRequestPath();
@@ -66,8 +66,8 @@ public class ElasticsearchGatewayLogService implements GatewayLogService {
         if (StrUtil.isNotBlank(apiSecret)) {
             boolQueryBuilder.must(QueryBuilders.matchQuery("apiSecret", apiSecret));
         }
-        if (StrUtil.isNotBlank(system)) {
-            boolQueryBuilder.must(QueryBuilders.matchQuery("system", system));
+        if (StrUtil.isNotBlank(sourceService)) {
+            boolQueryBuilder.must(QueryBuilders.matchQuery("sourceService", sourceService));
         }
         if (StrUtil.isNotBlank(targetService)) {
             boolQueryBuilder.must(QueryBuilders.matchQuery("targetService", targetService));
@@ -100,12 +100,12 @@ public class ElasticsearchGatewayLogService implements GatewayLogService {
         if (ArrayUtil.isNotEmpty(createTimeRange)) {
             LocalDateTime fromCreateTime = DateUtil.parseLocalDateTime(createTimeRange[0], DatePattern.NORM_DATETIME_PATTERN);
             LocalDateTime toCreateTime = DateUtil.parseLocalDateTime(createTimeRange[1], DatePattern.NORM_DATETIME_PATTERN);
-            boolQueryBuilder.must(QueryBuilders.rangeQuery("createTime").from(fromCreateTime).to(toCreateTime));
+            boolQueryBuilder.must(QueryBuilders.rangeQuery("@requestTime").from(fromCreateTime).to(toCreateTime));
         }
         if (ArrayUtil.isNotEmpty(updateTimeRange)) {
             LocalDateTime fromUpdateTime = DateUtil.parseLocalDateTime(updateTimeRange[0], DatePattern.NORM_DATETIME_PATTERN);
             LocalDateTime toUpdateTime = DateUtil.parseLocalDateTime(updateTimeRange[1], DatePattern.NORM_DATETIME_PATTERN);
-            boolQueryBuilder.must(QueryBuilders.rangeQuery("updateTime").from(fromUpdateTime).to(toUpdateTime));
+            boolQueryBuilder.must(QueryBuilders.rangeQuery("@responseTime").from(fromUpdateTime).to(toUpdateTime));
         }
         if (page.getCurrent()>Integer.MAX_VALUE) {
             throw new RuntimeException("current过大,不允许分页查询");

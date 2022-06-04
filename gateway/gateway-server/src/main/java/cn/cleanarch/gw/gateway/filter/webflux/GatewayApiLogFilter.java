@@ -57,7 +57,7 @@ public class GatewayApiLogFilter extends AbstractGatewayApiFilter {
             log.debug("访问[{}]header的json格式为:[{}]", rawPath, jsonHeader);
         }
 
-        String env = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_ENV);
+        String env = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_ENV);
         String apiKey = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_KEY);
         String apiSecret = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_SECRET);
         String system = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_SYSTEM);
@@ -72,7 +72,7 @@ public class GatewayApiLogFilter extends AbstractGatewayApiFilter {
         gatewayLog.setEnvironment(env);
         gatewayLog.setApiKey(apiKey);
         gatewayLog.setApiSecret(apiSecret);
-        gatewayLog.setSystem(system);
+        gatewayLog.setSourceService(system);
         return chain.filter(new PayloadServerWebExchangeDecorator(exchange, gatewayLog));
     }
 

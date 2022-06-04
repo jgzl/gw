@@ -122,8 +122,10 @@ public interface ErrorCodeConstants {
     // ========== 网关路由 1002019000 ==========
 
     // ========== 网关访问 1002020000 ==========
-    ErrorCode GATEWAY_ACCESS_API_KEY_NOT_EXIST = new ErrorCode(1002020001,"网关apiKey不存在");
-    ErrorCode GATEWAY_ACCESS_API_SECRET_NOT_VALID = new ErrorCode(1002020002,"网关apiSecret不合法");
-    ErrorCode GATEWAY_ACCESS_DISABLED = new ErrorCode(1002020003,"网关apiKey/apiSecret已禁用");
+    ErrorCode GATEWAY_ACCESS_API_KEY_NOT_VALID = new ErrorCode(1002020001,"网关请求来源apiKey不合法");
+    ErrorCode GATEWAY_ACCESS_API_SECRET_NOT_VALID = new ErrorCode(1002020002,"网关请求来源apiSecret不合法");
+    ErrorCode GATEWAY_ACCESS_API_SYSTEM_NOT_VALID = new ErrorCode(1002020003,"网关请求来源system不合法");
+    ErrorCode GATEWAY_ACCESS_DISABLED = new ErrorCode(1002020004,"网关请求来源apiKey/apiSecret已禁用");
+    ErrorCode GATEWAY_ACCESS_INFO_NOT_NULL = new ErrorCode(1002020005,"网关请求来源apiKey/apiSecret/system不允许为空");;
 
 }
