@@ -5,12 +5,10 @@ import cn.cleanarch.gw.common.core.constant.GatewayConstants;
 import cn.cleanarch.gw.common.core.exception.enums.GlobalErrorCodeConstants;
 import cn.cleanarch.gw.common.core.utils.WebfluxUtil;
 import cn.cleanarch.gw.gateway.configuration.properties.GatewayProperties;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.server.ServerWebExchange;
-import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
@@ -26,27 +24,37 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.a
  * @date 2022/6/3
  */
 @Slf4j
-@RequiredArgsConstructor
-public class GatewayApiPrefixFilter implements WebFilter {
+public class GatewayApiPrefixFilter extends AbstractGatewayApiFilter {
 
     public static final String FILTER_NAME = "gatewayApiPrefixFilter";
 
     private final GatewayProperties gatewayProperties;
 
+    public GatewayApiPrefixFilter(GatewayProperties gatewayProperties) {
+        super(gatewayProperties);
+        this.gatewayProperties = gatewayProperties;
+    }
+
     @Override
-    public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
+    public Mono<Void> match(ServerWebExchange exchange, WebFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
-        ServerHttpResponse response = exchange.getResponse();
         URI uri = request.getURI();
         addOriginalRequestUrl(exchange, uri);
         String rawPath = uri.getRawPath();
         String apiPrefix = gatewayProperties.getApiPrefix();
-        if (rawPath.startsWith(apiPrefix)) {
-            String newPath = rawPath.replace(apiPrefix,"/");
-            ServerHttpRequest newRequest = request.mutate().path(newPath).build();
-            exchange.getAttributes().put(GATEWAY_REQUEST_URL_ATTR, newRequest.getURI());
-            return chain.filter(exchange.mutate().request(newRequest).build());
-        } else if (rawPath.startsWith(CommonConstants.HEART_BEAT_URL)
+        String newPath = rawPath.replace(apiPrefix,"/");
+        ServerHttpRequest newRequest = request.mutate().path(newPath).build();
+        exchange.getAttributes().put(GATEWAY_REQUEST_URL_ATTR, newRequest.getURI());
+        return chain.filter(exchange.mutate().request(newRequest).build());
+    }
+
+    @Override
+    public Mono<Void> disMatch(ServerWebExchange exchange, WebFilterChain chain) {
+        ServerHttpRequest request = exchange.getRequest();
+        ServerHttpResponse response = exchange.getResponse();
+        URI uri = request.getURI();
+        String rawPath = uri.getRawPath();
+        if (rawPath.startsWith(CommonConstants.HEART_BEAT_URL)
                 || rawPath.startsWith(CommonConstants.ACTUATOR_URL)
                 || rawPath.startsWith(CommonConstants.FAVICON_ICO_URL)
                 || rawPath.startsWith(GatewayConstants.ADMIN_PREFIX)

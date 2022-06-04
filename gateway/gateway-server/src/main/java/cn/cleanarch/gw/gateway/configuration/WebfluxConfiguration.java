@@ -34,7 +34,7 @@ public class WebfluxConfiguration implements WebFluxConfigurer {
     @Order(FilterOrderConstants.GATEWAY_API_ACCESS_FILTER)
     @Bean(GatewayApiAccessFilter.FILTER_NAME)
     public GatewayApiAccessFilter gatewayApiAccessFilter() {
-        return new GatewayApiAccessFilter();
+        return new GatewayApiAccessFilter(gatewayProperties);
     }
 
     @Order(FilterOrderConstants.GATEWAY_API_PREFIX_FILTER)

@@ -8,14 +8,11 @@ import cn.cleanarch.gw.gateway.configuration.properties.GatewayProperties;
 import cn.cleanarch.gw.gateway.decorator.PayloadServerWebExchangeDecorator;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.util.AntPathMatcher;
 import org.springframework.web.server.ServerWebExchange;
-import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
@@ -32,60 +29,55 @@ import java.util.Optional;
  * @date 2021/12/16
  */
 @Slf4j
-@RequiredArgsConstructor
-public class GatewayApiLogFilter implements WebFilter {
+public class GatewayApiLogFilter extends AbstractGatewayApiFilter {
 
     public static final String FILTER_NAME = "gatewayApiLogFilter";
 
     private static final String GATEWAY_START_LOG_TIME = GatewayApiLogFilter.class.getName() + ".GATEWAY_START_LOG_TIME";
 
-    private static final AntPathMatcher matcher = new AntPathMatcher();
-
     private final GatewayProperties gatewayProperties;
 
+    public GatewayApiLogFilter(GatewayProperties gatewayProperties) {
+        super(gatewayProperties);
+        this.gatewayProperties = gatewayProperties;
+    }
     @Override
-    public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
+    public Mono<Void> match(ServerWebExchange exchange, WebFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         URI uri = request.getURI();
         String rawPath = uri.getRawPath();
-        String apiPrefix = gatewayProperties.getApiPrefix();
-        log.info("开始访问[{}]", rawPath);
+        String query = uri.getQuery();
+        String pathAndQuery = StrUtil.isBlank(query) ? rawPath : rawPath + "?" + query;
+        HttpHeaders httpHeaders = request.getHeaders();
+        String fastUUID = IdUtil.fastUUID();
+        String methodValue = Optional.ofNullable(request.getMethod()).orElse(HttpMethod.GET).name();
+        String jsonHeader = JacksonUtil.toJsonString(httpHeaders);
 
-        /**
-         * 记录网关统一前缀访问路径访问的日志信息
-         */
-        if (rawPath.startsWith(apiPrefix)) {
-            String query = uri.getQuery();
-            String pathAndQuery = StrUtil.isBlank(query) ? rawPath : rawPath + "?" + query;
-            HttpHeaders httpHeaders = request.getHeaders();
-            String fastUUID = IdUtil.fastUUID();
-            String methodValue = Optional.ofNullable(request.getMethod()).orElse(HttpMethod.GET).name();
-            String jsonHeader = JacksonUtil.toJsonString(httpHeaders);
-
-            if (log.isDebugEnabled()) {
-                log.debug("访问[{}]header的json格式为:[{}]", rawPath, jsonHeader);
-            }
-
-            String env = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_ENV);
-            String apiKey = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_KEY);
-            String apiSecret = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_SECRET);
-            String system = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_SYSTEM);
-
-            GatewayLog gatewayLog = new GatewayLog();
-            // 先保存再更新以防无法接受到相应请求
-            gatewayLog.setId(fastUUID);
-            gatewayLog.setRequestHeader(jsonHeader);
-            gatewayLog.setRequestPath(rawPath);
-            gatewayLog.setRequestPathAndQuery(pathAndQuery);
-            gatewayLog.setRequestMethod(methodValue);
-            gatewayLog.setRequestTime(LocalDateTime.now(ZoneId.of("GMT")));
-            gatewayLog.setEnvironment(env);
-            gatewayLog.setApiKey(apiKey);
-            gatewayLog.setApiSecret(apiSecret);
-            gatewayLog.setSystem(system);
-            return chain.filter(new PayloadServerWebExchangeDecorator(exchange, gatewayLog));
+        if (log.isDebugEnabled()) {
+            log.debug("访问[{}]header的json格式为:[{}]", rawPath, jsonHeader);
         }
 
+        String env = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_ENV);
+        String apiKey = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_KEY);
+        String apiSecret = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_SECRET);
+        String system = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_SYSTEM);
+
+        GatewayLog gatewayLog = new GatewayLog();
+        gatewayLog.setId(fastUUID);
+        gatewayLog.setRequestHeader(jsonHeader);
+        gatewayLog.setRequestPath(rawPath);
+        gatewayLog.setRequestPathAndQuery(pathAndQuery);
+        gatewayLog.setRequestMethod(methodValue);
+        gatewayLog.setRequestTime(LocalDateTime.now(ZoneId.of("GMT")));
+        gatewayLog.setEnvironment(env);
+        gatewayLog.setApiKey(apiKey);
+        gatewayLog.setApiSecret(apiSecret);
+        gatewayLog.setSystem(system);
+        return chain.filter(new PayloadServerWebExchangeDecorator(exchange, gatewayLog));
+    }
+
+    @Override
+    public Mono<Void> disMatch(ServerWebExchange exchange, WebFilterChain chain) {
         /**
          * 非网关统一前缀访问路径访问不记录日志信息
          */
