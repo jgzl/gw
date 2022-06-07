@@ -1,5 +1,6 @@
 package cn.cleanarch.gw.common.gateway.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
@@ -106,18 +107,21 @@ public class GatewayLog {
     /**
      * 创建时间
      */
+    @JsonProperty(value = "@requestTime")
     @Field(type = FieldType.Date, format = DateFormat.date_hour_minute_second, name = "@requestTime")
     private LocalDateTime requestTime;
 
     /**
      * 更新时间
      */
+    @JsonProperty(value = "@responseTime")
     @Field(type = FieldType.Date, format = DateFormat.date_hour_minute_second, name = "@responseTime")
     private LocalDateTime responseTime;
 
     /**
      * 时间戳
      */
+    @JsonProperty(value = "@timestamp")
     @Field(type = FieldType.Date, format = DateFormat.date_hour_minute_second, name = "@timestamp")
     private LocalDateTime timestamp = LocalDateTime.now(ZoneId.of("GMT"));
 }

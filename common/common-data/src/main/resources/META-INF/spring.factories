@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  cn.cleanarch.gw.common.data.mybatis.MybatisPlusConfiguration

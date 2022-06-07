@@ -24,7 +24,6 @@ public class RedisTemplateConfiguration {
         template.setValueSerializer(RedisObjectMapper.getRedisSerializer());
         template.setHashValueSerializer(RedisObjectMapper.getRedisSerializer());
         template.setConnectionFactory(redisConnectionFactory);
-        template.afterPropertiesSet();
         return template;
     }
 }

@@ -30,8 +30,8 @@
         <hutool.version>5.7.22</hutool.version>
         <jwt.version>3.16.0</jwt.version>
         <jjwt.version>0.9.1</jjwt.version>
-        <redisson.version>3.16.8</redisson.version>
-        <mybatisplus.starter.version>3.5.1</mybatisplus.starter.version>
+        <redisson.version>3.17.3</redisson.version>
+        <mybatisplus.starter.version>3.5.2</mybatisplus.starter.version>
         <mybatisplus.generator.version>3.5.1</mybatisplus.generator.version>
         <dynamic-datasource.version>3.5.1</dynamic-datasource.version>
         <pagehelper.boot.version>1.4.1</pagehelper.boot.version>
@@ -51,7 +51,7 @@
         <commons-configuration.version>1.10</commons-configuration.version>
         <velocity.version>1.7</velocity.version>
         <captcha.version>1.2.7</captcha.version>
-        <fastjson.version>1.2.78</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <jsoup.version>1.14.3</jsoup.version>
         <podam.version>7.2.6.RELEASE</podam.version>
         <skywalking.version>8.8.0</skywalking.version>
@@ -62,7 +62,7 @@
 
         <!-- bom依赖配置管理 -->
         <!-- 在升级springboot版本时，需要同时更改dependencies-bom和根目录的版本 -->
-        <spring-boot.version>2.6.7</spring-boot.version>
+        <spring-boot.version>2.7.0</spring-boot.version>
         <spring-boot-admin.version>2.6.6</spring-boot-admin.version>
         <spring-cloud.version>2021.0.1</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>

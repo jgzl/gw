@@ -88,33 +88,32 @@
 </template>
 
 <script lang="ts" setup>
-  import { useGet, usePost, usePut, useDelete, useLikeSearch, usePageDataTable } from "@/hooks";
-  import {systemDept, systemDeptTree, systemRole} from "@/api/url";
-  import type { BaseFormType, DialogType } from "@/components/types";
-  import { computed, onMounted, reactive, ref } from "vue";
-  import { ElMessage, ElMessageBox } from "element-plus";
-  import _ from "lodash";
-  import { useDataTable } from "@/hooks";
-  interface Department {
-    parentId: number;
-    id: number;
-    name: string;
-    depCode: string;
-    order: number;
-    status: number;
-    children: Array<Department>;
-  }
-  const DP_CODE_FLAG = "dp_code_";
+import {useDataTable, useDelete, useGet, usePost, usePut} from "@/hooks";
+import {systemDept, systemDeptTree} from "@/api/url";
+import type {DialogType} from "@/components/types";
+import {computed, onMounted, reactive, ref} from "vue";
+import {ElMessage, ElMessageBox} from "element-plus";
+import _ from "lodash";
 
-  const tableColumns = reactive([
+interface Department {
+  parentId: number;
+  id: number;
+  name: string;
+  depCode: string;
+  sort: number;
+  status: number;
+  children: Array<Department>;
+}
+
+const tableColumns = reactive([
     {
       label: "部门名称",
       prop: "name",
     },
-    {
-      label: "排序",
-      prop: "order",
-    },
+  {
+    label: "排序",
+    prop: "sort",
+  },
     {
       label: "状态",
       prop: "status",
@@ -144,27 +143,6 @@
       this.value = "";
     },
   });
-  const depCodeFormItem = {
-    label: "部门编号",
-    type: "input",
-    name: "depCode",
-    value: "",
-    maxLength: 10,
-    disabled: false,
-    inputType: "text",
-    placeholder: "请输入部门编号",
-    validator: (item: any) => {
-      if (!item.value) {
-        ElMessage.error(item.placeholder);
-        return false;
-      }
-      return true;
-    },
-    reset() {
-      this.value = "";
-      this.disabled = false;
-    },
-  };
   const formItems = reactive([
     {
       label: "部门名称",
@@ -185,34 +163,23 @@
         this.value = "";
       },
     },
-    depCodeFormItem,
   ]);
   const onUpdateItem = (item: any) => {
     dialogTitle.value = "编辑部门";
-    formItems.forEach((it) => {
-      const propName = item[it.name];
-      if (propName) {
-        if (it.name === "depCode") {
-          it.value = propName.replace(DP_CODE_FLAG, "");
-        } else {
-          it.value = propName;
-        }
-      }
-    });
     parentFormItem.value = item.parentId;
 
-    depCodeFormItem.disabled = true;
     dialog.value?.show(() => {
       if (!baseForm.value?.checkParams()) {
         return;
       }
       (dialog.value as any).loading = true;
-      post({url:systemDept ,data: baseForm.value?.generatorParams()})
-          .then((res)=>{
+      post({url: systemDept, data: baseForm.value?.generatorParams()})
+          .then((res) => {
             console.log(JSON.stringify(res))
             doRefresh();
           })
           .catch(console.log)
+      dialog.value?.close();
     });
   };
   const doRefresh = () => {
@@ -259,12 +226,13 @@
       (dialog.value as any).loading = true;
       const formParams = baseForm.value?.generatorParams();
       formParams.parentId = parentFormItem.value;
-      post({url:systemDept ,data: formParams})
-          .then((res)=>{
+      post({url: systemDept, data: formParams})
+          .then((res) => {
             console.log(JSON.stringify(res))
             doRefresh();
           })
           .catch(console.log)
+      dialog.value?.close();
     });
   };
   parentFormItem.selectOptions = computed(() => {

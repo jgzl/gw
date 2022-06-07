@@ -22,7 +22,7 @@
 
     <properties>
         <revision>0.0.1-SNAPSHOT</revision>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.version>3.8.1</maven.compiler.version>
@@ -37,7 +37,7 @@
         <lombok.version>1.18.24</lombok.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <!-- 在升级springboot版本时，需要同时更改dependencies-bom和根目录的版本 -->
-        <spring-boot.version>2.6.7</spring-boot.version>
+        <spring-boot.version>2.7.0</spring-boot.version>
     </properties>
 
     <dependencies>

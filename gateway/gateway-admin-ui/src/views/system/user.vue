@@ -255,28 +255,21 @@
 </template>
 
 <script lang="ts" setup>
-  import { useGet, usePost, usePut, useDelete, useLikeSearch, usePageDataTable } from "@/hooks";
-  import { computed, onMounted, reactive, ref } from "vue";
-  import { ElMessage, ElMessageBox } from "element-plus";
-  import {
-    systemUserList,
-    systemUserPage,
-    systemUser,
-    systemUserForLockFlag,
-    systemDeptTree,
-    systemRolePage, systemRoleList,
-  } from "@/api/url";
-  import type { DialogType, TableFooter } from "@/components/types";
+import {useDelete, useGet, useLikeSearch, usePageDataTable, usePost, usePut} from "@/hooks";
+import {computed, onMounted, reactive, ref} from "vue";
+import {ElMessage, ElMessageBox} from "element-plus";
+import {systemDeptTree, systemRoleList, systemUser, systemUserForLockFlag, systemUserPage,} from "@/api/url";
+import type {DialogType, TableFooter} from "@/components/types";
 
-  const { likeSearchModel, getSearchParams, resetSearch } = useLikeSearch();
-  const get = useGet();
-  const post = usePost();
-  const put = usePut();
-  const httpDelete = useDelete();
-  const dialogRef = ref<DialogType>();
-  const tableFooter = ref<TableFooter>();
-  const tableRef = ref();
-  const {
+const {likeSearchModel, getSearchParams, resetSearch} = useLikeSearch();
+const get = useGet();
+const post = usePost();
+const put = usePut();
+const httpDelete = useDelete();
+const dialogRef = ref<DialogType>();
+const tableFooter = ref<TableFooter>();
+const tableRef = ref();
+const {
     dataList,
     tableLoading,
     tableConfig,
@@ -293,7 +286,7 @@
   });
 
   const userModel = reactive({
-    userId: "1",
+    userId: "",
     userName: "",
     nickName: "",
     mobile: "",
@@ -382,6 +375,7 @@
     }
   }
   function onAddItem() {
+    userModel.userId = "";
     userModel.userName = "";
     userModel.nickName = "";
     userModel.mobile = "";

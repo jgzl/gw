@@ -1,5 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  cn.cleanarch.gw.common.gateway.configuration.DynamicAccessConfAutoConfiguration,\
-  cn.cleanarch.gw.common.gateway.configuration.GatewayExceptionHandlerConfiguration
-org.springframework.boot.diagnostics.FailureAnalyzer=\
-    cn.cleanarch.gw.common.gateway.exception.RouteCheckFailureAnalyzer
