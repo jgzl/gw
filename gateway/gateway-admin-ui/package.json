@@ -5,8 +5,6 @@
     "serve": "vue-cli-service serve --mode dev",
     "dev": "vue-cli-service serve --mode dev",
     "build:dev": "vue-cli-service build --mode dev",
-    "build:sit": "vue-cli-service build --mode sit",
-    "build:uat": "vue-cli-service build --mode uat",
     "build": "vue-cli-service build --mode prod",
     "build:pages": "vue-cli-service build --mode pages",
     "lint": "vue-cli-service lint"

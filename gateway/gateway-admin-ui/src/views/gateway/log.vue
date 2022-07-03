@@ -100,6 +100,7 @@
                             align="center"
                             label="请求头"
                             prop="requestHeader"
+                            show-overflow-tooltip
                     />
                     <el-table-column
                             align="center"
@@ -110,11 +111,13 @@
                             align="center"
                             label="请求参数值"
                             prop="requestBody"
+                            show-overflow-tooltip
                     />
                     <el-table-column
                             align="center"
                             label="返回参数值"
                             prop="responseBody"
+                            show-overflow-tooltip
                     />
                     <el-table-column
                             align="center"
@@ -131,6 +134,7 @@
                             align="center"
                             label="请求错误信息"
                             prop="errorMsg"
+                            show-overflow-tooltip
                     />
                     <el-table-column
                             align="center"
@@ -230,16 +234,13 @@
 </template>
 
 <script lang="ts" setup>
-    import { useGet, usePost, usePut, useDelete, useLikeSearch, usePageDataTable } from "@/hooks";
-    import { computed, onMounted, reactive, ref } from "vue";
-    import { ElMessage, ElMessageBox } from "element-plus";
-    import {
-        gatewayLogs,
-        gatewayLogSearch,
-    } from "@/api/url";
-    import type { DialogType, TableFooter } from "@/components/types";
+import {useDelete, useGet, useLikeSearch, usePageDataTable, usePost, usePut} from "@/hooks";
+import {computed, onMounted, reactive, ref} from "vue";
+import {ElMessageBox} from "element-plus";
+import {gatewayLogs, gatewayLogSearch,} from "@/api/url";
+import type {DialogType, TableFooter} from "@/components/types";
 
-    const get = useGet();
+const get = useGet();
     const post = usePost();
     const put = usePut();
     const httpDelete = useDelete();
