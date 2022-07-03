@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono;
 
 @Slf4j
 @Join
-public class ElasticsearchRecordLogService implements RecordLogService {
+public class ElasticsearchRecordLogServiceImpl implements RecordLogService {
     @Override
     public void recordLog(GatewayLog gatewayLog) {
         GatewayRequestLogReactiveElasticsearchRepository repository = SpringUtil.getBean(GatewayRequestLogReactiveElasticsearchRepository.class);

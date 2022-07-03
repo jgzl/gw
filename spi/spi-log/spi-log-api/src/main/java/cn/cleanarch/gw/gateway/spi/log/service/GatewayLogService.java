@@ -19,6 +19,8 @@ public interface GatewayLogService {
 
     Iterable<GatewayLog> saveAll(List<GatewayLog> list);
 
+    GatewayLog save(GatewayLog domain);
+
     void deleteAll();
 
     void deleteAllById(List<String> idList);

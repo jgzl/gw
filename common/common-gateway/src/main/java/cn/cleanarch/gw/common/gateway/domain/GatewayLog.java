@@ -1,5 +1,8 @@
 package cn.cleanarch.gw.common.gateway.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -23,6 +26,7 @@ public class GatewayLog {
      * 主键ID
      */
     @Id
+    @TableId(type = IdType.ASSIGN_ID)
     private String id;
 
     /**
@@ -121,6 +125,7 @@ public class GatewayLog {
     /**
      * 时间戳
      */
+    @TableField(exist = false)
     @JsonProperty(value = "@timestamp")
     @Field(type = FieldType.Date, format = DateFormat.date_hour_minute_second, name = "@timestamp")
     private LocalDateTime timestamp = LocalDateTime.now(ZoneId.of("GMT"));

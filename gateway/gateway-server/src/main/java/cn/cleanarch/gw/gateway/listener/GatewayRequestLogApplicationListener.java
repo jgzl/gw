@@ -29,7 +29,7 @@ public class GatewayRequestLogApplicationListener implements ApplicationListener
         log.info("开始日志入库");
         RecordLogService recordLogService;
         if (gatewayProperties.getLogType()==null) {
-            recordLogService = ExtensionLoader.getExtensionLoader(RecordLogService.class).getJoin(RecordLogEnum.LocalFile.name());
+            recordLogService = ExtensionLoader.getExtensionLoader(RecordLogService.class).getJoin(RecordLogEnum.localfile.name());
         }else {
             recordLogService = ExtensionLoader.getExtensionLoader(RecordLogService.class).getJoin(gatewayProperties.getLogType().name());
         }

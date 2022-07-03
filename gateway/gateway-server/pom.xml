@@ -21,7 +21,7 @@
         </dependency>
         <dependency>
             <groupId>cn.cleanarch.gw</groupId>
-            <artifactId>spi-log-localfile</artifactId>
+            <artifactId>spi-log-jdbc</artifactId>
         </dependency>
 
         <dependency>

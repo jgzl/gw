@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 @Service("localFileGatewayLogService")
-public class LocalFileGatewayLogService implements GatewayLogService {
+public class LocalFileGatewayLogServiceImpl implements GatewayLogService {
 
     private final Environment environment;
 
@@ -54,6 +54,11 @@ public class LocalFileGatewayLogService implements GatewayLogService {
     @Override
     public Iterable<GatewayLog> saveAll(List<GatewayLog> list) {
         return list;
+    }
+
+    @Override
+    public GatewayLog save(GatewayLog domain) {
+        return null;
     }
 
     @Override

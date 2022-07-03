@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 @Service("elasticsearchGatewayLogService")
-public class ElasticsearchGatewayLogService implements GatewayLogService {
+public class ElasticsearchGatewayLogServiceImpl implements GatewayLogService {
 
     private final GatewayLogElasticsearchRepository repository;
     private final ElasticsearchRestTemplate elasticsearchRestTemplate;
@@ -133,6 +133,11 @@ public class ElasticsearchGatewayLogService implements GatewayLogService {
     @Override
     public Iterable<GatewayLog> saveAll(List<GatewayLog> list) {
         return repository.saveAll(list);
+    }
+
+    @Override
+    public GatewayLog save(GatewayLog domain) {
+        return repository.save(domain);
     }
 
     @Override

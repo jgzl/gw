@@ -14,7 +14,8 @@
 
     <modules>
         <module>spi-log-api</module>
-        <module>spi-log-localfile</module>
         <module>spi-log-elasticsearch</module>
+        <module>spi-log-jdbc</module>
+        <module>spi-log-localfile</module>
     </modules>
 </project>

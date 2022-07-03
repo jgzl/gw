@@ -85,11 +85,13 @@
                             align="center"
                             label="请求路径"
                             prop="requestPath"
+                            show-overflow-tooltip
                     />
                     <el-table-column
                             align="center"
                             label="请求路径参数"
                             prop="requestPathAndQuery"
+                            show-overflow-tooltip
                     />
                     <el-table-column
                             align="center"

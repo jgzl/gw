@@ -17,5 +17,5 @@ public class GatewayProperties {
     private String apiPrefix = GatewayConstants.API_PREFIX;
     private GatewayPathProperties path = new GatewayPathProperties();
     private GatewayFileProperties file = new GatewayFileProperties();
-    private RecordLogEnum logType = RecordLogEnum.LocalFile;
+    private RecordLogEnum logType = RecordLogEnum.localfile;
 }

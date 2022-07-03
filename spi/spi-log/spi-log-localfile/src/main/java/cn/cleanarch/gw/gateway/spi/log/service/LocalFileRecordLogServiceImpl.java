@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j(topic = "gateway")
 @Join
-public class LocalFileRecordLogService implements RecordLogService {
+public class LocalFileRecordLogServiceImpl implements RecordLogService {
     @Override
     public void recordLog(GatewayLog gatewayLog) {
         log.info(JacksonUtil.toJsonString(gatewayLog));
