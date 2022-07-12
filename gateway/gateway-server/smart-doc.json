@@ -18,7 +18,7 @@
   "requestExample": "true",
   "responseExample":"true",
   "apiConstants": [{
-    "constantsClassName": "cn.cleanarch.gw.gateway.common.GatewayConstants"
+    "constantsClassName": "cn.cleanarch.gw.common.core.constant.GatewayConstants"
   }],
   "displayActualType":false,
   "tornaDebug": true,
