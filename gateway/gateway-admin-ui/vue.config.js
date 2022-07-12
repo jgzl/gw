@@ -1,6 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const CompressionPlugin = require("compression-webpack-plugin")
-console.log(process.env.NODE_ENV)
 module.exports = {
   // publicPath: process.env.NODE_ENV === 'pages' ? '/gw' : "/",
   publicPath: '/',
@@ -24,7 +23,6 @@ module.exports = {
     }
   },
   configureWebpack: {
-    devtool: 'source-map',
     module: {
       rules: [
         {
