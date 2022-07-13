@@ -49,6 +49,9 @@ build_push_docker() {
 
   docker-compose -f docker-compose-build.yaml build
   docker-compose -f docker-compose-build.yaml push
+  IMAGE_VERSION=latest
+  docker-compose -f docker-compose-build.yaml build
+  docker-compose -f docker-compose-build.yaml push
   echo '结束打包推送镜像,version为:'$IMAGE_VERSION
 }
 
