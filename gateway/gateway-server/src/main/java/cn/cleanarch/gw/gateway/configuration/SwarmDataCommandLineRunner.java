@@ -1,7 +1,7 @@
 package cn.cleanarch.gw.gateway.configuration;
 
 import cn.cleanarch.gw.common.core.constant.CacheConstants;
-import cn.cleanarch.gw.common.gateway.support.AccessConfCacheHolder;
+import cn.cleanarch.gw.common.gateway.support.GatewayAccessConfCacheHolder;
 import cn.cleanarch.gw.common.model.gateway.vo.GatewayAccessConfVo;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.ListUtil;
@@ -30,7 +30,7 @@ public class SwarmDataCommandLineRunner implements CommandLineRunner{
         if (CollUtil.isEmpty(vos)) {
             vos = ListUtil.empty();
         }
-        AccessConfCacheHolder.setList(vos);
+        GatewayAccessConfCacheHolder.setList(vos);
         log.info("结束预热Redis缓存数据至本地缓存");
     }
 }

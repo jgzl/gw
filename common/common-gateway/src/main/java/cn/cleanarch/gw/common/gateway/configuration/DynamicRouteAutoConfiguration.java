@@ -3,7 +3,7 @@ package cn.cleanarch.gw.common.gateway.configuration;
 import cn.cleanarch.gw.common.core.constant.CacheConstants;
 import cn.cleanarch.gw.common.gateway.exception.RouteCheckException;
 import cn.cleanarch.gw.common.gateway.support.DynamicRouteHealthIndicator;
-import cn.cleanarch.gw.common.gateway.support.RouteCacheHolder;
+import cn.cleanarch.gw.common.gateway.support.RouteDefinitionCacheHolder;
 import cn.hutool.extra.spring.SpringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -32,7 +32,7 @@ public class DynamicRouteAutoConfiguration {
     public DynamicRouteAutoConfiguration(RedisMessageListenerContainer container) {
         container.addMessageListener((message, bytes) -> {
             log.warn("接收到重新加载网关路由事件");
-            RouteCacheHolder.removeRouteList();
+            RouteDefinitionCacheHolder.removeRouteList();
             // 发送刷新路由事件
             SpringUtil.publishEvent(new RefreshRoutesEvent(this));
         }, new ChannelTopic(CacheConstants.ROUTE_JVM_RELOAD_TOPIC));

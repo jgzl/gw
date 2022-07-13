@@ -15,9 +15,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * 路由缓存工具类
  */
 @UtilityClass
-public class AccessConfCacheHolder {
+public class GatewayAccessConfCacheHolder {
 
-    private final Map<String, GatewayAccessConfVo> cache = new ConcurrentHashMap<>(100000);
+    private final Map<String, GatewayAccessConfVo> cache = new ConcurrentHashMap<>();
 
     /**
      * 获取缓存的全部对象

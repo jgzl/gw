@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 路由缓存工具类
  */
 @UtilityClass
-public class RouteCacheHolder {
+public class RouteDefinitionCacheHolder {
 
     private final Map<String, RouteDefinition> cache = new ConcurrentHashMap<>();
 

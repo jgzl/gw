@@ -60,7 +60,7 @@ public class RedisRouteDefinitionWriter implements RouteDefinitionRepository {
      */
     @Override
     public Flux<RouteDefinition> getRouteDefinitions() {
-        List<RouteDefinition> routeList = RouteCacheHolder.getRouteList();
+        List<RouteDefinition> routeList = RouteDefinitionCacheHolder.getRouteList();
         if (CollUtil.isNotEmpty(routeList)) {
             log.debug("内存中路由定义条数： {}， {}", routeList.size(), routeList);
             return Flux.fromIterable(routeList);
@@ -68,7 +68,7 @@ public class RedisRouteDefinitionWriter implements RouteDefinitionRepository {
         List<GatewayRouteDefinition> values = redisTemplate.<String, GatewayRouteDefinition>opsForHash().values(CacheConstants.ROUTE_KEY);
         log.info("redis中路由定义条数： {}， {}", values.size(), values);
         List<RouteDefinition> routeDefinitions = GatewayRouteDefinitionConvert.INSTANCE.convert2DoList(values);
-        RouteCacheHolder.setRouteList(routeDefinitions);
+        RouteDefinitionCacheHolder.setRouteList(routeDefinitions);
         return Flux.fromIterable(routeDefinitions);
     }
 
