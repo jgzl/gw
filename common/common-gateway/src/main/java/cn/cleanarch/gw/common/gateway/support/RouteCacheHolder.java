@@ -1,7 +1,7 @@
 package cn.cleanarch.gw.common.gateway.support;
 
-import cn.cleanarch.gw.common.gateway.vo.RouteDefinitionVo;
 import lombok.experimental.UtilityClass;
+import org.springframework.cloud.gateway.route.RouteDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,15 +17,15 @@ import java.util.concurrent.ConcurrentHashMap;
 @UtilityClass
 public class RouteCacheHolder {
 
-    private final Map<String, RouteDefinitionVo> cache = new ConcurrentHashMap<>(100000);
+    private final Map<String, RouteDefinition> cache = new ConcurrentHashMap<>();
 
     /**
      * 获取缓存的全部对象
      *
      * @return routeList
      */
-    public List<RouteDefinitionVo> getRouteList() {
-        List<RouteDefinitionVo> routeList = new ArrayList<>();
+    public List<RouteDefinition> getRouteList() {
+        List<RouteDefinition> routeList = new ArrayList<>();
         cache.forEach((route,vo) -> routeList.add(vo));
         return routeList;
     }
@@ -35,7 +35,7 @@ public class RouteCacheHolder {
      *
      * @param routeList 缓存列表
      */
-    public void setRouteList(List<RouteDefinitionVo> routeList) {
+    public void setRouteList(List<RouteDefinition> routeList) {
         routeList.forEach(route -> cache.put(route.getId(), route));
     }
 

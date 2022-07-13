@@ -2,6 +2,8 @@ package cn.cleanarch.gw.common.model.base;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
+import java.util.List;
+
 public interface BaseConvert<Vo, Do> {
     Vo convertDo2Vo(Do model);
 

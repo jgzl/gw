@@ -14,20 +14,13 @@
  * limitations under the License.
  */
 
-package org.springframework.cloud.gateway.route;
+package cn.cleanarch.gw.common.gateway.vo;
 
 import lombok.Data;
-import org.springframework.cloud.gateway.filter.FilterDefinition;
-import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -35,22 +28,11 @@ import java.util.Map;
  */
 @Data
 @Validated
-public class RouteDefinition {
-
-    private String id;
-
-    @NotEmpty
-    @Valid
-    private List<PredicateDefinition> predicates = new ArrayList<>();
-
-    @Valid
-    private List<FilterDefinition> filters = new ArrayList<>();
+public class GatewayPredicateDefinition {
 
     @NotNull
-    private URI uri;
+    private String name;
 
-    private Map<String, Object> metadata = new HashMap<>();
-
-    private int order = 0;
+    private Map<String, String> args = new LinkedHashMap<>();
 
 }

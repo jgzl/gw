@@ -1,7 +1,8 @@
 package cn.cleanarch.gw.common.gateway.support;
 
 import cn.cleanarch.gw.common.core.constant.CacheConstants;
-import cn.cleanarch.gw.common.gateway.vo.RouteDefinitionVo;
+import cn.cleanarch.gw.common.gateway.convert.GatewayRouteDefinitionConvert;
+import cn.cleanarch.gw.common.gateway.vo.GatewayRouteDefinition;
 import cn.hutool.core.collection.CollUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +32,7 @@ public class RedisRouteDefinitionWriter implements RouteDefinitionRepository {
     @Override
     public Mono<Void> save(Mono<RouteDefinition> route) {
         return route.flatMap(r -> {
-            RouteDefinitionVo vo = new RouteDefinitionVo();
+            GatewayRouteDefinition vo = new GatewayRouteDefinition();
             BeanUtils.copyProperties(r, vo);
             log.info("保存路由信息{}", vo);
             redisTemplate.opsForHash().put(CacheConstants.ROUTE_KEY, r.getId(), vo);
@@ -59,15 +60,16 @@ public class RedisRouteDefinitionWriter implements RouteDefinitionRepository {
      */
     @Override
     public Flux<RouteDefinition> getRouteDefinitions() {
-        List<RouteDefinitionVo> routeList = RouteCacheHolder.getRouteList();
+        List<RouteDefinition> routeList = RouteCacheHolder.getRouteList();
         if (CollUtil.isNotEmpty(routeList)) {
             log.debug("内存中路由定义条数： {}， {}", routeList.size(), routeList);
             return Flux.fromIterable(routeList);
         }
-        List<RouteDefinitionVo> values = redisTemplate.<String, RouteDefinitionVo>opsForHash().values(CacheConstants.ROUTE_KEY);
+        List<GatewayRouteDefinition> values = redisTemplate.<String, GatewayRouteDefinition>opsForHash().values(CacheConstants.ROUTE_KEY);
         log.info("redis中路由定义条数： {}， {}", values.size(), values);
-        RouteCacheHolder.setRouteList(values);
-        return Flux.fromIterable(values);
+        List<RouteDefinition> routeDefinitions = GatewayRouteDefinitionConvert.INSTANCE.convert2DoList(values);
+        RouteCacheHolder.setRouteList(routeDefinitions);
+        return Flux.fromIterable(routeDefinitions);
     }
 
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.cloud.gateway.handler.predicate;
+package cn.cleanarch.gw.common.gateway.vo;
 
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
@@ -28,11 +28,10 @@ import java.util.Map;
  */
 @Data
 @Validated
-public class PredicateDefinition {
+public class GatewayFilterDefinition {
 
     @NotNull
     private String name;
 
     private Map<String, String> args = new LinkedHashMap<>();
-
 }

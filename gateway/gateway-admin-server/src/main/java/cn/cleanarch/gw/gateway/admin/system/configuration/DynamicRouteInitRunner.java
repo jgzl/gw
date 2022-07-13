@@ -2,14 +2,14 @@ package cn.cleanarch.gw.gateway.admin.system.configuration;
 
 import cn.cleanarch.gw.common.core.constant.CacheConstants;
 import cn.cleanarch.gw.common.gateway.support.DynamicRouteInitEvent;
-import cn.cleanarch.gw.common.gateway.vo.RouteDefinitionVo;
+import cn.cleanarch.gw.common.gateway.vo.GatewayRouteDefinition;
 import cn.cleanarch.gw.gateway.admin.gateway.service.GatewayRouteConfService;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.context.WebServerInitializedEvent;
-import org.springframework.cloud.gateway.filter.FilterDefinition;
-import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
+import cn.cleanarch.gw.common.gateway.vo.GatewayFilterDefinition;
+import cn.cleanarch.gw.common.gateway.vo.GatewayPredicateDefinition;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
@@ -17,6 +17,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
@@ -40,16 +41,15 @@ public class DynamicRouteInitRunner {
         log.info("开始初始化网关路由");
 
         routeConfService.list().forEach(route -> {
-            RouteDefinitionVo vo = new RouteDefinitionVo();
-            vo.setRouteName(route.getRouteName());
+            GatewayRouteDefinition vo = new GatewayRouteDefinition();
             vo.setId(route.getRouteId());
-            vo.setUri(URI.create(route.getUri()));
+            vo.setUri(this.getURI(route.getUri()));
             vo.setOrder(route.getOrder());
 
             JSONArray filterObj = JSONUtil.parseArray(route.getFilters());
-            vo.setFilters(filterObj.toList(FilterDefinition.class));
+            vo.setFilters(filterObj.toList(GatewayFilterDefinition.class));
             JSONArray predicateObj = JSONUtil.parseArray(route.getPredicates());
-            vo.setPredicates(predicateObj.toList(PredicateDefinition.class));
+            vo.setPredicates(predicateObj.toList(GatewayPredicateDefinition.class));
 
             log.info("加载路由ID：{},{}", route.getRouteId(), vo);
             redisTemplate.opsForHash().put(CacheConstants.ROUTE_KEY, route.getRouteId(), vo);
@@ -73,6 +73,22 @@ public class DynamicRouteInitRunner {
             log.warn("接收到重新Redis 重新加载路由事件");
             initRoute();
         }, new ChannelTopic(CacheConstants.ROUTE_REDIS_RELOAD_TOPIC));
+    }
+
+    /**
+     * 封状URI
+     * @param uriStr
+     * @return
+     */
+    private URI getURI(String uriStr){
+        URI uri ;
+        if(uriStr.startsWith("http")){
+            uri = UriComponentsBuilder.fromHttpUrl(uriStr).build().toUri();
+        }else{
+            // uri为lb://consumer-service
+            uri = URI.create(uriStr);
+        }
+        return uri;
     }
 
 }

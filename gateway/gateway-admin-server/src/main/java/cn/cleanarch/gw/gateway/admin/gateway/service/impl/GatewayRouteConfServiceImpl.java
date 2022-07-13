@@ -4,7 +4,7 @@ import cn.cleanarch.gw.common.core.constant.CacheConstants;
 import cn.cleanarch.gw.common.core.constant.CommonConstants;
 import cn.cleanarch.gw.common.core.utils.JacksonUtil;
 import cn.cleanarch.gw.common.gateway.support.DynamicRouteInitEvent;
-import cn.cleanarch.gw.common.gateway.vo.RouteDefinitionVo;
+import cn.cleanarch.gw.common.gateway.vo.GatewayRouteDefinition;
 import cn.cleanarch.gw.common.model.gateway.domain.GatewayRouteConf;
 import cn.cleanarch.gw.gateway.admin.gateway.mapper.GatewayRouteConfMapper;
 import cn.cleanarch.gw.gateway.admin.gateway.service.GatewayRouteConfService;
@@ -15,8 +15,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.gateway.filter.FilterDefinition;
-import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
+import cn.cleanarch.gw.common.gateway.vo.GatewayFilterDefinition;
+import cn.cleanarch.gw.common.gateway.vo.GatewayPredicateDefinition;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,17 +55,15 @@ public class GatewayRouteConfServiceImpl extends ServiceImpl<GatewayRouteConfMap
             route.setDelFlag(CommonConstants.STATUS_NORMAL);
             super.saveOrUpdate(route);
 
-            RouteDefinitionVo routeVo = new RouteDefinitionVo();
+            GatewayRouteDefinition routeVo = new GatewayRouteDefinition();
             routeVo.setId(route.getRouteId());
-            routeVo.setRouteId(route.getRouteId());
-            routeVo.setRouteName(route.getRouteName());
             routeVo.setOrder(route.getOrder());
             if (StrUtil.isNotBlank(route.getPredicates())) {
-                routeVo.setPredicates(JacksonUtil.readValue(route.getPredicates(), new TypeReference<List<PredicateDefinition>>() {
+                routeVo.setPredicates(JacksonUtil.readValue(route.getPredicates(), new TypeReference<List<GatewayPredicateDefinition>>() {
                 }));
             }
             if (StrUtil.isNotBlank(route.getFilters())) {
-                routeVo.setFilters(JacksonUtil.readValue(route.getFilters(), new TypeReference<List<FilterDefinition>>() {
+                routeVo.setFilters(JacksonUtil.readValue(route.getFilters(), new TypeReference<List<GatewayFilterDefinition>>() {
                 }));
             }
             if (StrUtil.isNotBlank(route.getUri())) {
