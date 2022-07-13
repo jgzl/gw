@@ -1,10 +1,10 @@
-FROM adoptopenjdk:8 as builder
+FROM amazoncorretto:17 as builder
 RUN mkdir -p /app
 WORKDIR /app
 ADD ./target/app.jar app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
 
-FROM adoptopenjdk:8
+FROM amazoncorretto:17
 MAINTAINER li7hai26@gmail.com
 
 RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
