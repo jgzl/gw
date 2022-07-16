@@ -17,6 +17,10 @@
     <dependencies>
         <dependency>
             <groupId>cn.cleanarch.gw</groupId>
+            <artifactId>common-feign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.cleanarch.gw</groupId>
             <artifactId>common-gateway</artifactId>
         </dependency>
         <dependency>

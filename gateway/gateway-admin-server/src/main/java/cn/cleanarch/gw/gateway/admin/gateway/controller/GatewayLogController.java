@@ -37,8 +37,8 @@ public class GatewayLogController {
      * @return
      */
     @GetMapping
-    public R<Iterable<GatewayLog>> findAll() {
-        Iterable<GatewayLog> result = service.findAll();
+    public R<List<GatewayLog>> findAll() {
+        List<GatewayLog> result = service.findAll();
         return R.success(result);
     }
 
@@ -49,12 +49,12 @@ public class GatewayLogController {
      * @return
      */
     @GetMapping("/{ids}")
-    public R<Iterable<GatewayLog>> findAllById(@PathVariable String ids) {
+    public R<List<GatewayLog>> findAllById(@PathVariable String ids) {
         if (StrUtil.isBlank(ids)) {
             return R.success();
         }
         List<String> idList = Arrays.stream(ids.split(",")).collect(Collectors.toList());
-        Iterable<GatewayLog> result = service.findAllById(idList);
+        List<GatewayLog> result = service.findAllById(idList);
         return R.success(result);
     }
 
@@ -65,14 +65,14 @@ public class GatewayLogController {
      * @return
      */
     @PostMapping
-    public R<Iterable<GatewayLog>> saveAll(@RequestBody List<GatewayLog> list) {
+    public R<List<GatewayLog>> saveAll(@RequestBody List<GatewayLog> list) {
         if (CollUtil.isEmpty(list)) {
             list = ListUtil.toList();
         }
         for (GatewayLog gatewayLog : list) {
             gatewayLog.setId(IdUtil.fastUUID());
         }
-        Iterable<GatewayLog> result = service.saveAll(list);
+        List<GatewayLog> result = service.saveAll(list);
         return R.success(result);
     }
 

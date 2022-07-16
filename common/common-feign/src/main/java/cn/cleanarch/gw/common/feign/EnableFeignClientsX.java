@@ -37,7 +37,7 @@ public @interface EnableFeignClientsX {
      *
      * @return the array of 'basePackages'.
      */
-    String[] basePackages() default {"com.pig4cloud.pigx"};
+    String[] basePackages() default {"cn.cleanarch.gw"};
 
     /**
      * Type-safe alternative to {@link #basePackages()} for specifying the packages to

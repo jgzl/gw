@@ -33,12 +33,12 @@ public class JdbcGatewayLogServiceImpl implements GatewayLogService {
     }
 
     @Override
-    public Iterable<GatewayLog> findAll() {
+    public List<GatewayLog> findAll() {
         return repository.selectList(Wrappers.emptyWrapper());
     }
 
     @Override
-    public Iterable<GatewayLog> findAllById(List<String> idList) {
+    public List<GatewayLog> findAllById(List<String> idList) {
         return repository.selectList(Wrappers.lambdaQuery(GatewayLog.class).in(GatewayLog::getId,idList));
     }
 
@@ -49,7 +49,7 @@ public class JdbcGatewayLogServiceImpl implements GatewayLogService {
     }
 
     @Override
-    public Iterable<GatewayLog> saveAll(List<GatewayLog> list) {
+    public List<GatewayLog> saveAll(List<GatewayLog> list) {
         list.forEach(repository::insert);
         return list;
     }

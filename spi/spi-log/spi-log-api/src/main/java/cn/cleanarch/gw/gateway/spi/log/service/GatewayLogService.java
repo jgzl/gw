@@ -13,11 +13,11 @@ import java.util.List;
 public interface GatewayLogService {
     Page<GatewayLogVo> getByGatewayRequestLog(Page<GatewayLogVo> page, GatewayLogVo gatewayRequestLog);
 
-    Iterable<GatewayLog> findAll();
+    List<GatewayLog> findAll();
 
-    Iterable<GatewayLog> findAllById(List<String> idList);
+    List<GatewayLog> findAllById(List<String> idList);
 
-    Iterable<GatewayLog> saveAll(List<GatewayLog> list);
+    List<GatewayLog> saveAll(List<GatewayLog> list);
 
     GatewayLog save(GatewayLog domain);
 

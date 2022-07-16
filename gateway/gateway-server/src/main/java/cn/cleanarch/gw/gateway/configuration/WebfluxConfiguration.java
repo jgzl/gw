@@ -7,11 +7,17 @@ import cn.cleanarch.gw.gateway.filter.webflux.GatewayApiAccessFilter;
 import cn.cleanarch.gw.gateway.filter.webflux.GatewayApiLogFilter;
 import cn.cleanarch.gw.gateway.filter.webflux.GatewayApiPrefixFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
+
+import java.util.stream.Collectors;
 
 /**
  * @author li7hai26@gmail.com
@@ -47,5 +53,16 @@ public class WebfluxConfiguration implements WebFluxConfigurer {
     @Bean(GatewayApiLogFilter.FILTER_NAME)
     public GatewayApiLogFilter gatewayApiLogFilter() {
         return new GatewayApiLogFilter(gatewayProperties);
+    }
+
+    /**
+     * 报障通过feign调用时能够正常反序列化数据
+     * @param converters
+     * @return
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public HttpMessageConverters messageConverters(ObjectProvider<HttpMessageConverter<?>> converters) {
+        return new HttpMessageConverters(converters.orderedStream().collect(Collectors.toList()));
     }
 }

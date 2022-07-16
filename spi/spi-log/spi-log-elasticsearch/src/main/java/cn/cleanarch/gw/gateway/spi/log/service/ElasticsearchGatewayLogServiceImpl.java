@@ -8,6 +8,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.query.BoolQueryBuilder;
@@ -121,18 +122,21 @@ public class ElasticsearchGatewayLogServiceImpl implements GatewayLogService {
     }
 
     @Override
-    public Iterable<GatewayLog> findAll() {
-        return repository.findAll();
+    public List<GatewayLog> findAll() {
+        Iterable<GatewayLog> logIterable = repository.findAll();
+        return Lists.newArrayList(logIterable);
     }
 
     @Override
-    public Iterable<GatewayLog> findAllById(List<String> idList) {
-        return repository.findAllById(idList);
+    public List<GatewayLog> findAllById(List<String> idList) {
+        Iterable<GatewayLog> logIterable = repository.findAllById(idList);
+        return Lists.newArrayList(logIterable);
     }
 
     @Override
-    public Iterable<GatewayLog> saveAll(List<GatewayLog> list) {
-        return repository.saveAll(list);
+    public List<GatewayLog> saveAll(List<GatewayLog> list) {
+        Iterable<GatewayLog> logIterable = repository.saveAll(list);
+        return Lists.newArrayList(logIterable);
     }
 
     @Override

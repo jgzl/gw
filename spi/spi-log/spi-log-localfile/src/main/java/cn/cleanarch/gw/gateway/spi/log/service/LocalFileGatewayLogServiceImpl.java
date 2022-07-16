@@ -42,17 +42,17 @@ public class LocalFileGatewayLogServiceImpl implements GatewayLogService {
     }
 
     @Override
-    public Iterable<GatewayLog> findAll() {
+    public List<GatewayLog> findAll() {
         return Lists.newArrayList();
     }
 
     @Override
-    public Iterable<GatewayLog> findAllById(List<String> idList) {
+    public List<GatewayLog> findAllById(List<String> idList) {
         return Lists.newArrayList();
     }
 
     @Override
-    public Iterable<GatewayLog> saveAll(List<GatewayLog> list) {
+    public List<GatewayLog> saveAll(List<GatewayLog> list) {
         return list;
     }
 
