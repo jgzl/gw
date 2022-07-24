@@ -141,12 +141,12 @@
                     <el-table-column
                             align="center"
                             label="创建时间"
-                            prop="createTime"
+                            prop="requestTime"
                     />
                     <el-table-column
                             align="center"
                             label="更新时间"
-                            prop="updateTime"
+                            prop="responseTime"
                     />
                     <el-table-column
                             align="center"
