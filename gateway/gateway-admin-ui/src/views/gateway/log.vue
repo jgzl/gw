@@ -63,7 +63,7 @@
                     <el-table-column
                             align="center"
                             label="请求来源系统"
-                            prop="system"
+                            prop="sourceService"
                             fixed="left"
                     />
                     <el-table-column
@@ -294,7 +294,7 @@ const get = useGet();
             span: 8,
         },
         {
-            name: "system",
+            name: "sourceService",
             label: "访问系统",
             value: "",
             type: "input",

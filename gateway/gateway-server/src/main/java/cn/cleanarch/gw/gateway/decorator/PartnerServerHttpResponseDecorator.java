@@ -18,7 +18,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 
 import static reactor.core.scheduler.Schedulers.single;
 
@@ -48,7 +47,7 @@ public class PartnerServerHttpResponseDecorator extends ServerHttpResponseDecora
     @SuppressWarnings("unchecked")
     @Override
     public Mono<Void> writeWith(Publisher<? extends DataBuffer> body) {
-        LocalDateTime updateTime = LocalDateTime.now(ZoneId.of("GMT"));
+        LocalDateTime updateTime = LocalDateTime.now();
         long costTime = DateUtil.between(DateUtil.date(gatewayLog.getRequestTime()), DateUtil.date(updateTime), DateUnit.MS);
         gatewayLog.setTargetService(getRoute(delegate).getId());
         gatewayLog.setExecuteTime(costTime);
@@ -71,9 +70,7 @@ public class PartnerServerHttpResponseDecorator extends ServerHttpResponseDecora
             }
             LogUtils.logging(gatewayLog);
         }
-        if (log.isDebugEnabled()) {
-            log.debug("结束访问[{}],合计共消耗时间为:{}ms", gatewayLog.getRequestPath(), gatewayLog.getExecuteTime());
-        }
+        log.info("结束访问[{}],合计共消耗时间为:{}ms", gatewayLog.getRequestPath(), gatewayLog.getExecuteTime());
         return super.writeWith(body);
     }
 

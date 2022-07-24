@@ -9,7 +9,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 
 /**
  * 网关日志
@@ -111,14 +110,12 @@ public class GatewayLog {
     /**
      * 创建时间
      */
-    @JsonProperty(value = "@requestTime")
     @Field(type = FieldType.Date, format = DateFormat.date_hour_minute_second, name = "@requestTime")
     private LocalDateTime requestTime;
 
     /**
      * 更新时间
      */
-    @JsonProperty(value = "@responseTime")
     @Field(type = FieldType.Date, format = DateFormat.date_hour_minute_second, name = "@responseTime")
     private LocalDateTime responseTime;
 
@@ -128,5 +125,5 @@ public class GatewayLog {
     @TableField(exist = false)
     @JsonProperty(value = "@timestamp")
     @Field(type = FieldType.Date, format = DateFormat.date_hour_minute_second, name = "@timestamp")
-    private LocalDateTime timestamp = LocalDateTime.now(ZoneId.of("GMT"));
+    private LocalDateTime timestamp = LocalDateTime.now();
 }

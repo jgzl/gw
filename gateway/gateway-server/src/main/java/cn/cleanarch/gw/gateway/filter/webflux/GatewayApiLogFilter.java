@@ -19,7 +19,6 @@ import reactor.core.publisher.Mono;
 import java.net.URI;
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Optional;
 
 /**
@@ -68,7 +67,7 @@ public class GatewayApiLogFilter extends AbstractGatewayApiFilter {
         gatewayLog.setRequestPath(rawPath);
         gatewayLog.setRequestPathAndQuery(pathAndQuery);
         gatewayLog.setRequestMethod(methodValue);
-        gatewayLog.setRequestTime(LocalDateTime.now(ZoneId.of("GMT")));
+        gatewayLog.setRequestTime(LocalDateTime.now());
         gatewayLog.setEnvironment(env);
         gatewayLog.setApiKey(apiKey);
         gatewayLog.setApiSecret(apiSecret);
