@@ -1,4 +1,4 @@
-package cn.cleanarch.gw.message.configuration.websocket;
+package cn.cleanarch.gw.common.websocket;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

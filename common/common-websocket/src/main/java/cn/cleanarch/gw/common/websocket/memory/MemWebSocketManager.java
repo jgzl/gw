@@ -1,10 +1,13 @@
-package cn.cleanarch.gw.message.configuration.websocket.memory;
+package cn.cleanarch.gw.common.websocket.memory;
 
-import cn.cleanarch.gw.message.configuration.websocket.WebSocket;
-import cn.cleanarch.gw.message.configuration.websocket.WebSocketCloseEvent;
-import cn.cleanarch.gw.message.configuration.websocket.WebSocketConnectEvent;
-import cn.cleanarch.gw.message.configuration.websocket.WebSocketManager;
-import cn.cleanarch.gw.message.configuration.websocket.utils.WebSocketUtil;
+import cn.cleanarch.gw.common.websocket.WebSocket;
+import cn.cleanarch.gw.common.websocket.WebSocketCloseEvent;
+import cn.cleanarch.gw.common.websocket.WebSocketConnectEvent;
+import cn.cleanarch.gw.common.websocket.WebSocketManager;
+import cn.cleanarch.gw.common.websocket.redis.action.Action;
+import cn.cleanarch.gw.common.websocket.utils.WebSocketUtil;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -77,6 +80,6 @@ public class MemWebSocketManager implements WebSocketManager, ApplicationContext
 
 	@Override
 	public void onMessage(String identifier, String message) {
-
+		broadcast(message);
 	}
 }

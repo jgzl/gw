@@ -1,9 +1,9 @@
-package cn.cleanarch.gw.message.configuration.websocket.redis;
+package cn.cleanarch.gw.common.websocket.redis;
 
-import cn.cleanarch.gw.message.configuration.websocket.WebSocketManager;
-import cn.cleanarch.gw.message.configuration.websocket.configuration.WebSocketHeartBeatChecker;
-import cn.cleanarch.gw.message.configuration.websocket.configuration.WebSocketProperties;
-import cn.cleanarch.gw.message.configuration.websocket.redis.action.ActionConfig;
+import cn.cleanarch.gw.common.websocket.WebSocketManager;
+import cn.cleanarch.gw.common.websocket.configuration.WebSocketHeartBeatChecker;
+import cn.cleanarch.gw.common.websocket.configuration.WebSocketProperties;
+import cn.cleanarch.gw.common.websocket.redis.action.ActionConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RTopic;
 import org.redisson.api.RedissonClient;

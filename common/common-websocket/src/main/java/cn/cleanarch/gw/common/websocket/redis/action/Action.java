@@ -1,7 +1,7 @@
-package cn.cleanarch.gw.message.configuration.websocket.redis.action;
+package cn.cleanarch.gw.common.websocket.redis.action;
 
 import cn.hutool.json.JSONObject;
-import cn.cleanarch.gw.message.configuration.websocket.WebSocketManager;
+import cn.cleanarch.gw.common.websocket.WebSocketManager;
 
 /**
  * 要做的事情

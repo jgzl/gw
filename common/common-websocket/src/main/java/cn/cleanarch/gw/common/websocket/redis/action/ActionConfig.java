@@ -1,4 +1,4 @@
-package cn.cleanarch.gw.message.configuration.websocket.redis.action;
+package cn.cleanarch.gw.common.websocket.redis.action;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;

@@ -14,15 +14,15 @@
     <name>网关微服务平台::通用模块::远程调用模块</name>
     <description>${project.name}</description>
     <dependencies>
-        <!--feign 依赖-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
         <!-- okhttp 扩展 -->
         <dependency>
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-okhttp</artifactId>
+        </dependency>
+        <!--feign 依赖-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
         <!-- LB 扩展 -->
         <dependency>

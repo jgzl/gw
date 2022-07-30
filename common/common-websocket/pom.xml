@@ -9,35 +9,23 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>common-security</artifactId>
+    <artifactId>common-websocket</artifactId>
     <modelVersion>4.0.0</modelVersion>
-    <name>网关微服务平台::通用模块::权限认证模块</name>
+    <name>网关微服务平台::通用模块::websocket模块</name>
     <description>${project.name}</description>
     <dependencies>
         <dependency>
             <groupId>cn.cleanarch.gw</groupId>
-            <artifactId>common-core</artifactId>
+            <artifactId>common-redis</artifactId>
         </dependency>
+        <!--redis分布式锁-->
         <dependency>
-            <groupId>cn.cleanarch.gw</groupId>
-            <artifactId>common-model</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-            <scope>provided</scope>
+            <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -1,13 +1,13 @@
-package cn.cleanarch.gw.message.configuration.websocket.redis;
+package cn.cleanarch.gw.common.websocket.redis;
 
 import cn.hutool.json.JSONObject;
-import cn.cleanarch.gw.message.configuration.websocket.WebSocket;
-import cn.cleanarch.gw.message.configuration.websocket.memory.MemWebSocketManager;
-import cn.cleanarch.gw.message.configuration.websocket.redis.action.Action;
-import cn.cleanarch.gw.message.configuration.websocket.redis.action.BroadCastAction;
-import cn.cleanarch.gw.message.configuration.websocket.redis.action.RemoveAction;
-import cn.cleanarch.gw.message.configuration.websocket.redis.action.SendMessageAction;
-import cn.cleanarch.gw.message.configuration.websocket.utils.WebSocketUtil;
+import cn.cleanarch.gw.common.websocket.WebSocket;
+import cn.cleanarch.gw.common.websocket.memory.MemWebSocketManager;
+import cn.cleanarch.gw.common.websocket.redis.action.Action;
+import cn.cleanarch.gw.common.websocket.redis.action.BroadCastAction;
+import cn.cleanarch.gw.common.websocket.redis.action.RemoveAction;
+import cn.cleanarch.gw.common.websocket.redis.action.SendMessageAction;
+import cn.cleanarch.gw.common.websocket.utils.WebSocketUtil;
 import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
 
@@ -30,7 +30,6 @@ public class RedisWebSocketManager extends MemWebSocketManager {
 	public RedisWebSocketManager(RedissonClient redisson) {
 		this.redisson = redisson;
 	}
-
 
 	@Override
 	public void put(String identifier, WebSocket webSocket) {
@@ -71,9 +70,9 @@ public class RedisWebSocketManager extends MemWebSocketManager {
 
 
 		JSONObject map = new JSONObject();
-		map.put(Action.ACTION, SendMessageAction.class.getName());
-		map.put(Action.IDENTIFIER, identifier);
-		map.put(Action.MESSAGE, message);
+		map.set(Action.ACTION, SendMessageAction.class.getName());
+		map.set(Action.IDENTIFIER, identifier);
+		map.set(Action.MESSAGE, message);
 		//在websocket频道上发布发送消息的消息
 		redisson.getTopic(getChannel()).publish(map.toString());
 	}
@@ -81,8 +80,8 @@ public class RedisWebSocketManager extends MemWebSocketManager {
 	@Override
 	public void broadcast(String message) {
 		JSONObject map = new JSONObject();
-		map.put(Action.ACTION, BroadCastAction.class.getName());
-		map.put(Action.MESSAGE, message);
+		map.set(Action.ACTION, BroadCastAction.class.getName());
+		map.set(Action.MESSAGE, message);
 		//在websocket频道上发布广播的消息
 		redisson.getTopic(getChannel()).publish(map.toString());
 	}

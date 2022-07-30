@@ -16,7 +16,7 @@ COPY --from=builder /app/snapshot-dependencies/ ./
 COPY --from=builder /app/spring-boot-loader/ ./
 COPY --from=builder /app/application/ ./
 
-EXPOSE 9000
+EXPOSE 9002
 
 ENV TZ=Asia/Shanghai
 ENV JAVA_OPTS="-Xms1024m -Xmx1024m -Djava.security.egd=file:/dev/./urandom"

@@ -1,8 +1,8 @@
-package cn.cleanarch.gw.message.configuration.websocket.configuration;
+package cn.cleanarch.gw.common.websocket.configuration;
 
-import cn.cleanarch.gw.message.configuration.websocket.TodoAtRemoved;
-import cn.cleanarch.gw.message.configuration.websocket.WebSocket;
-import cn.cleanarch.gw.message.configuration.websocket.WebSocketManager;
+import cn.cleanarch.gw.common.websocket.TodoAtRemoved;
+import cn.cleanarch.gw.common.websocket.WebSocket;
+import cn.cleanarch.gw.common.websocket.WebSocketManager;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Date;

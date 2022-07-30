@@ -1,6 +1,5 @@
-package cn.cleanarch.gw.message.websocket;
+package cn.cleanarch.gw.common.websocket;
 
-import cn.cleanarch.gw.common.websocket.BaseWebSocketEndpoint;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

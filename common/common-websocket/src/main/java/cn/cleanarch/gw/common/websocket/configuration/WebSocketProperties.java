@@ -1,4 +1,4 @@
-package cn.cleanarch.gw.message.configuration.websocket.configuration;
+package cn.cleanarch.gw.common.websocket.configuration;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

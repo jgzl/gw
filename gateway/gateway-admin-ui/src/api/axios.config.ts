@@ -5,6 +5,7 @@ import {
     USER_INFO_KEY,
     USER_TOKEN_KEY,
 } from "@/store/keys";
+import {ElMessage} from "element-plus";
 
 const TOKEN_HEADER = "Authorization";
 
@@ -47,6 +48,7 @@ service.interceptors.response.use(
     if (response.status === 200 && response.data.code === 200) {
       return response;
     } else {
+      ElMessage.error(response.data.msg)
       throw new Error(response.status.toString());
     }
   },

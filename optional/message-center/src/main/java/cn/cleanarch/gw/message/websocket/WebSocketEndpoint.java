@@ -11,7 +11,7 @@ import javax.websocket.server.ServerEndpoint;
 @Slf4j
 @Component
 @ServerEndpoint(value = "/ws/{identifier}")
-public class TestWebSocketEndpoint extends BaseWebSocketEndpoint {
+public class WebSocketEndpoint extends BaseWebSocketEndpoint {
 
     @OnOpen
     @Override

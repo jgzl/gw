@@ -1,9 +1,9 @@
-package cn.cleanarch.gw.message.configuration.websocket.redis;
+package cn.cleanarch.gw.common.websocket.redis;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import cn.cleanarch.gw.message.configuration.websocket.WebSocketManager;
-import cn.cleanarch.gw.message.configuration.websocket.redis.action.Action;
+import cn.cleanarch.gw.common.websocket.WebSocketManager;
+import cn.cleanarch.gw.common.websocket.redis.action.Action;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;

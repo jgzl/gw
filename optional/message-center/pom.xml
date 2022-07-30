@@ -7,9 +7,9 @@
         <artifactId>optional</artifactId>
         <version>${revision}</version>
     </parent>
-    <artifactId>tool-center</artifactId>
+    <artifactId>message-center</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>网关微服务平台::选装服务::工具服务</name>
+    <name>网关微服务平台::选装服务::消息中心服务</name>
     <description>${project.name}</description>
     <properties>
         <spring-cloud.version>2021.0.0</spring-cloud.version>
@@ -28,43 +28,17 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-websocket</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <!--   cxf版ws,rs   -->
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-spring-boot-starter-jaxrs</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-json-provider</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.xuxueli</groupId>
             <artifactId>xxl-job-core</artifactId>
-            <version>2.3.1</version>
         </dependency>
+        <!--redis分布式锁-->
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.cleanarch.gw</groupId>
-            <artifactId>common-test</artifactId>
-            <scope>test</scope>
+            <artifactId>common-websocket</artifactId>
         </dependency>
     </dependencies>
 

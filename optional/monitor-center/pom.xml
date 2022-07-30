@@ -9,7 +9,7 @@
     </parent>
     <artifactId>monitor-center</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>网关微服务平台::选装服务::Admin监控台服务</name>
+    <name>网关微服务平台::选装服务::监控中心服务</name>
     <description>${project.name}</description>
     <properties>
         <spring-cloud.version>2021.0.0</spring-cloud.version>

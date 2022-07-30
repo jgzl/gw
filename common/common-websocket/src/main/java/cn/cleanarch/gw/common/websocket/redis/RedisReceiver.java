@@ -1,4 +1,4 @@
-package cn.cleanarch.gw.message.configuration.websocket.redis;
+package cn.cleanarch.gw.common.websocket.redis;
 
 /**
  * redis 接收器接口,主要目的是固定接口名字

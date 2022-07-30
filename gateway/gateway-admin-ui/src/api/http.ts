@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 import { App } from "@vue/runtime-core";
 import request from "./axios.config";
+import {ElMessage} from "element-plus/es";
 
 export interface HttpOption {
   url: string;
@@ -29,10 +30,12 @@ function http({
     if (res.data.code === 200) {
       return res.data;
     }
+    ElMessage.error(res.data.msg)
     throw new Error(res.data.msg || "请求失败，未知异常");
   };
   const failHandler = (error: Response) => {
     afterRequest && afterRequest();
+    ElMessage.error(error.data.msg)
     throw new Error(error.msg || "请求失败，未知异常");
   };
   beforeRequest && beforeRequest();

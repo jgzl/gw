@@ -1,6 +1,7 @@
-package cn.cleanarch.gw.message.configuration.websocket;
+package cn.cleanarch.gw.common.websocket;
 
-import cn.cleanarch.gw.message.configuration.websocket.utils.WebSocketUtil;
+import cn.cleanarch.gw.common.websocket.utils.WebSocketUtil;
+import cn.hutool.extra.spring.SpringUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.websocket.Session;
@@ -70,5 +71,7 @@ public abstract class BaseWebSocketEndpoint {
 		webSocketManager.onMessage(identifier, message);
 	}
 
-	protected abstract WebSocketManager getWebSocketManager();
+	public WebSocketManager getWebSocketManager(){
+		return SpringUtil.getBean(WebSocketManager.class);
+	}
 }

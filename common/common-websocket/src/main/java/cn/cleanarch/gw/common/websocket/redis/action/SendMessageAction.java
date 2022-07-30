@@ -1,9 +1,9 @@
-package cn.cleanarch.gw.message.configuration.websocket.redis.action;
+package cn.cleanarch.gw.common.websocket.redis.action;
 
 import cn.hutool.json.JSONObject;
-import cn.cleanarch.gw.message.configuration.websocket.WebSocket;
-import cn.cleanarch.gw.message.configuration.websocket.WebSocketManager;
-import cn.cleanarch.gw.message.configuration.websocket.utils.WebSocketUtil;
+import cn.cleanarch.gw.common.websocket.WebSocket;
+import cn.cleanarch.gw.common.websocket.WebSocketManager;
+import cn.cleanarch.gw.common.websocket.utils.WebSocketUtil;
 
 /**
  * {

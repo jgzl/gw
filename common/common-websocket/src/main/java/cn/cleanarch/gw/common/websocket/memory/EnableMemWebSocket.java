@@ -1,4 +1,4 @@
-package cn.cleanarch.gw.message.configuration.websocket.memory;
+package cn.cleanarch.gw.common.websocket.memory;
 
 import org.springframework.context.annotation.Import;
 

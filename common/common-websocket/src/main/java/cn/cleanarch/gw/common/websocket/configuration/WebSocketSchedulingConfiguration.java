@@ -1,6 +1,6 @@
-package cn.cleanarch.gw.message.configuration.websocket.configuration;
+package cn.cleanarch.gw.common.websocket.configuration;
 
-import cn.cleanarch.gw.message.configuration.websocket.WebSocketManager;
+import cn.cleanarch.gw.common.websocket.WebSocketManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

@@ -1,4 +1,4 @@
-package cn.cleanarch.gw.message.configuration.websocket.utils;
+package cn.cleanarch.gw.common.websocket.utils;
 
 import javax.websocket.Session;
 import java.io.IOException;
