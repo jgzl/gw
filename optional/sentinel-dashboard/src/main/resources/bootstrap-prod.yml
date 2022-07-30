@@ -1,7 +1,0 @@
-spring:
-  cloud:
-    nacos:
-      discovery:
-        server-addr: edf9e2530be2.c.methodot.com:80
-        namespace: gw-prod
-        group: SENTINEL_GROUP
