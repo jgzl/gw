@@ -11,7 +11,7 @@
     <name>网关微服务平台::网关服务::网关管理服务</name>
     <description>网关微服务平台::网关服务::网关管理服务</description>
     <properties>
-        <magic.version>2.0.1</magic.version>
+
     </properties>
     <dependencies>
         <dependency>
@@ -88,16 +88,6 @@
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.ssssssss</groupId>
-            <artifactId>magic-api-spring-boot-starter</artifactId>
-            <version>${magic.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.ssssssss</groupId>
-            <artifactId>magic-api-plugin-cluster</artifactId>
-            <version>${magic.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mapstruct</groupId>
