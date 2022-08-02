@@ -13,3 +13,6 @@ spring:
     allow-bean-definition-overriding: true
 cxf:
   path: /service
+websocket:
+  url: /ws/test
+  port: 9004

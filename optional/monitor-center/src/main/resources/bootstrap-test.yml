@@ -2,10 +2,10 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: edf9e2530be2.c.methodot.com:80
+        server-addr: nacos.oracle.cleanarch.cn:80
         namespace: gw-test
       config:
-        server-addr: edf9e2530be2.c.methodot.com:80
+        server-addr: nacos.oracle.cleanarch.cn:80
         namespace: gw-test
         file-extension: yml
         shared-configs:

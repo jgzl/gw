@@ -274,37 +274,19 @@
 
     <profiles>
         <profile>
-            <id>localhost</id>
+            <id>dev</id>
             <activation>
                 <!--默认激活配置-->
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <profiles.active>localhost</profiles.active>
-            </properties>
-        </profile>
-        <profile>
-            <id>dev</id>
-            <properties>
                 <profiles.active>dev</profiles.active>
             </properties>
         </profile>
         <profile>
-            <id>sit</id>
+            <id>test</id>
             <properties>
-                <profiles.active>sit</profiles.active>
-            </properties>
-        </profile>
-        <profile>
-            <id>uat</id>
-            <properties>
-                <profiles.active>uat</profiles.active>
-            </properties>
-        </profile>
-        <profile>
-            <id>pp</id>
-            <properties>
-                <profiles.active>pp</profiles.active>
+                <profiles.active>test</profiles.active>
             </properties>
         </profile>
         <profile>
