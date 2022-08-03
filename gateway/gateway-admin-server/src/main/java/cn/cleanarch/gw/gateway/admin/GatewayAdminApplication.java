@@ -4,7 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.ssssssss.magicapi.cluster.MagicClusterConfiguration;
 
 /**
  *
@@ -13,7 +12,7 @@ import org.ssssssss.magicapi.cluster.MagicClusterConfiguration;
  */
 @EnableTransactionManagement
 @EnableDiscoveryClient
-@SpringBootApplication(exclude = {MagicClusterConfiguration.class})
+@SpringBootApplication
 public class GatewayAdminApplication {
 
     public static void main(String[] args) {
