@@ -1,7 +1,7 @@
 package cn.cleanarch.gw.tool.controller;
 
-import cn.cleanarch.gw.demo.grpc.GrpcClientMemberService;
-import cn.cleanarch.gw.demo.grpc.MemberResponse;
+import cn.cleanarch.gw.tool.grpc.GrpcClientMemberService;
+import cn.cleanarch.gw.tool.grpc.MemberResponse;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
