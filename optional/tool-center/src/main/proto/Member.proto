@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "cn.cleanarch.gw.tool.grpc";
+
+message Member {
+  string username = 1;
+  string password = 2;
+  string info = 3;
+}

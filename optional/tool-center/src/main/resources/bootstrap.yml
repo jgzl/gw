@@ -16,3 +16,11 @@ cxf:
 websocket:
   url: /ws/test
   port: 9004
+grpc:
+  server:
+    port: 9020
+  client:
+#    demo:
+#      address: static://127.0.0.1:9020
+    GLOBAL:
+      negotiation-type: plaintext
