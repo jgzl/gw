@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GrpcClientMemberService {
-    @GrpcClient(value = "demo")
+    @GrpcClient(value = "tool-center")
     private MemberServiceGrpc.MemberServiceBlockingStub blockingStub;
 
     public MemberResponse getList() {
